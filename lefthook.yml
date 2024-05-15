@@ -1,0 +1,23 @@
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-commit:
+  parallel: true
+  commands:
+    # type-check:
+    #   run: pnpm run type-check
+    eslint:
+      run: pnpm run lint
+    #  run: pnpm run eslint {staged_files}
+
+commit-msg:
+  parallel: true
+  scripts:
+    "commitlint.sh":
+      runner: bash
+
+pre-push:
+  parallel: true
+  commands:
+    test:
+      run: pnpm run test
