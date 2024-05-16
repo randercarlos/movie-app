@@ -5,9 +5,12 @@ module.exports = {
   root: true,
   'extends': [
     'plugin:vue/vue3-recommended',
+    'plugin:@typescript-eslint/recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
   ],
+  // parser: '@typescript-eslint/parser',
+  parser: "vue-eslint-parser",
   plugins: ["@html-eslint"],
   overrides: [
     {
@@ -26,6 +29,7 @@ module.exports = {
     "@html-eslint/lowercase": "error",
   },
   parserOptions: {
+    parser: "@typescript-eslint/parser",
     ecmaVersion: 'latest'
   }
 }

@@ -19,9 +19,12 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "commit": "commit"
+    "commitlint": "commit"
+  },
+  "lint-staged": {
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --ignore-path .gitignore"
   },
   "dependencies": {
     "vue": "^3.4.21",
@@ -30,6 +33,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/prompt-cli": "^19.3.1",
     "@html-eslint/eslint-plugin": "^0.24.1",
     "@html-eslint/parser": "^0.24.1",
     "@playwright/test": "^1.43.0",
@@ -37,6 +41,8 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.12.5",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
@@ -49,12 +55,14 @@
     "eslint-plugin-vue": "^9.26.0",
     "jsdom": "^24.0.0",
     "lefthook": "^1.6.11",
+    "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.0",
     "unocss": "^0.60.2",
     "vite": "^5.2.8",
+    "vite-plugin-checker": "^0.6.4",
     "vite-plugin-vue-devtools": "^7.0.25",
     "vitest": "^1.4.0",
-    "vue-tsc": "^2.0.11"
+    "vue-tsc": "^1.8.22"
   }
 }

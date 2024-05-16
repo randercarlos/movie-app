@@ -4,17 +4,16 @@
 pre-commit:
   parallel: true
   commands:
-    # type-check:
-    #   run: pnpm run type-check
+    type-check:
+      run: pnpm run type-check
     eslint:
-      run: pnpm run lint
-    #  run: pnpm run eslint {staged_files}
+      run: pnpm exec lint-staged
 
 commit-msg:
   parallel: true
-  scripts:
-    "commitlint.sh":
-      runner: bash
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit
 
 pre-push:
   parallel: true

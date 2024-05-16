@@ -6,13 +6,16 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import { configDefaults } from 'vitest/config'
+import checker from 'vite-plugin-checker'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     VueDevTools(),
     UnoCSS(),
+    checker({
+      vueTsc: true,
+    }),
   ],
   resolve: {
     alias: {
