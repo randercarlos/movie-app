@@ -1,13 +1,14 @@
 // import './assets/main.css'
-import 'virtual:uno.css'
-import 'virtual:unocss-devtools'
+import "@unocss/reset/tailwind.css";
+import "virtual:uno.css";
+import "virtual:unocss-devtools";
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router.ts";
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(router)
-
-app.mount('#app')
+app
+  .use(router)
+  .mount("#app");
