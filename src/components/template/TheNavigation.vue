@@ -2,7 +2,7 @@
   <nav class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between px-4 py-6">
     <ul class="flex flex-col md:flex-row items-center">
       <li>
-        <a href="">
+        <RouterLink to="/">
           <svg
             class="w-32"
             viewBox="0 0 96 24"
@@ -13,25 +13,31 @@
               fill="#fff"
             />
           </svg>
-        </a>
+        </RouterLink>
       </li>
       <li class="md:ml-16 mt-3 md:mt-0">
-        <a
-          href="#"
+        <RouterLink
+          to="/"
           class="hover:text-gray-300"
-        >Movies</a>
+        >
+          Movies
+        </RouterLink>
       </li>
       <li class="md:ml-6 mt-3 md:mt-0">
-        <a
-          href="#"
+        <RouterLink
+          to="/"
           class="hover:text-gray-300"
-        >TV Shows</a>
+        >
+          TV Shows
+        </RouterLink>
       </li>
       <li class="md:ml-6 mt-3 md:mt-0">
-        <a
-          href="#"
+        <RouterLink
+          to="/"
           class="hover:text-gray-300"
-        >Actors</a>
+        >
+          Actors
+        </RouterLink>
       </li>
     </ul>
     <div class="flex flex-col md:flex-row items-center">
@@ -39,6 +45,7 @@
       <div class="md:ml-4 mt-3 md:mt-0">
         <a href="#">
           <img
+            data-test="avatar-img"
             src="/img/avatar.jpg"
             alt="avatar"
             class="rounded-full w-8 h-8"
