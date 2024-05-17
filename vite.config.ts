@@ -25,15 +25,22 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     include: ["./tests/unit/**/*.{test,spec}.?(c|m)[jt]s"],
-    exclude: [...configDefaults.exclude, "tests/e2e/**"],
+    exclude: [...configDefaults.exclude, "./tests/e2e/**"],
     root: fileURLToPath(new URL("./", import.meta.url)),
     reporters: ["default"],  // generate HTML output and preview results of tests for vitest UI
     coverage: {
       enabled: true,
       provider: "v8", // or 'instambul'
-      include: ["./tests/unit/**/*.{test,spec}.?(c|m)[jt]s"],
-      reportsDirectory: "./tests/unit/coverage",
-      reporter: ["html"],
+      include: ["src/**/*"],
+      exclude: [
+        ...configDefaults.coverage.exclude!,
+        "src/main.ts",
+        "src/router.ts",
+        "src/config.ts",
+        "src/index.d.ts"
+      ],
+      reportsDirectory: "./tests-coverage",
+      reporter: ["json", "html"],
     },
   }
 });
