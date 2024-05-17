@@ -16,7 +16,10 @@
     "noEmit": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+      "@/*": ["src/*"]
+    },
   },
   "references": [
     { "path": "./tsconfig.node.json" }
@@ -24,8 +27,9 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "tests/**/*.spec.ts",
+    "tests/**/*.test.ts",
   ],
   "exclude": [
     "node_modules"
