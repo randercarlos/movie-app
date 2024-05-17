@@ -14,10 +14,7 @@ export default defineConfig({
     VueDevTools(),
     UnoCSS(),
     checker({
-      vueTsc: true,
-      eslint: {
-        lintCommand: "pnpm run lint",
-      }
+      vueTsc: true
     }),
   ],
   resolve: {
