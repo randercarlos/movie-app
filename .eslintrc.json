@@ -63,7 +63,16 @@
     "quotes":[
       "error",
       "double"
-    ]
+    ],
+    "vue/multi-word-component-names": ["error", {
+      "ignores": ["Movies", "Movie", "Actors", "Actor"]
+    }],
+    "max-len": ["error", {
+      "code": 100,
+      "ignoreUrls": false,
+      "ignoreStrings": false,
+      "ignoreTemplateLiterals": false
+    }]
   },
   "parserOptions":{
     "parser":"@typescript-eslint/parser",
