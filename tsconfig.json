@@ -20,6 +20,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "verbatimModuleSyntax": true
   },
   "references": [
     { "path": "./tsconfig.node.json" }
