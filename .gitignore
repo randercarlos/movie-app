@@ -30,6 +30,6 @@ coverage
 *.tsbuildinfo
 
 test-results/
+tests-coverage
 playwright-report/
 
-tests-coverage
