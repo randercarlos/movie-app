@@ -13,19 +13,19 @@
     "test": "run-p test:unit test:e2e",
     "test:ci": "run-p test:unit:ci test:e2e:ci",
     "test:unit": "vitest --reporter=verbose",
-    "test:unit:ui": "vitest --ui",
+    "test:unit:ui": "vitest --ui --coverage.enabled=true",
     "test:unit:ci": "vitest run --reporter=dot",
-    "test:unit:coverage": "vitest run --coverage",
+    "test:unit:coverage": "vitest run --coverage --coverage.enabled=true",
     "test:e2e": "playwright test --headed",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:ci": "playwright test",
     "test:e2e:report": "playwright show-report",
     "test:e2e:debug": "playwright test --debug",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx --fix --ignore-path .gitignore",
     "commitlint": "commit"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --ignore-path .gitignore"
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx}": "eslint --ignore-path .gitignore"
   },
   "dependencies": {
     "@unocss/reset": "^0.60.2",
