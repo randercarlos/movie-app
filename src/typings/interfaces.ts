@@ -20,18 +20,18 @@ export interface MovieResponseResult {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  genres: MovieGenre[];
+  // genres: MovieGenre[];
 }
 
 export interface Movie {
   poster_path: string;
-  vote_average: number;
+  vote_average: string;
   release_date: string;
   genres: string;
   id: number;
   title: string;
   overview: string;
-  genre_ids: number[];
+  genre_ids?: number[];
 }
 
 export interface MovieGenre {
@@ -39,7 +39,7 @@ export interface MovieGenre {
   name: string;
 }
 
-export interface MovieGenreResponse {
+export interface MovieGenresResponse {
   genres: MovieGenre[];
 }
 
@@ -68,20 +68,29 @@ interface MovieBelongsToCollection {
   backdrop_path: string;
 }
 
+interface MovieVideoResults {
+  results: MovieVideo[];
+}
+
 interface MovieVideo {
-  results: MovieVideoKey[];
+    iso_639_1: string;
+    iso_3166_1: string;
+    name: string;
+    key: string;
+    site: string;
+    size: number;
+    type: string;
+    official: boolean;
+    published_at: string;
+    id: string;
 }
 
-interface MovieVideoKey {
-  key: string;
-}
-
-interface MovieCredits {
+export interface MovieCredits {
   cast: MovieCreditsCastMember[];
   crew: MovieCreditsCrewMember[];
 }
 
-interface MovieCreditsMember {
+export interface MovieCreditsMember {
   id: number;
   name: string;
   profile_path: string;
@@ -93,35 +102,37 @@ interface MovieCreditsMember {
   known_for_department: string;
 }
 
-interface MovieCreditsCastMember extends MovieCreditsMember {
+export interface MovieCreditsCastMember extends MovieCreditsMember {
   cast_id: number;
   character: string;
   order: number;
 }
 
-interface MovieCreditsCrewMember extends MovieCreditsMember {
+export interface MovieCreditsCrewMember extends MovieCreditsMember {
   department: string;
   job: string;
 }
 
-interface MovieImage {
+export interface MovieImage {
   aspect_ratio: number;
   height: number;
-  iso_639_1?: string;
+  iso_639_1?: string | null;
   file_path: string;
   vote_average: number;
   vote_count: number;
   width: number;
 }
 
-interface MovieBackdrops {
+export interface MovieBackdrops {
   backdrops: MovieImage[];
+  logos: MovieImage[];
+  posters: MovieImage[];
 }
 
 export interface MovieDetailsResponse {
   adult: boolean;
   backdrop_path: string;
-  belongs_to_collection?: MovieBelongsToCollection[];
+  belongs_to_collection?: MovieBelongsToCollection;
   budget?: number;
   genres: MovieGenre[];
   homepage: string;
@@ -146,7 +157,7 @@ export interface MovieDetailsResponse {
   vote_average: number;
   vote_count: number;
   credits?: MovieCredits;
-  videos?: MovieVideo;
+  videos?: MovieVideoResults;
   images?: MovieBackdrops;
 }
 
@@ -161,6 +172,6 @@ export interface MovieDetails {
   title: string;
   overview: string;
   credits?: MovieCredits;
-  videos?: MovieVideo;
+  videos?: MovieVideoResults;
   images?: MovieImage[];
 }
