@@ -2,6 +2,7 @@ import moment from "moment";
 
 export const getEndpointWithQueryParams = (endpoint: string,
   searchParams = new URLSearchParams()): string => {
+  
   return searchParams.size > 0 ? `${endpoint}?${searchParams.toString()}` : endpoint;
 };
 
@@ -12,6 +13,10 @@ export function formatNumber(input: number | string, minDigits = 2, maxDigits = 
   // Verifica se o número é válido
   if (isNaN(number)) {
     number = 0;
+  }
+
+  if (minDigits > maxDigits) {
+    minDigits = maxDigits;
   }
 
   return number.toLocaleString("en-US",  {
