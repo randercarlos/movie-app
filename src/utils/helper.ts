@@ -1,16 +1,8 @@
-import type { ParamsObject } from "@/typings/types";
 import moment from "moment";
 
-export const getQueryParamsFromObject = (paramsObject: ParamsObject): string => {
-  return Object.entries(paramsObject).map(e => e.join("=")).join("&");
-};
-
-export const isObjectEmpty = (objectName: ParamsObject) => {
-  return (
-    objectName &&
-    Object.keys(objectName).length === 0 &&
-    objectName.constructor === Object
-  );
+export const getEndpointWithQueryParams = (endpoint: string,
+  searchParams = new URLSearchParams()): string => {
+  return searchParams.size > 0 ? `${endpoint}?${searchParams.toString()}` : endpoint;
 };
 
 export function formatNumber(input: number | string, minDigits = 2, maxDigits = 2): string {
@@ -33,3 +25,6 @@ export function formatDate(input: string, format: string = "MM/DD/YYYY"): string
 
   return date.isValid() ? date.format(format) : "";
 }
+
+export const resolvedPromises = (waitFor: number = 200) =>
+  new Promise((r) => setTimeout(r, waitFor));
