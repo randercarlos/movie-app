@@ -7,6 +7,7 @@ import vue from "@vitejs/plugin-vue";
 import VueDevTools from "vite-plugin-vue-devtools";
 import { configDefaults } from "vitest/config";
 import checker from "vite-plugin-checker";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
@@ -16,6 +17,7 @@ export default defineConfig({
     checker({
       vueTsc: true
     }),
+    tsconfigPaths()
   ],
   resolve: {
     alias: {
@@ -24,12 +26,15 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    setupFiles: [
+      "./tests/unit/setupTests.ts",
+    ],
     include: ["./tests/unit/**/*.{test,spec}.?(c|m)[jt]s"],
     exclude: [...configDefaults.exclude, "./tests/e2e/**"],
     root: fileURLToPath(new URL("./", import.meta.url)),
-    reporters: ["default"],  // generate HTML output and preview results of tests for vitest UI
+    reporters: ["default"],
     coverage: {
-      enabled: true,
+      // enabled: true,
       provider: "v8", // or 'instambul'
       include: ["src/**/*"],
       exclude: [
@@ -37,7 +42,8 @@ export default defineConfig({
         "src/main.ts",
         "src/router.ts",
         "src/config.ts",
-        "src/index.d.ts"
+        "src/index.d.ts",
+        "src/typings/*.ts",
       ],
       reportsDirectory: "./tests-coverage",
       reporter: ["json", "html"],
