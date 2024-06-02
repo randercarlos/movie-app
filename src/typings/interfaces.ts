@@ -175,3 +175,11 @@ export interface MovieDetails {
   videos?: MovieVideoResults;
   images?: MovieImage[];
 }
+
+export interface AppErrorInfo {
+  message: string;
+  originalError: Error;
+  fileName?: string;
+  lineNumber?: number;
+  columnNumber?: number;
+}
