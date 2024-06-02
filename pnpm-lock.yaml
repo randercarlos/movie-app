@@ -23,6 +23,9 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      notivue:
+        specifier: ^2.4.4
+        version: 2.4.4(defu@6.1.4)
       vue:
         specifier: ^3.4.21
         version: 3.4.27(typescript@5.4.5)
@@ -2280,6 +2283,20 @@ packages:
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
+
+  notivue@2.4.4:
+    resolution: {integrity: sha512-d9RaXMbSQD1DS0rrA5WCfql2xm5nXOq1U1nnf8bgQ1LRHu4UsLY57Bdc9O9SHTpR1gDmm/pSxq7gocitzDtMpw==}
+    peerDependencies:
+      '@nuxt/kit': '>=3.5.0'
+      '@nuxt/schema': '>=3.5.0'
+      defu: '>=6'
+    peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
+      '@nuxt/schema':
+        optional: true
+      defu:
+        optional: true
 
   npm-normalize-package-bin@3.0.1:
     resolution: {integrity: sha512-dMxCf+zZ+3zeQZXKxmyuCKlIDPGuv8EF940xbkC4kQVDTtqoh6rJFO+JTKSA6/Rwi0getWmtuy4Itup0AMcaDQ==}
@@ -5475,6 +5492,10 @@ snapshots:
       abbrev: 2.0.0
 
   normalize-path@3.0.0: {}
+
+  notivue@2.4.4(defu@6.1.4):
+    optionalDependencies:
+      defu: 6.1.4
 
   npm-normalize-package-bin@3.0.1: {}
 
