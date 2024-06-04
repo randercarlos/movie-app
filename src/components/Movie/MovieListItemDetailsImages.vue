@@ -2,7 +2,7 @@
   <div class="movie-images">
     <div class="container mx-auto px-4 py-16">
       <h2 class="text-4xl font-semibold">
-        MovieImages
+        Images
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <div
