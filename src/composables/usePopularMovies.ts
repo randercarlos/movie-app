@@ -16,12 +16,6 @@ export async function usePopularMovies() {
         .get()
         .json();
 
-  // const { movieGenres: moviesGenresResponse } = useMovieGenres();
-  // console.log(moviesGenresResponse.value);
-  // const { data: moviesModelView } = await useMoviesModelView(
-  //   movieResponse,
-  //   moviesGenresResponse as MaybeRef<MovieGenresResponse>
-  // );
   data.value = movieResponse.value;
   isFinished.value = movieResponseIsFinished.value;
   error.value = movieResponseError.value;
