@@ -4,14 +4,20 @@
       <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
         Popular Movies
       </h2>
-      <MovieList :movies="popularMovies" />
+      <MovieList
+        v-if="popularMovies"
+        :movies="popularMovies"
+      />
     </div>
 
     <div class="now-playing-movies py-24">
       <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
         Now Playing
       </h2>
-      <MovieList :movies="nowPlayingMovies" />
+      <MovieList
+        v-if="nowPlayingMovies"
+        :movies="nowPlayingMovies"
+      />
     </div>
   </div>
 </template>
@@ -24,23 +30,31 @@ import { useNowPlayingMovies } from "@/composables/useNowPlayingMovies";
 import { usePopularMovies } from "@/composables/usePopularMovies";
 import type { Movie, MovieGenresResponse, MovieResponse } from "@/typings/interfaces";
 import { shallowRef, type MaybeRef } from "vue";
+import { handleError } from "@/utils/handleError";
 
 const popularMovies = shallowRef<Movie[]>();
 const nowPlayingMovies = shallowRef<Movie[]>([]);
 
-const { data: moviesGenresResponse } = await useMovieGenres();
-const { data: popularMoviesResponse } = await usePopularMovies();
-const { data: nowPlayingMoviesResponse } = await useNowPlayingMovies();
+// await resolvedPromises(20000);
 
-const { data: popularMoviesModelView } = useMoviesModelView(
-  popularMoviesResponse as MaybeRef<MovieResponse>,
-  moviesGenresResponse as MaybeRef<MovieGenresResponse>
-);
-popularMovies.value = popularMoviesModelView.value;
+try {
+  const { data: moviesGenresResponse } = await useMovieGenres();
+  const { data: popularMoviesResponse } = await usePopularMovies();
+  const { data: nowPlayingMoviesResponse } =
+    await useNowPlayingMovies();
 
-const { data: nowPlayingMoviesModelView } = useMoviesModelView(
-  nowPlayingMoviesResponse as MaybeRef<MovieResponse>,
-  moviesGenresResponse as MaybeRef<MovieGenresResponse>
-);
-nowPlayingMovies.value = nowPlayingMoviesModelView.value;
+  const { data: popularMoviesModelView } = useMoviesModelView(
+    popularMoviesResponse as MaybeRef<MovieResponse>,
+    moviesGenresResponse as MaybeRef<MovieGenresResponse>
+  );
+  popularMovies.value = popularMoviesModelView.value;
+
+  const { data: nowPlayingMoviesModelView } = useMoviesModelView(
+      nowPlayingMoviesResponse as MaybeRef<MovieResponse>,
+      moviesGenresResponse as MaybeRef<MovieGenresResponse>
+  );
+  nowPlayingMovies.value = nowPlayingMoviesModelView.value;
+} catch(err: unknown) {
+  handleError("Error on show movies.", err as Error);
+}
 </script>
