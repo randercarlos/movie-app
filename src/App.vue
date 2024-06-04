@@ -10,14 +10,18 @@
 
   <TheHeader />
 
-  <RouterView v-slot="{ Component }">
+  <RouterView v-slot="{ Component, route }">
     <template v-if="Component">
       <Suspense>
         <template #default>
-          <component :is="Component" />
+          <!-- <component :is="Component" /> -->
+          <MovieSkeleton />
         </template>
         <template #fallback>
-          Loading...
+          <!-- Keep skeleton components in memory due to once loaded, it don't change -->
+          <KeepAlive>
+            <component :is="getSkeletonComponentForRouteName(route.name as string)" />
+          </KeepAlive>
         </template>
       </Suspense>
     </template>
@@ -30,8 +34,20 @@
 import TheHeader from "@/components/template/TheHeader.vue";
 import TheFooter from "@/components/template/TheFooter.vue";
 import { Notivue, Notification, push, pastelTheme, NotificationProgress } from "notivue";
-import { onErrorCaptured } from "vue";
+import { onErrorCaptured, type Component as VueComponent } from "vue";
 import CONFIG from "./config";
+import MoviesSkeleton from "@/components/skeleton/MoviesSkeleton.vue";
+import MovieSkeleton from "@/components/skeleton/MovieSkeleton.vue";
+
+
+function getSkeletonComponentForRouteName(routeName: string): VueComponent {
+  const routeNameToSkeletonComponentMap: Record<string, VueComponent> = {
+    "movies": MoviesSkeleton,
+    "movie": MovieSkeleton,
+  };
+
+  return routeNameToSkeletonComponentMap[routeName] || MoviesSkeleton;
+}
 
 onErrorCaptured((err) => {
   const defaultMsg = "A error happened. Try again later. If error persists, contact support.";
