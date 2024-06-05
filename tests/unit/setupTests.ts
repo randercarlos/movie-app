@@ -1,5 +1,4 @@
-import { beforeEach } from "node:test";
-import { afterAll, beforeAll } from "vitest";
+import { afterAll, beforeAll, beforeEach } from "vitest";
 import nock from "nock";
 
 // disable real HTTP request for non mocked requests
