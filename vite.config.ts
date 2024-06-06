@@ -24,9 +24,9 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url))
     }
   },
-  esbuild: {
-    drop: ["console", "debugger"],
-  },
+  // esbuild: {
+  //   drop: ["console", "debugger"],
+  // },
   test: {
     environment: "jsdom",
     setupFiles: [
@@ -50,6 +50,6 @@ export default defineConfig({
       ],
       reportsDirectory: "./tests-coverage",
       reporter: ["json", "html"],
-    },
+    }
   }
 });
