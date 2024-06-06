@@ -16,10 +16,10 @@ export function useApiService() {
       },
       onFetchError(ctx) {
         if (ctx.data?.success === false) {
-          ctx.error = new Error(ctx.data.status_message); // Modifies the error
+          ctx.error = new Error(ctx.data?.status_message); // Modifies the error
         }
 
-        handleError(`Error on Http Request: ${ctx.data.status_message}`,ctx.error);
+        handleError(`Error on Http Request: ${ctx?.data?.status_message}`,ctx.error);
 
         return ctx;
       },
