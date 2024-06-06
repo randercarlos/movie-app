@@ -11,7 +11,7 @@ describe("MovieListItem.vue", () => {
           "title": "Godzilla x Kong: The New Empire",
           "overview": "Following their explosive showdown, Godzilla and Kong must reunite against",
           "genres": "Adventure, Action, Science Fiction",
-          "poster_path": "z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg",
+          "poster_path": "https://image.tmdb.org/t/p/w500/z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg",
           "release_date": "Mar 27, 2024",
           "vote_average": "72.8%"
         }

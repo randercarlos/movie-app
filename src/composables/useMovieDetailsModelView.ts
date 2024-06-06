@@ -16,7 +16,7 @@ export function useMovieDetailsModelView(movieDetailsResponse: MaybeRef<MovieDet
   data.value = collect(movieDetailsResponseValue)
     .merge({
       "poster_path": movieDetailsResponseValue.poster_path
-        ? `https://image.tmdb.org/t/p/w500/${movieDetailsResponseValue.poster_path}`
+        ? `https://image.tmdb.org/t/p/w500${movieDetailsResponseValue.poster_path}`
         : "https://via.placeholder.com/500x750",
       "vote_average": `${formatNumber(movieDetailsResponseValue.vote_average  * 10, 0, 2)}%`,
       "release_date": moment(movieDetailsResponseValue.release_date).format("MMM DD, YYYY"),
