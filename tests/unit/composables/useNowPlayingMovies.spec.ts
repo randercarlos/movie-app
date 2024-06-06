@@ -23,8 +23,8 @@ describe("useNowPlayingMovies.ts", () => {
 
     const { error } = await useNowPlayingMovies();
 
-    expect(error.value).not.toBe(null);
-    expect(error.value).toBe("something goes wrong");
+    expect(error.value).toBeInstanceOf(Error);
+    expect(error.value?.message).toBe("something goes wrong");
   });
 
   it("returns if get now playing movies request is finished", async() => {

@@ -23,7 +23,8 @@ describe("useMovieGenres.ts", () => {
 
     const { error } = await useMovieGenres();
 
-    expect(error.value).not.toBe(null);
+    expect(error.value).toBeInstanceOf(Error);
+    expect(error.value?.message).toBe("something awful happened");
   });
 
   it("returns if get movie genres request is finished", async() => {
