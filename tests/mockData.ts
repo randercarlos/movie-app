@@ -275,7 +275,7 @@ export const movieDetailsMock: MovieDetails = {
   genres: "Science Fiction, Action",
   id: 823464,
   overview: "Following their explosive showdown, Godzilla and Kong must reunite against",
-  poster_path: "https://image.tmdb.org/t/p/w500//z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg",
+  poster_path: "https://image.tmdb.org/t/p/w500/z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg",
   release_date: "Mar 27, 2024",
   title: "Godzilla x Kong: The New Empire",
   vote_average: "72.83%",
