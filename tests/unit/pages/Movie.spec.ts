@@ -3,15 +3,9 @@ import { mount } from "@vue/test-utils";
 import Movie from "@/pages/Movie.vue";
 import { defineComponent } from "vue";
 import { resolvedPromises } from "@/utils/helper";
-import nock from "nock";
 import CONFIG from "@/config";
+import nock from "nock";
 import { movieDetailsResponseMock } from "#/mockData";
-
-
-nock(CONFIG.API_BASE_URL)
-  .persist() // keep interceptor calls after intercept any one
-  .get(uri => uri.includes("movie/"))
-  .reply(200, movieDetailsResponseMock);
 
 vi.mock("vue-router", () => ({
   useRoute: vi.fn().mockReturnValue({
@@ -27,7 +21,12 @@ const AsyncComponent = defineComponent({
 });
 
 describe("Movie.vue", () => {
+
   it("renders correctly", async() => {
+    nock(CONFIG.API_BASE_URL)
+      .get("/movie/1?append_to_response=credits,videos,images")
+      .reply(200, movieDetailsResponseMock);
+
     const suspenseWrapper = mount(AsyncComponent,{
       global: {
         stubs: {
@@ -38,12 +37,9 @@ describe("Movie.vue", () => {
 
     await resolvedPromises();
 
-    const movieWrapper = suspenseWrapper.findComponent({ name: "Movie"});
-    expect(movieWrapper.exists()).toBe(true);
-
-    const MovieListItemDetailsWrapper = movieWrapper
+    const movieListItemDetailsWrapper = suspenseWrapper
       .findComponent({ name: "MovieListItemDetails"});
 
-    expect(MovieListItemDetailsWrapper.exists()).toBe(true);
+    expect(movieListItemDetailsWrapper.exists()).toBe(true);
   });
 });
