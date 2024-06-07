@@ -138,6 +138,9 @@ importers:
       vitest:
         specifier: ^1.4.0
         version: 1.6.0(@types/node@20.12.11)(@vitest/ui@1.6.0)(jsdom@24.0.0)
+      vue-router-mock:
+        specifier: ^1.1.0
+        version: 1.1.0(vue-router@4.3.2(vue@3.4.27(typescript@5.4.5)))(vue@3.4.27(typescript@5.4.5))
       vue-tsc:
         specifier: ^1.8.22
         version: 1.8.27(typescript@5.4.5)
@@ -3001,6 +3004,12 @@ packages:
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
+
+  vue-router-mock@1.1.0:
+    resolution: {integrity: sha512-RhKhxkiZh2zB2eRkzfcCILQQ0ZUc0tk7CE2ZC1PGJYi5GOU+2QQAGHtTCgb8V4B/OPm9ws+X5Q9SQB5vyTXxBQ==}
+    peerDependencies:
+      vue: ^3.2.23
+      vue-router: ^4.0.12
 
   vue-router@4.3.2:
     resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
@@ -6197,6 +6206,11 @@ snapshots:
       semver: 7.6.2
     transitivePeerDependencies:
       - supports-color
+
+  vue-router-mock@1.1.0(vue-router@4.3.2(vue@3.4.27(typescript@5.4.5)))(vue@3.4.27(typescript@5.4.5)):
+    dependencies:
+      vue: 3.4.27(typescript@5.4.5)
+      vue-router: 4.3.2(vue@3.4.27(typescript@5.4.5))
 
   vue-router@4.3.2(vue@3.4.27(typescript@5.4.5)):
     dependencies:
