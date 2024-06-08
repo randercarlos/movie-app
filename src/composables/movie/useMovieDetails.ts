@@ -1,6 +1,6 @@
 import { ref, toValue, type MaybeRefOrGetter } from "vue";
 import type { MovieDetailsResponse } from "@/typings/interfaces";
-import { useApiService } from "./useApiService";
+import { useApiService } from "../useApiService";
 
 export async function useMovieDetails(movieId: MaybeRefOrGetter<number>) {
 

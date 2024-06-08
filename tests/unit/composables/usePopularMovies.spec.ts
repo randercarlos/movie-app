@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import nock from "nock";
 import CONFIG from "@/config";
-import { usePopularMovies } from "@/composables/usePopularMovies";
+import { usePopularMovies } from "@/composables/movie/usePopularMovies";
 import { popularMoviesResponseMock } from "#/mockData";
 
 describe("usePopularMovies.ts", () => {

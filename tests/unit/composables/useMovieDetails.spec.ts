@@ -2,7 +2,7 @@ import { movieDetailsResponseMock } from "#/mockData";
 import { describe, expect, it } from "vitest";
 import nock from "nock";
 import CONFIG from "@/config";
-import { useMovieDetails } from "@/composables/useMovieDetails";
+import { useMovieDetails } from "@/composables/movie/useMovieDetails";
 import { toRef } from "vue";
 
 

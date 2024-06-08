@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import nock from "nock";
 import CONFIG from "@/config";
-import { useMovieGenres } from "@/composables/useMovieGenres";
+import { useMovieGenres } from "@/composables/movie/useMovieGenres";
 import { movieGenresResponseMock } from "#/mockData";
 
 

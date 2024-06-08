@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { useMovieDetailsModelView } from "@/composables/useMovieDetailsModelView";
+import { useMovieDetailsModelView } from "@/composables/movie/useMovieDetailsModelView";
 import { movieDetailsMock, movieDetailsResponseMock } from "#/mockData";
 
 describe("useMovieDetailsModelView.ts", () => {

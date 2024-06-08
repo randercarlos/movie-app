@@ -2,9 +2,9 @@ import { ref } from "vue";
 import type {
   MovieResponse,
 } from "@/typings/interfaces";
-import { useApiService } from "./useApiService";
+import { useApiService } from "../useApiService";
 
-export async function usePopularMovies() {
+export async function useNowPlayingMovies() {
 
   const data = ref<MovieResponse>();
   const isFinished = ref<boolean>(false);
@@ -12,9 +12,9 @@ export async function usePopularMovies() {
 
   const { apiService } = useApiService();
   const { data: movieResponse, isFinished: movieResponseIsFinished, error: movieResponseError } =
-      await apiService<MovieResponse>("movie/popular")
-        .get()
-        .json();
+    await apiService<MovieResponse>("movie/now_playing")
+      .get()
+      .json();
 
   data.value = movieResponse.value;
   isFinished.value = movieResponseIsFinished.value;

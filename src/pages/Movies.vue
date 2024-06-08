@@ -23,11 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { useMovieGenres } from "@/composables/useMovieGenres";
+import { useMovieGenres } from "@/composables/movie/useMovieGenres";
 import MovieList from "@/components/movie/MovieList.vue";
-import { useMoviesModelView } from "@/composables/useMoviesModelView";
-import { useNowPlayingMovies } from "@/composables/useNowPlayingMovies";
-import { usePopularMovies } from "@/composables/usePopularMovies";
+import { useMoviesModelView } from "@/composables/movie/useMoviesModelView";
+import { useNowPlayingMovies } from "@/composables/movie/useNowPlayingMovies";
+import { usePopularMovies } from "@/composables/movie/usePopularMovies";
 import type { Movie, MovieGenresResponse, MovieResponse } from "@/typings/interfaces";
 import { shallowRef, type MaybeRef } from "vue";
 import { handleError } from "@/utils/handleError";
