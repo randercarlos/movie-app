@@ -93,6 +93,7 @@
                   class="container mx-auto lg:px-32 rounded-lg overflow-y-auto w-320"
                 >
                   <div
+                    ref="movieTrailerModalWrapper"
                     class="bg-gray-900 rounded"
                   >
                     <div class="flex justify-end pr-4 pt-2">
@@ -100,6 +101,7 @@
                         id="movieTrailerModalCloseButton"
                         class="text-3xl leading-none hover:text-gray-300"
                         @click="closeMovieTrailerModal()"
+                        @keydown.esc="closeMovieTrailerModal()"
                       >
                         &times;
                       </button>
@@ -134,12 +136,16 @@
 <script setup lang="ts">
 import { ref, nextTick } from "vue";
 import type { MovieDetailsProps } from "@/typings/props";
-import { vOnClickOutside } from "@vueuse/components";
+import { onClickOutside } from "@vueuse/core";
 
 const props = defineProps<MovieDetailsProps>();
-const isMovieTrailerModalOpen = ref<boolean>(false);
-// reference for => ref="movieTrailerModal"
 const movieTrailerModal = ref<HTMLInputElement | null>(null);
+const movieTrailerModalWrapper = ref<HTMLInputElement | null>(null);
+
+const isMovieTrailerModalOpen = ref<boolean>(false);
+
+// close movie trailer modal on click outside it
+onClickOutside(movieTrailerModalWrapper, () => closeMovieTrailerModal());
 
 function closeMovieTrailerModal(): void {
   if (isMovieTrailerModalOpen.value) {

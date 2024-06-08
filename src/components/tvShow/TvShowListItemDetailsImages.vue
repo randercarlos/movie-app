@@ -36,6 +36,7 @@
       <!-- Begin Image Modal -->
       <div
         v-show="isTvShowImageModalOpen"
+        ref="tvShowImageModal"
         style="background-color: rgba(0, 0, 0, 0.9);"
         class="fixed left-0 top-0 h-full w-full flex items-center overflow-y-auto shadow-lg"
         data-test="tvShowImageModal"
@@ -52,7 +53,6 @@
                 id="tvShowImageModalCloseButton"
                 class="text-3xl leading-none hover:text-gray-300"
                 @click="closeTvShowImageModal()"
-                @keydown.esc="closeTvShowImageModal()"
               >
                 &times;
               </button>

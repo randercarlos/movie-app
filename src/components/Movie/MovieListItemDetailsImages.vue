@@ -28,6 +28,7 @@
       <!-- Begin Trailer Modal -->
       <div
         v-show="isMovieImageModalOpen"
+        ref="movieImageModal"
         style="background-color: rgba(0, 0, 0, 0.9);"
         class="fixed left-0 top-0 h-full w-full flex items-center overflow-y-auto shadow-lg"
         data-test="movieImageModal"
@@ -44,7 +45,6 @@
                 id="movieImageModalCloseButton"
                 class="text-3xl leading-none hover:text-gray-300"
                 @click="closeMovieImageModal()"
-                @keydown.esc="closeMovieImageModal()"
               >
                 &times;
               </button>

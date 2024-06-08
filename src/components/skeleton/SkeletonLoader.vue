@@ -1,5 +1,8 @@
 <template>
-  <div :class="[bgClass, loaderClass, 'relative overflow-hidden']">
+  <div
+    :class="[bgClass, loaderClass, 'relative overflow-hidden']"
+    data-test="skeletonDiv"
+  >
     <div
       class="shimmer absolute top-0 right-0 bottom-0 left-0"
       :style="shimmerStyle"
@@ -19,7 +22,7 @@ const LOADER_CSS_CLASSES = {
 type LoaderTypesKeys = keyof typeof LOADER_TYPES;
 type LoaderTypesValues = typeof LOADER_TYPES[LoaderTypesKeys];
 
-const SHIMMER_COLOR = "#ffffff";
+const SHIMMER_COLOR = "255, 255, 255";
 
 const isHexColor = (hexColor: string) => {
   const hex = hexColor.replace("#", "");
