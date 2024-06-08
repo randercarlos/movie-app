@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Movies from "@/pages/Movies.vue";
 
 const Movie = () => import("@/pages/Movie.vue");
+const TvShows = () => import("@/pages/TvShows.vue");
+const TvShow = () => import("@/pages/TvShow.vue");
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
@@ -22,13 +24,13 @@ const router = createRouter({
     },
     {
       path: "/tv-shows",
-      name: "tv-shows",
-      component: Movies
+      name: "tvShows",
+      component: TvShows
     },
     {
-      path: "/tv-shows/:tvshowId(\\d+)",
-      name: "tv-show",
-      component: Movies
+      path: "/tv-shows/:tvShowId(\\d+)",
+      name: "tvShow",
+      component: TvShow
     },
     {
       path: "/actors",
