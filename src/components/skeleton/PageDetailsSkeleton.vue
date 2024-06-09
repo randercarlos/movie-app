@@ -1,6 +1,6 @@
 <template>
-  <!-- start movie-info -->
-  <div class="movie-info border-b border-gray-800">
+  <!-- start card-info -->
+  <div class="card-info border-b border-gray-800">
     <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
       <div class="flex-none">
         <SkeletonLoader class="w-64 lg:w-96 h-[576px]" />
@@ -19,7 +19,7 @@
 
         <div class="mt-12">
           <h4 class="text-white font-semibold">
-            Featured Crew
+            <SkeletonLoader class="w-40 h-4" />
           </h4>
           <div class="flex mt-4">
             <div
@@ -47,14 +47,12 @@
       </div>
     </div>
   </div>
-  <!-- end movie-info -->
+  <!-- end card-info -->
 
-  <!-- start movie-cast -->
-  <div class="movie-cast border-b border-gray-800">
+  <!-- start card-cast -->
+  <div class="card-cast border-b border-gray-800">
     <div class="container mx-auto px-4 py-16">
-      <h2 class="text-4xl font-semibold">
-        Cast
-      </h2>
+      <SkeletonLoader class="w-40 h-8" />
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
         <div
           v-for="n in 5"
@@ -69,14 +67,12 @@
         </div>
       </div>
     </div>
-  </div> <!-- end movie-cast -->
+  </div> <!-- end card-cast -->
 
-  <!-- start movie-images -->
-  <div class="movie-images">
+  <!-- start card-images -->
+  <div class="card-images">
     <div class="container mx-auto px-4 py-16">
-      <h2 class="text-4xl font-semibold">
-        Images
-      </h2>
+      <SkeletonLoader class="w-40 h-8" />
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <div
           v-for="n in 9"
@@ -87,9 +83,9 @@
         </div>
       </div>
     </div>
-  </div> <!-- end movie-images -->
+  </div> <!-- end card-images -->
 </template>
 
 <script setup lang="ts">
-import SkeletonLoader from "./SkeletonLoader.vue";
+import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 </script>

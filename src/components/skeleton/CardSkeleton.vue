@@ -11,5 +11,5 @@
 </template>
 
 <script setup lang="ts">
-import SkeletonLoader from "./SkeletonLoader.vue";
+import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 </script>
