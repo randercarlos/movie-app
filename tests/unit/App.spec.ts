@@ -7,9 +7,9 @@ import {
   createRouterMock,
   injectRouterMock,
 } from "vue-router-mock";
-import MoviesSkeleton from "@/components/skeleton/MoviesSkeleton.vue";
-import MovieSkeleton from "@/components/skeleton/MovieSkeleton.vue";
 import { push } from "notivue";
+import PageSkeleton from "@/components/skeleton/PageSkeleton.vue";
+import PageDetailsSkeleton from "@/components/skeleton/PageDetailsSkeleton.vue";
 
 const ErrorComponent = defineComponent({
   async setup() {
@@ -25,8 +25,8 @@ const router  = createRouterMock({
     reset: spy => spy.mockClear(),
   },
   routes: [
-    { path: "/movies", name: "movies", component: MoviesSkeleton },
-    { path: "/movies/:movieId(\\d+)", name: "movie", component: MovieSkeleton },
+    { path: "/movies", name: "movies", component: PageSkeleton },
+    { path: "/movies/:movieId(\\d+)", name: "movie", component: PageDetailsSkeleton },
     { path: "/error", component: ErrorComponent }
   ]
 });
@@ -68,7 +68,7 @@ describe("App.vue", () => {
           TheHeader: true,
           TheFooter: true,
           Notivue: true,
-          MoviesSkeleton: true,
+          PageSkeleton: true,
           RouterView: false
         }
       }
@@ -76,9 +76,9 @@ describe("App.vue", () => {
 
     await router.push("/movies");
 
-    const moviesSkeleton = wrapper.findComponent({ name: "MoviesSkeleton" });
+    const pageSkeleton = wrapper.findComponent({ name: "PageSkeleton" });
 
-    expect(moviesSkeleton.exists()).toBe(true);
+    expect(pageSkeleton.exists()).toBe(true);
   });
 
   it("renders movie skeleton correctly", async() => {
@@ -88,7 +88,8 @@ describe("App.vue", () => {
           TheHeader: true,
           TheFooter: true,
           Notivue: true,
-          MovieSkeleton: true,
+          PageDetailsSkeleton: true,
+          SkeletonLoader: true,
           RouterView: false
         }
       }
@@ -96,9 +97,9 @@ describe("App.vue", () => {
 
     await router.push("/movies/1");
 
-    const movieSkeleton = wrapper.findComponent({ name: "MovieSkeleton" });
+    const pageDetailsSkeleton = wrapper.findComponent({ name: "PageDetailsSkeleton" });
 
-    expect(movieSkeleton.exists()).toBe(true);
+    expect(pageDetailsSkeleton.exists()).toBe(true);
   });
 
   it("show error notification alert if error ", async() => {
