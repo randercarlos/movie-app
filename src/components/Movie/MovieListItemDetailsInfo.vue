@@ -82,7 +82,6 @@
               <div
                 id="movieTrailerModal"
                 ref="movieTrailerModal"
-                v-on-click-outside="closeMovieTrailerModal"
                 style="background-color: rgba(0, 0, 0, 0.9);"
                 class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg
                 overflow-y-auto"
@@ -101,7 +100,6 @@
                         id="movieTrailerModalCloseButton"
                         class="text-3xl leading-none hover:text-gray-300"
                         @click="closeMovieTrailerModal()"
-                        @keydown.esc="closeMovieTrailerModal()"
                       >
                         &times;
                       </button>
