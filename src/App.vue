@@ -15,7 +15,6 @@
       <Suspense>
         <template #default>
           <component :is="Component" />
-          <!-- <MovieSkeleton /> -->
         </template>
         <template #fallback>
           <!-- Keep skeleton components in memory due to once loaded, it don't change -->
@@ -36,20 +35,18 @@ import TheFooter from "@/components/template/TheFooter.vue";
 import { Notivue, Notification, push, pastelTheme, NotificationProgress } from "notivue";
 import { onErrorCaptured, type Component as VueComponent } from "vue";
 import CONFIG from "./config";
-import MoviesSkeleton from "@/components/skeleton/MoviesSkeleton.vue";
-import MovieSkeleton from "@/components/skeleton/MovieSkeleton.vue";
-import TvShowsSkeleton from "./components/skeleton/TvShowsSkeleton.vue";
-import TvShowSkeleton from "./components/skeleton/TvShowSkeleton.vue";
+import PageSkeleton from "@/components/skeleton/PageSkeleton.vue";
+import PageDetailsSkeleton from "@/components/skeleton/PageDetailsSkeleton.vue";
 
 function getSkeletonComponentForRouteName(routeName: string): VueComponent {
   const routeNameToSkeletonComponentMap: Record<string, VueComponent> = {
-    "movies": MoviesSkeleton,
-    "movie": MovieSkeleton,
-    "tv-shows": TvShowsSkeleton,
-    "tv-show": TvShowSkeleton,
+    "movies": PageSkeleton,
+    "movie": PageDetailsSkeleton,
+    "tv-shows": PageSkeleton,
+    "tv-show": PageDetailsSkeleton,
   };
 
-  return routeNameToSkeletonComponentMap[routeName] || MoviesSkeleton;
+  return routeNameToSkeletonComponentMap[routeName] || PageSkeleton;
 }
 
 onErrorCaptured((err) => {
