@@ -17,18 +17,11 @@
             @click.prevent="openTvShowImageModalWithFile
               (`https://image.tmdb.org/t/p/original/${image?.file_path}`)"
           >
-            <UseImage
+            <img
               :src="`https://image.tmdb.org/t/p/w500/${image?.file_path}`"
               alt="images"
               class="transition duration-150 ease-in-out hover:opacity-75"
             >
-              <template #loading>
-                <SkeletonLoader class="w-[480px] h-[270px]" />
-              </template>
-              <template #error>
-                Failed
-              </template>
-            </UseImage>
           </a>
         </div>
       </div>
@@ -77,8 +70,6 @@
 import { nextTick, ref } from "vue";
 import type { TvShowDetailsProps } from "@/typings/props";
 import { onClickOutside } from "@vueuse/core";
-import { UseImage } from "@vueuse/components";
-import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 
 const props = defineProps<TvShowDetailsProps>();
 const tvShowImageModal = ref<HTMLInputElement | null>(null);

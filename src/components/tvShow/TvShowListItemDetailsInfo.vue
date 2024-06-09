@@ -2,18 +2,11 @@
   <div class="tv-info border-b border-gray-800">
     <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
       <div class="flex-none">
-        <UseImage
+        <img
           :src="props.tvShowDetails?.poster_path ?? ''"
           alt="poster"
           class="w-64 lg:w-96"
         >
-          <template #loading>
-            <SkeletonLoader class="w-64 lg:w-96 h-[576px]" />
-          </template>
-          <template #error>
-            Failed
-          </template>
-        </UseImage>
       </div>
       <div class="md:ml-24">
         <h2 class="text-4xl mt-4 md:mt-0 font-semibold">
@@ -108,7 +101,6 @@
                         id="tvShowTrailerModalCloseButton"
                         class="text-3xl leading-none hover:text-gray-300"
                         @click="closeTvShowTrailerModal()"
-                        @keydown.esc="closeTvShowTrailerModal()"
                       >
                         &times;
                       </button>
@@ -145,8 +137,6 @@ import { ref, nextTick } from "vue";
 import type { TvShowDetailsProps } from "@/typings/props";
 import { onClickOutside } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
-import { UseImage } from "@vueuse/components";
-import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 
 const props = defineProps<TvShowDetailsProps>();
 const tvShowTrailerModal = ref<HTMLInputElement | null>(null);

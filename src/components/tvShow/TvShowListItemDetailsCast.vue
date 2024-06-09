@@ -14,18 +14,11 @@
           <RouterLink
             :to="{ name: 'actor', params: { actorId: cast.id }}"
           >
-            <UseImage
+            <img
               :src="cast.profile_path ?? ''"
               alt="actor1"
               class="transition duration-150 ease-in-out hover:opacity-75"
             >
-              <template #loading>
-                <SkeletonLoader class="w-[275px] h-[412px]" />
-              </template>
-              <template #error>
-                Failed
-              </template>
-            </UseImage>
           </RouterLink>
           <div class="mt-2">
             <RouterLink
@@ -46,8 +39,6 @@
 
 <script setup lang="ts">
 import type { TvShowDetailsProps } from "@/typings/props";
-import { UseImage } from "@vueuse/components";
-import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 
 const props = defineProps<TvShowDetailsProps>();
 </script>

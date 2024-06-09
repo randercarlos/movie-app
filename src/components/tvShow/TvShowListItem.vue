@@ -1,18 +1,11 @@
 <template>
   <div class="mt-8">
     <RouterLink :to="{ name: 'tvShow', params: { tvShowId: props.tvShow?.id} }">
-      <UseImage
-        :src="props.tvShow?.poster_path ?? ''"
+      <img
+        :src="props.tvShow?.poster_path"
         alt="poster"
         class="transition duration-150 ease-in-out hover:opacity-75"
       >
-        <template #loading>
-          <SkeletonLoader class="w-full h-[412px]" />
-        </template>
-        <template #error>
-          Failed
-        </template>
-      </UseImage>
     </RouterLink>
     <div class="mt-2">
       <RouterLink
@@ -44,8 +37,6 @@
 
 <script setup lang="ts">
 import type { TvShowsListItemProps } from "@/typings/props";
-import { UseImage } from "@vueuse/components";
-import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 
 const props = defineProps<TvShowsListItemProps>();
 </script>
