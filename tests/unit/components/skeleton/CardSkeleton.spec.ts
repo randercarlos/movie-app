@@ -1,11 +1,11 @@
-import MoviesCardSkeleton from "@/components/skeleton/MoviesCardSkeleton.vue";
+import CardSkeleton from "@/components/skeleton/CardSkeleton.vue";
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 
 
-describe("MoviesCardSkeleton.vue", () => {
+describe("CardSkeleton.vue", () => {
   it("renders correctly", () => {
-    const wrapper = mount(MoviesCardSkeleton, {
+    const wrapper = mount(CardSkeleton, {
       global: {
         stubs: {
           SkeletonLoader: true
