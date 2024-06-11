@@ -1,5 +1,12 @@
-import type { Movie, MovieDetails, MovieDetailsResponse, MovieGenresResponse, MovieResponse }
-  from "@/typings/interfaces";
+import type { Movie, MovieDetails,
+  MovieDetailsResponse,
+  MovieGenresResponse,
+  MovieResponse, TvShow, TvShowDetails, TvShowDetailsResponse, TvShowGenresResponse, TvShowResponse
+} from "@/typings/interfaces";
+
+// ===============================================================================================
+// MOVIES
+// ===============================================================================================
 
 export const movieGenresResponseMock: MovieGenresResponse = {
   genres: [
@@ -371,3 +378,426 @@ export const movieDetailsMock: MovieDetails = {
     }
   ]
 };
+
+// ===============================================================================================
+// TV SHOWS
+// ===============================================================================================
+
+export const tvShowGenresResponseMock: TvShowGenresResponse = {
+  "genres": [
+    {
+      "id": 10759,
+      "name": "Action & Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 99,
+      "name": "Documentary"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 10762,
+      "name": "Kids"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10763,
+      "name": "News"
+    },
+    {
+      "id": 10764,
+      "name": "Reality"
+    },
+    {
+      "id": 10765,
+      "name": "Sci-Fi & Fantasy"
+    },
+    {
+      "id": 10766,
+      "name": "Soap"
+    },
+    {
+      "id": 10767,
+      "name": "Talk"
+    },
+    {
+      "id": 10768,
+      "name": "War & Politics"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+  ]
+};
+
+export const popularTvShowsResponseMock: TvShowResponse = {
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/hib8MpBPU7GdluS38htXCF4uw0c.jpg",
+      "first_air_date": "1999-09-20",
+      "genre_ids": [80, 18, 9648],
+      "id": 2734,
+      "name": "Law & Order: Special Victims Unit",
+      "origin_country": ["US"],
+      "original_language": "en",
+      "original_name": "Law & Order: Special Victims Unit",
+      "overview": "In the criminal justice system, sexually-based offenses are considered",
+      "popularity": 4519.753,
+      "poster_path": "/onmSVwYsPMYtO8OjLdjS8FfRNKb.jpg",
+      "vote_average": 7.918,
+      "vote_count": 3694
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nmg2lY4QuyXQrAnrC2lRblK5rT6.jpg",
+      "first_air_date": "2005-03-27",
+      "genre_ids": [18],
+      "id": 1416,
+      "name": "Grey's Anatomy",
+      "origin_country": ["US"],
+      "original_language": "en",
+      "original_name": "Grey's Anatomy",
+      "overview": "Follows the personal and professional lives of a group of doctors at Seattle’s ",
+      "popularity": 3263.563,
+      "poster_path": "/jcEl8SISNfGdlQFwLzeEtsjDvpw.jpg",
+      "vote_average": 8.234,
+      "vote_count": 10001
+    }
+  ],
+  "total_pages": 8687,
+  "total_results": 173735
+};
+
+export const topRatedTvShowsResponseMock: TvShowResponse = {
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/hib8MpBPU7GdluS38htXCF4uw0c.jpg",
+      "first_air_date": "1999-09-20",
+      "genre_ids": [80, 18, 9648],
+      "id": 2734,
+      "name": "Law & Order: Special Victims Unit",
+      "origin_country": ["US"],
+      "original_language": "en",
+      "original_name": "Law & Order: Special Victims Unit",
+      "overview": "In the criminal justice system, sexually-based offenses are considered ",
+      "popularity": 4519.753,
+      "poster_path": "/onmSVwYsPMYtO8OjLdjS8FfRNKb.jpg",
+      "vote_average": 7.918,
+      "vote_count": 3694
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nmg2lY4QuyXQrAnrC2lRblK5rT6.jpg",
+      "first_air_date": "2005-03-27",
+      "genre_ids": [18],
+      "id": 1416,
+      "name": "Grey's Anatomy",
+      "origin_country": ["US"],
+      "original_language": "en",
+      "original_name": "Grey's Anatomy",
+      "overview": "Follows the personal and professional lives of a group of doctors at Seattle’s ",
+      "popularity": 3263.563,
+      "poster_path": "/jcEl8SISNfGdlQFwLzeEtsjDvpw.jpg",
+      "vote_average": 8.234,
+      "vote_count": 10001
+    }
+  ],
+  "total_pages": 8687,
+  "total_results": 173735
+};
+
+export const tvShowsMock: TvShow[] =[
+  {
+    genre_ids: [
+      80,
+      18,
+      9648
+    ],
+    id: 2734,
+    overview: "In the criminal justice system, sexually-based offenses are considered",
+    poster_path: "https://image.tmdb.org/t/p/w500/onmSVwYsPMYtO8OjLdjS8FfRNKb.jpg",
+    first_air_date: "Sep 20, 1999",
+    name: "Law & Order: Special Victims Unit",
+    vote_average: "79.18%",
+    genres: "Drama, Crime, Mystery"
+  },
+  {
+    genre_ids: [
+      18
+    ],
+    id: 1416,
+    overview: "Follows the personal and professional lives of a group of doctors at Seattle’s ",
+    poster_path: "https://image.tmdb.org/t/p/w500/jcEl8SISNfGdlQFwLzeEtsjDvpw.jpg",
+    first_air_date: "Mar 27, 2005",
+    name: "Grey's Anatomy",
+    vote_average: "82.34%",
+    genres: "Drama"
+  }
+];
+
+export const tvShowDetailsResponseMock: TvShowDetailsResponse = {
+  "adult": false,
+  "backdrop_path": "/dasgPx3OgkxHSQyncKlApfZkpi2.jpg",
+  "created_by": [],
+  "episode_run_time": [
+    80
+  ],
+  "first_air_date": "1964-08-22",
+  "genres": [
+    {
+      "id": 10767,
+      "name": "Talk"
+    },
+    {
+      "id": 10763,
+      "name": "News"
+    }
+  ],
+  "homepage": "https://www.bbc.co.uk/programmes/b007t9y1",
+  "id": 224,
+  "in_production": true,
+  "languages": [
+    "en"
+  ],
+  "last_air_date": "2024-05-11",
+  "last_episode_to_air": {
+    "id": 5359898,
+    "overview": "Gary Lineker presents a bumper edition of Match of the Day as all 20 teams meet",
+    "name": "MOTD - May 19th 2023",
+    "vote_average": 0.0,
+    "vote_count": 0,
+    "air_date": "2024-05-19",
+    "episode_number": 46,
+    "episode_type": "standard",
+    "production_code": "",
+    "runtime": 110,
+    "season_number": 60,
+    "show_id": 224,
+    "still_path": null
+  },
+  "name": "Match of the Day",
+  "next_episode_to_air": null,
+  "networks": [
+    {
+      "id": 4,
+      "logo_path": "/uJjcCg3O4DMEjM0xtno9OWFciRP.png",
+      "name": "BBC One",
+      "origin_country": "GB"
+    }
+  ],
+  "number_of_episodes": 3166,
+  "number_of_seasons": 60,
+  "origin_country": [
+    "GB"
+  ],
+  "original_language": "en",
+  "original_name": "Match of the Day",
+  "overview": "BBC's football highlights and analysis. The longest-running football",
+  "popularity": 2172.965,
+  "poster_path": "/aA25JrHXj8ZPTJYj2iSIueyb34C.jpg",
+  "production_companies": [
+    {
+      "id": 16986,
+      "logo_path": "/nBWSAxcnFYeh5xYWoGtZoEWk8a.png",
+      "name": "BBC Sport",
+      "origin_country": "GB"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "GB",
+      "name": "United Kingdom"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "1964-08-22",
+      "episode_count": 37,
+      "id": 151809,
+      "name": "Season 1964/65",
+      "overview": "Match of the Day begins on 22 August 1964, for coverage of Liverpool versus",
+      "poster_path": null,
+      "season_number": 1,
+      "vote_average": 0.0
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Returning Series",
+  "tagline": "",
+  "type": "Documentary",
+  "vote_average": 7.197,
+  "vote_count": 33,
+  "videos": {
+    "results": [
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Gary Lineker presents Match of the Day in his pants - BBC Sport",
+        "key": "jvWNghDy4Jo",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Clip",
+        "official": false,
+        "published_at": "2016-08-14T04:51:37.000Z",
+        "id": "65649e6b8f26bc00ad27a669"
+      }
+    ]
+  },
+  "credits": {
+    "cast": [
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1220503,
+        "known_for_department": "Acting",
+        "name": "Gary Lineker",
+        "original_name": "Gary Lineker",
+        "popularity": 10.688,
+        "profile_path": "/mfHN34kbcqbkN8zYyfjE5fk5dpX.jpg",
+        "character": "Presenter",
+        "credit_id": "65649e14706e5600fe0498b9",
+        "order": 7
+      },
+    ],
+    "crew": []
+  },
+  "images": {
+    "backdrops": [
+      {
+        "aspect_ratio": 1.778,
+        "height": 1080,
+        "iso_639_1": "en",
+        "file_path": "/dasgPx3OgkxHSQyncKlApfZkpi2.jpg",
+        "vote_average": 5.312,
+        "vote_count": 1,
+        "width": 1920
+      },
+    ],
+    "logos": [
+      {
+        "aspect_ratio": 1.863,
+        "height": 292,
+        "iso_639_1": "en",
+        "file_path": "/wBjqEZNxuDdANWWBstezfsw7NrG.png",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "width": 544
+      }
+    ],
+    "posters": [
+      {
+        "aspect_ratio": 0.667,
+        "height": 1440,
+        "iso_639_1": "en",
+        "file_path": "/aA25JrHXj8ZPTJYj2iSIueyb34C.jpg",
+        "vote_average": 5.318,
+        "vote_count": 3,
+        "width": 960
+      },
+    ]
+  }
+};
+
+export const tvShowDetailsMock: TvShowDetails = {
+  "created_by": [],
+  "first_air_date": "Aug 22, 1964",
+  "genres": "Talk, News",
+  "id": 224,
+  "name": "Match of the Day",
+  "overview": "BBC's football highlights and analysis. The longest-running football",
+  "poster_path": "https://image.tmdb.org/t/p/w500/aA25JrHXj8ZPTJYj2iSIueyb34C.jpg",
+  "vote_average": "71.97%",
+  "videos": {
+    "results": [
+      {
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "name": "Gary Lineker presents Match of the Day in his pants - BBC Sport",
+        "key": "jvWNghDy4Jo",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Clip",
+        "official": false,
+        "published_at": "2016-08-14T04:51:37.000Z",
+        "id": "65649e6b8f26bc00ad27a669"
+      }
+    ]
+  },
+  "credits": {
+    "cast": [
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1220503,
+        "known_for_department": "Acting",
+        "name": "Gary Lineker",
+        "original_name": "Gary Lineker",
+        "popularity": 10.688,
+        "profile_path": "/mfHN34kbcqbkN8zYyfjE5fk5dpX.jpg",
+        "character": "Presenter",
+        "credit_id": "65649e14706e5600fe0498b9",
+        "order": 7
+      }
+    ],
+    "crew": []
+  },
+  "images": [
+    {
+      "aspect_ratio": 1.778,
+      "height": 1080,
+      "iso_639_1": "en",
+      "file_path": "/dasgPx3OgkxHSQyncKlApfZkpi2.jpg",
+      "vote_average": 5.312,
+      "vote_count": 1,
+      "width": 1920
+    }
+  ],
+  "cast": [
+    {
+      "adult": false,
+      "gender": 0,
+      "id": 1220503,
+      "known_for_department": "Acting",
+      "name": "Gary Lineker",
+      "original_name": "Gary Lineker",
+      "popularity": 10.688,
+      "profile_path": "https://image.tmdb.org/t/p/w300/mfHN34kbcqbkN8zYyfjE5fk5dpX.jpg",
+      "character": "Presenter",
+      "credit_id": "65649e14706e5600fe0498b9",
+      "order": 7
+    }
+  ]
+};
+
