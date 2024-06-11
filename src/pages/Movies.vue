@@ -32,10 +32,9 @@ import type { Movie, MovieGenresResponse, MovieResponse } from "@/typings/interf
 import { shallowRef, type MaybeRef } from "vue";
 import { handleError } from "@/utils/handleError";
 
-const popularMovies = shallowRef<Movie[]>();
+const popularMovies = shallowRef<Movie[]>([]);
 const nowPlayingMovies = shallowRef<Movie[]>([]);
 
-// await resolvedPromises(20000);
 
 try {
   const { data: moviesGenresResponse } = await useMovieGenres();
