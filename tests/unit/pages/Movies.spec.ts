@@ -73,4 +73,21 @@ describe("Movies.vue", () => {
 
     expect(movieListWrapper).toHaveLength(2);
   });
+
+  it("show notification error on fails", async() => {
+
+    const suspenseWrapper = mount(AsyncComponent, {
+      global: {
+        stubs: {
+          MovieList: true
+        }
+      }
+    });
+
+    await resolvedPromises();
+
+    const movieListWrapper = suspenseWrapper.findAllComponents({ name: "MovieList"});
+
+    expect(movieListWrapper).toHaveLength(2);
+  });
 });
