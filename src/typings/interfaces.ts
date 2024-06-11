@@ -1,3 +1,6 @@
+// ===============================================================================================
+// MOVIES
+// ===============================================================================================
 export interface MovieResponse {
   page: number;
   results: MovieResponseResult[];
@@ -186,6 +189,8 @@ export interface AppErrorInfo {
 
 
 // ===============================================================================================
+// TV SHOW
+// ===============================================================================================
 
 export interface TvShowResponse {
   page: number;
@@ -200,16 +205,15 @@ export interface TvShowResponseResult {
   backdrop_path: string;
   genre_ids: number[];
   original_language: string;
-  original_title: string;
+  original_name: string;
   overview: string;
   poster_path: string;
   popularity: number;
   first_air_date: string;
   name: string;
-  video: boolean;
   vote_average: number;
   vote_count: number;
-  // genres: MovieGenre[];
+  origin_country: string[];
 }
 
 export interface TvShow {
@@ -292,8 +296,16 @@ export interface TvShowCreditsMember {
 }
 
 export interface TvShowCreditsCastMember extends MovieCreditsMember {
-  cast_id: number;
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
   character: string;
+  credit_id: string;
   order: number;
 }
 
@@ -319,6 +331,7 @@ export interface TvShowBackdrops {
 }
 
 export interface TvShowDetailsResponse {
+  created_by?: TvShowDetailsCreatedBy[],
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection?: TvShowBelongsToCollection;
@@ -326,28 +339,40 @@ export interface TvShowDetailsResponse {
   genres: TvShowGenre[];
   homepage: string;
   id: number;
-  imdb_id: string;
+  imdb_id?: string;
   origin_country: string[];
   original_language: string;
-  original_title: string;
+  original_title?: string;
   overview: string;
   popularity: number;
   poster_path: string;
   production_companies?: TvShowProductionCompany[];
   production_countries?: TvShowProductionCountry[];
   first_air_date: string;
-  revenue: number;
-  runtime: number;
+  revenue?: number;
+  runtime?: number;
   spoken_languages: TvShowSpokenLanguage[];
   status: string;
   tagline: string;
   name: string;
-  video: boolean;
+  video?: boolean;
   vote_average: number;
   vote_count: number;
   credits?: TvShowCredits;
   videos?: TvShowVideoResults;
   images?: TvShowBackdrops;
+  in_production?: boolean;
+  episode_run_time?: unknown[],
+  languages?: unknown[],
+  last_air_date?: string,
+  last_episode_to_air?: object | null,
+  next_episode_to_air?: object | null,
+  networks?: unknown[],
+  number_of_episodes?: number;
+  number_of_seasons?: number;
+  original_name?: string;
+  seasons?: unknown[];
+  type?: string;
 }
 
 export interface TvShowDetails {
@@ -355,12 +380,27 @@ export interface TvShowDetails {
   vote_average: string;
   first_air_date: string;
   genres: string;
-  crew: TvShowCreditsCrewMember[];
-  cast: TvShowCreditsCastMember[];
+  crew?: TvShowCreditsCrewMember[];
+  cast?: TvShowCreditsCastMember[];
   id: number;
   name: string;
   overview: string;
   credits?: TvShowCredits;
   videos?: TvShowVideoResults;
   images?: TvShowImage[];
+  created_by?: TvShowDetailsCreatedBy[],
+}
+
+export interface TvShowDetailsCreatedBy {
+  id: number;
+  credit_id: string;
+  name: string;
+  original_name: string;
+  gender: number;
+  character?: string;
+  adult?: boolean;
+  known_for_department?: string;
+  popularity?: number;
+  profile_path?: string;
+  order?: number;
 }
