@@ -1,7 +1,7 @@
 <template>
   <!-- start popular-tv -->
   <div class="container mx-auto px-4 pt-16">
-    <div class="popular-tv">
+    <div class="popular-shows">
       <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
         Popular Shows
       </h2>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import TvShowList from "@/components/tvShow/TvShowList.vue";
+import TvShowList from "@/components/tv-show/TvShowList.vue";
 import { shallowRef, type MaybeRef } from "vue";
 import { handleError } from "@/utils/handleError";
 import { useTvShowGenres } from "@/composables/tv-show/useTvShowGenres";
@@ -36,7 +36,7 @@ import { useTopRatedTvShows } from "@/composables/tv-show/useTopRatedTvShows";
 import { usePopularTvShows } from "@/composables/tv-show/usePopularTvShows";
 import { useTvShowsModelView } from "@/composables/tv-show/useTvShowsModelView";
 
-const popularTvShows = shallowRef<TvShow[]>();
+const popularTvShows = shallowRef<TvShow[]>([]);
 const topRatedTvShows = shallowRef<TvShow[]>([]);
 
 try {
@@ -47,7 +47,7 @@ try {
 
   const { data: popularTvShowsModelView } = useTvShowsModelView(
     popularTvShowsResponse as MaybeRef<TvShowResponse>,
-      tvShowsGenresResponse as MaybeRef<TvShowGenresResponse>
+    tvShowsGenresResponse as MaybeRef<TvShowGenresResponse>
   );
   popularTvShows.value = popularTvShowsModelView.value;
 

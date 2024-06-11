@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ref, type MaybeRef } from "vue";
-import TvShowListItemDetails from "@/components/tvShow/TvShowListItemDetails.vue";
+import TvShowListItemDetails from "@/components/tv-show/TvShowListItemDetails.vue";
 import { useRoute } from "vue-router";
 import type { TvShowDetails, TvShowDetailsResponse } from "@/typings/interfaces";
 import { handleError } from "@/utils/handleError";
@@ -25,6 +25,6 @@ try {
   );
   tvShowDetails.value = tvShowDetailsModelView.value;
 } catch(err: unknown) {
-  handleError("Error on show movie.", err as Error);
+  handleError("Error on show tv.", err as Error);
 }
 </script>
