@@ -6,9 +6,9 @@
 
 <script setup lang="ts">
 import type { TvShowDetailsProps } from "@/typings/props";
-import TvShowListItemDetailsInfo from "@/components/tvShow/TvShowListItemDetailsInfo.vue";
-import TvShowListItemDetailsCast from "@/components/tvShow/TvShowListItemDetailsCast.vue";
-import TvShowListItemDetailsImages from "@/components/tvShow/TvShowListItemDetailsImages.vue";
+import TvShowListItemDetailsInfo from "@/components/tv-show/TvShowListItemDetailsInfo.vue";
+import TvShowListItemDetailsCast from "@/components/tv-show/TvShowListItemDetailsCast.vue";
+import TvShowListItemDetailsImages from "@/components/tv-show/TvShowListItemDetailsImages.vue";
 
 const props = defineProps<TvShowDetailsProps>();
 </script>

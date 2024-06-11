@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import TvShowListItem from "@/components/tvShow/TvShowListItem.vue";
+import TvShowListItem from "@/components/tv-show/TvShowListItem.vue";
 import type { TvShowsListProps } from "@/typings/props";
 
 const props = defineProps<TvShowsListProps>();
