@@ -11,6 +11,7 @@ const CONFIG = {
   MOVIE_CREW_QTY: 3,
   MOVIE_CAST_QTY: 5,
   MOVIE_IMAGES_QTY: 12,
+  ACTOR_IMAGES_QTY: 15,
 };
 
 export default CONFIG;
