@@ -4,6 +4,9 @@ import Movies from "@/pages/Movies.vue";
 const Movie = () => import("@/pages/Movie.vue");
 const TvShows = () => import("@/pages/TvShows.vue");
 const TvShow = () => import("@/pages/TvShow.vue");
+const Actors = () => import("@/pages/Actors.vue");
+const Actor = () => import("@/pages/Actor.vue");
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
@@ -35,12 +38,12 @@ const router = createRouter({
     {
       path: "/actors",
       name: "actors",
-      component: Movies
+      component: Actors
     },
     {
       path: "/actors/:actorId(\\d+)",
       name: "actor",
-      component: Movies
+      component: Actor
     },
     // { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
   ],
