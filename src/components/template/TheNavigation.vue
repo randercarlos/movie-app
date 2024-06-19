@@ -23,7 +23,7 @@
       <li class="md:ml-16 mt-3 md:mt-0">
         <RouterLink
           :to="{ name: 'movies' }"
-          class="hover:text-gray-300"
+          class="hover:text-orange-500 lg:text-xl transition ease-in-out delay-100"
         >
           Movies
         </RouterLink>
@@ -31,7 +31,7 @@
       <li class="md:ml-6 mt-3 md:mt-0">
         <RouterLink
           :to="{ name: 'tvShows'}"
-          class="hover:text-gray-300"
+          class="hover:text-orange-500 lg:text-xl transition ease-in-out delay-100"
         >
           TV Shows
         </RouterLink>
@@ -39,7 +39,7 @@
       <li class="md:ml-6 mt-3 md:mt-0">
         <RouterLink
           :to="{ name: 'actors'}"
-          class="hover:text-gray-300"
+          class="hover:text-orange-500 lg:text-xl transition ease-in-out delay-100"
         >
           Actors
         </RouterLink>
