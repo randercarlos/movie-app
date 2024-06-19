@@ -44,6 +44,8 @@ function getSkeletonComponentForRouteName(routeName: string): VueComponent {
     "movie": PageDetailsSkeleton,
     "tv-shows": PageSkeleton,
     "tv-show": PageDetailsSkeleton,
+    "actors": PageSkeleton,
+    "actor": PageDetailsSkeleton,
   };
 
   return routeNameToSkeletonComponentMap[routeName] || PageSkeleton;
