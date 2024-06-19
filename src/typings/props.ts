@@ -1,4 +1,4 @@
-import type { Movie, MovieDetails, TvShow, TvShowDetails } from "./interfaces";
+import type { Actor, ActorDetails, Movie, MovieDetails, TvShow, TvShowDetails } from "./interfaces";
 
 export interface MoviesListProps {
   movies: Array<Movie> | undefined
@@ -23,6 +23,19 @@ export interface TvShowDetailsProps {
 export interface TvShowsListItemProps {
   tvShow: TvShow | undefined
 }
+
+export interface ActorsListProps {
+  actors: Array<Actor> | undefined
+}
+
+export interface ActorDetailsProps {
+  actorDetails: ActorDetails | undefined
+}
+
+export interface ActorsListItemProps {
+  actor: Actor | undefined
+}
+
 
 
 

@@ -1,6 +1,9 @@
+import type { MediaDetailsRoute, MultiSearchResponseResult } from "./types";
+
 // ===============================================================================================
 // MOVIES
 // ===============================================================================================
+
 export interface MovieResponse {
   page: number;
   results: MovieResponseResult[];
@@ -23,7 +26,6 @@ export interface MovieResponseResult {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  // genres: MovieGenre[];
 }
 
 export interface Movie {
@@ -186,7 +188,6 @@ export interface AppErrorInfo {
   lineNumber?: number;
   columnNumber?: number;
 }
-
 
 // ===============================================================================================
 // TV SHOW
@@ -403,4 +404,192 @@ export interface TvShowDetailsCreatedBy {
   popularity?: number;
   profile_path?: string;
   order?: number;
+}
+
+
+// ===============================================================================================
+// ACTORS
+// ===============================================================================================
+
+export interface ActorResponse {
+  page: number;
+  results: ActorResponseResult[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface ActorResponseResult {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  known_for: ActorKnownFor[];
+}
+
+export interface ActorKnownFor {
+  backdrop_path: string;
+  id: number;
+  original_title: string;
+  overview: string;
+  poster_path: string;
+  media_type: string;
+  adult: boolean;
+  title: string;
+  original_language: string;
+  genre_ids: number[];
+  popularity: number;
+  release_date: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface Actor {
+  id: number;
+  name: string;
+  profile_path: string;
+  known_for: string;
+}
+
+export interface ActorDetailsResponse {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  gender: number;
+  homepage: string | null;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+  images: ActorImages;
+  external_ids: ActorSocialMediaIDs;
+  combined_credits: CombinedCredits
+}
+
+interface ActorImages {
+  profiles: ActorProfilesImage[];
+}
+
+interface ActorProfilesImage {
+  aspect_ratio: number;
+  height: number;
+  iso_639_1: string | null;
+  file_path: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
+
+export interface ActorSocialMediaIDs {
+  freebase_mid: string;
+  freebase_id: string;
+  imdb_id: string;
+  tvrage_id: number;
+  wikidata_id: string;
+  facebook_id: string | null;
+  instagram_id: string | null;
+  tiktok_id: string | null;
+  twitter_id: string;
+  youtube_id: string | null;
+}
+
+export interface CombinedCredits {
+  cast: CombinedCreditsMovie[];
+  crew: CombinedCreditsMovie[];
+}
+
+export interface CombinedCreditsMovie {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  first_air_date?: string;
+  title: string;
+  name?: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  character: string;
+  credit_id: string;
+  order: number;
+  media_type: "movie";
+}
+
+export interface ActorDetails {
+  actor: ActorDetailsInfo;
+  social: ActorDetailsSocial;
+  knownForMovies: ActorDetailsMovies[];
+  credits: ActorDetailsCredits[];
+  images: ActorProfilesImage[];
+}
+
+export interface ActorDetailsInfo {
+  birthday: string;
+  age: number;
+  profile_path: string;
+  name: string;
+  id: number;
+  homepage: string;
+  place_of_birth: string;
+  biography: string;
+}
+
+export interface ActorDetailsSocial {
+  facebook: string;
+  instagram: string;
+  twitter: string;
+}
+
+export interface ActorDetailsMovies {
+  id: string;
+  title: string;
+  poster_path: string;
+  media_type: string;
+  linkToPage: MediaDetailsRoute;
+}
+
+export interface ActorDetailsCredits {
+  title: string;
+  release_date: string;
+  release_year: string;
+  character: string;
+  linkToPage: MediaDetailsRoute;
+}
+
+// ===============================================================================================
+// MULTI SEARCH
+// ===============================================================================================
+
+export interface MultiSearchResponse {
+  page: number;
+  results: MultiSearchResponseResult[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface MultiSearchMovieResponseResult extends MovieResponseResult {
+  media_type: "movie";
+}
+
+export interface MultiSearchTvShowResponseResult extends TvShowResponseResult {
+  media_type: "tv";
+}
+
+export interface MultiSearchActorResponseResult extends ActorResponseResult {
+  media_type: "person";
 }
