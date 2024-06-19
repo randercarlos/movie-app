@@ -2,7 +2,7 @@
   <!-- start popular-actors -->
   <div class="container mx-auto px-4 pt-16">
     <div class="popular-actors">
-      <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+      <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
         Popular Actors
       </h2>
 

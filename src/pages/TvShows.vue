@@ -2,7 +2,7 @@
   <!-- start popular-tv -->
   <div class="container mx-auto px-4 pt-16">
     <div class="popular-shows">
-      <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+      <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
         Popular Shows
       </h2>
       <TvShowList
@@ -14,7 +14,7 @@
 
     <!-- start top-rated-shows -->
     <div class="top-rated-shows py-24">
-      <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+      <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
         Top Rated Shows
       </h2>
       <TvShowList

@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto px-4 pt-16">
     <div class="popular-movies">
-      <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+      <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
         Popular Movies
       </h2>
       <MovieList
@@ -11,7 +11,7 @@
     </div>
 
     <div class="now-playing-movies py-24">
-      <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+      <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
         Now Playing
       </h2>
       <MovieList
