@@ -1,7 +1,7 @@
-import moment from "moment";
+import moment, { type Moment } from "moment";
 
 export const getEndpointWithQueryParams = (endpoint: string,
-  searchParams = new URLSearchParams()): string => {
+  searchParams: URLSearchParams = new URLSearchParams()): string => {
 
   return searchParams.size > 0 ? `${endpoint}?${searchParams.toString()}` : endpoint;
 };
@@ -31,6 +31,21 @@ export function formatDate(input: string, format: string = "MM/DD/YYYY"): string
   return date.isValid() ? date.format(format) : "";
 }
 
+export function calculateAge(birthday: string, dateFormat: string = "YYYY-MM-DD"): number | null {
+  const birthdayObject = moment(birthday, dateFormat);
+  if (!isValidDate(birthdayObject)) {
+    return null;
+  }
+
+  return moment().diff(birthdayObject, "years");
+}
+
+export function isValidDate(date: string | Moment, dateFormat: string = "YYYY-MM-DD"): boolean {
+  return moment.isMoment(date)
+    ? date.isValid()
+    : moment(date, dateFormat, true).isValid();
+}
+
 export const resolvedPromises = (waitFor: number = 200) =>
   new Promise((r) => setTimeout(r, waitFor));
 
@@ -45,3 +60,10 @@ export const log = (data: unknown) =>  {
   console.log(`%c${data}`, style);
   console.log("%c*************************************************", style);
 };
+
+export function truncateString(string: string, maxCharacters: number,
+  truncateString: string = "...") {
+  return string.length <= maxCharacters
+    ? string
+    : string.slice(0, maxCharacters) + truncateString;
+}
