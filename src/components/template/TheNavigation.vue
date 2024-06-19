@@ -38,7 +38,7 @@
       </li>
       <li class="md:ml-6 mt-3 md:mt-0">
         <RouterLink
-          to="/"
+          :to="{ name: 'actors'}"
           class="hover:text-gray-300"
         >
           Actors
