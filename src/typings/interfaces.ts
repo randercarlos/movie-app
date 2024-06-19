@@ -1,4 +1,4 @@
-import type { MediaDetailsRoute, MultiSearchResponseResult } from "./types";
+import type { DetailsRoute, MultiSearchResponseResult } from "./types";
 
 // ===============================================================================================
 // MOVIES
@@ -560,7 +560,7 @@ export interface ActorDetailsMovies {
   title: string;
   poster_path: string;
   media_type: string;
-  linkToPage: MediaDetailsRoute;
+  linkToPage: DetailsRoute;
 }
 
 export interface ActorDetailsCredits {
@@ -568,7 +568,7 @@ export interface ActorDetailsCredits {
   release_date: string;
   release_year: string;
   character: string;
-  linkToPage: MediaDetailsRoute;
+  linkToPage: DetailsRoute;
 }
 
 // ===============================================================================================
