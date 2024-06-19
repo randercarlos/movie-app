@@ -24,4 +24,5 @@
 
 <script setup lang="ts">
 import CardSkeleton from "@/components/skeleton/CardSkeleton.vue";
+import SkeletonLoader from "@/components/skeleton/SkeletonLoader.vue";
 </script>
