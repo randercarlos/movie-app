@@ -47,6 +47,10 @@ const router = createRouter({
     },
     // { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
   ],
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 , behavior: "smooth" };
+  },
   strict: true
 });
 
