@@ -1,8 +1,18 @@
-import type { Movie, MovieDetails,
+import type {
+  Actor,
+  ActorDetails,
+  ActorDetailsResponse,
+  ActorResponse,
+  Movie,
+  MovieCredits,
+  MovieCreditsCast,
+  MovieDetails,
   MovieDetailsResponse,
   MovieGenresResponse,
-  MovieResponse, TvShow, TvShowDetails, TvShowDetailsResponse, TvShowGenresResponse, TvShowResponse
+  MovieResponse, TvShow, TvShowCreditsCast, TvShowDetails, TvShowDetailsResponse,
+  TvShowGenresResponse, TvShowResponse
 } from "@/typings/interfaces";
+import type { Nullable } from "@/typings/types";
 
 // ===============================================================================================
 // MOVIES
@@ -110,7 +120,7 @@ export const nowPlayingMoviesResponseMock: MovieResponse = {
     },
   ],
   total_pages: 1,
-  total_results: 1
+  total_results: 2
 };
 
 export const movieDetailsResponseMock: MovieDetailsResponse = {
@@ -255,6 +265,20 @@ export const movieDetailsResponseMock: MovieDetailsResponse = {
   }
 };
 
+export const movieDetailsWithDefaultImagesResponseMock: Nullable<MovieDetailsResponse> = {
+  ...movieDetailsResponseMock,
+  poster_path: null,
+  credits: {
+    ...movieDetailsResponseMock.credits,
+    cast: [
+      {
+        ...movieDetailsResponseMock?.credits?.cast[0] ?? {},
+        profile_path: null
+      }
+    ]
+  }
+};
+
 export const moviesMock: Movie[] =[
   {
     genre_ids: [ 878, 28, 12 ],
@@ -379,6 +403,26 @@ export const movieDetailsMock: MovieDetails = {
   ]
 };
 
+export const movieDetailsWithDefaultImagesMock: Nullable<MovieDetails> = {
+  ...movieDetailsMock,
+  poster_path: "https://via.placeholder.com/500x750",
+  cast: [
+    {
+      ...(movieDetailsMock.cast?.[0] ?? []),
+      profile_path: "https://via.placeholder.com/300x450"
+    }
+  ],
+  credits: {
+    ...(movieDetailsMock?.credits as MovieCredits) ,
+    cast: [
+      {
+        ...(movieDetailsMock?.credits?.cast[0] as MovieCreditsCast),
+        profile_path: null
+      }
+    ]
+  }
+};
+
 // ===============================================================================================
 // TV SHOWS
 // ===============================================================================================
@@ -488,8 +532,8 @@ export const popularTvShowsResponseMock: TvShowResponse = {
       "vote_count": 10001
     }
   ],
-  "total_pages": 8687,
-  "total_results": 173735
+  "total_pages": 1,
+  "total_results": 2
 };
 
 export const topRatedTvShowsResponseMock: TvShowResponse = {
@@ -528,11 +572,11 @@ export const topRatedTvShowsResponseMock: TvShowResponse = {
       "vote_count": 10001
     }
   ],
-  "total_pages": 8687,
-  "total_results": 173735
+  "total_pages": 1,
+  "total_results": 2
 };
 
-export const tvShowsMock: TvShow[] =[
+export const tvShowsMock: TvShow[] = [
   {
     genre_ids: [
       80,
@@ -730,6 +774,20 @@ export const tvShowDetailsResponseMock: TvShowDetailsResponse = {
   }
 };
 
+export const tvShowDetailsWithDefaultImagesResponseMock: Nullable<TvShowDetailsResponse> = {
+  ...tvShowDetailsResponseMock,
+  poster_path: null,
+  credits: {
+    ...tvShowDetailsResponseMock.credits,
+    cast: [
+      {
+        ...(tvShowDetailsResponseMock?.credits?.cast[0] as TvShowCreditsCast) ?? {},
+        profile_path: null
+      }
+    ]
+  }
+};
+
 export const tvShowDetailsMock: TvShowDetails = {
   "created_by": [],
   "first_air_date": "Aug 22, 1964",
@@ -801,3 +859,334 @@ export const tvShowDetailsMock: TvShowDetails = {
   ]
 };
 
+export const tvShowDetailsWithDefaultImagesMock: Nullable<TvShowDetails> = {
+  ...tvShowDetailsMock,
+  poster_path: "https://via.placeholder.com/500x750",
+  cast: [
+    {
+      ...(tvShowDetailsMock.cast?.[0] ?? []),
+      profile_path: "https://via.placeholder.com/300x450"
+    }
+  ],
+  credits: {
+    ...(tvShowDetailsMock?.credits as MovieCredits) ,
+    cast: [
+      {
+        ...(tvShowDetailsMock?.credits?.cast[0] as MovieCreditsCast),
+        profile_path: null
+      }
+    ]
+  }
+};
+
+// ===============================================================================================
+// ACTORS
+// ===============================================================================================
+
+export const popularActorsResponseMock: ActorResponse = {
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "gender": 2,
+      "id": 12799,
+      "known_for_department": "Acting",
+      "name": "Jeremy Piven",
+      "original_name": "Jeremy Piven",
+      "popularity": 201.728,
+      "profile_path": "/pqdR8zqAWF87chGYlbdYr0YfC7g.jpg",
+      "known_for": [
+        {
+          "backdrop_path": "/sd4xN5xi8tKRPrJOWwNiZEile7f.jpg",
+          "id": 920,
+          "original_title": "Cars",
+          "overview": "Lightning McQueen, a hotshot rookie race car driven to succeed, "
+            + "discovers that life is about the journey, not the finish line, when he finds "
+            + "himself unexpectedly detoured in the sleepy Route 66 town of Radiator Springs. "
+            + "On route across the country to the big Piston Cup Championship in California to "
+            + "compete against two seasoned pros, McQueen gets to know the town's offbeat "
+            + " characters.",
+          "poster_path": "/abW5AzHDaIK1n9C36VdAeOwORRA.jpg",
+          "media_type": "movie",
+          "adult": false,
+          "title": "Cars",
+          "original_language": "en",
+          "genre_ids": [
+            16,
+            12,
+            35,
+            10751
+          ],
+          "popularity": 72.142,
+          "release_date": "2006-06-08",
+          "video": false,
+          "vote_average": 6.967,
+          "vote_count": 13554
+        },
+        {
+          "backdrop_path": "/rqpPH5At8AzYUYR2GneC0x65GeK.jpg",
+          "id": 9778,
+          "original_title": "Serendipity",
+          "overview": "Although strangers Sara and Jonathan are both already in relationships, "
+            + "they realize they have genuine chemistry after a chance encounter – but part "
+            + "company soon after. Years later, they each yearn to reunite, despite being "
+            + "destined for the altar. But to give true love a chance, they have to find one "
+            + "another again.",
+          "poster_path": "/srCE5lEIjVEG5eqWg9JcjZCK1aQ.jpg",
+          "media_type": "movie",
+          "adult": false,
+          "title": "Serendipity",
+          "original_language": "en",
+          "genre_ids": [
+            35,
+            10749,
+            18
+          ],
+          "popularity": 24.262,
+          "release_date": "2001-10-05",
+          "video": false,
+          "vote_average": 6.9,
+          "vote_count": 1851
+        },
+        {
+          "backdrop_path": "/6bNQuKFJIamipvYclG4MEbDSLM5.jpg",
+          "id": 93837,
+          "original_title": "So Undercover",
+          "overview": "When the FBI hires her to go undercover at a college sorority,"
+            + " Molly Morris (Miley Cyrus) must transform herself from a tough, streetwise "
+            + "private investigator to a refined, sophisticated university girl to help protect"
+            + " the daughter of a one-time Mobster. With several suspects on her list, Molly "
+            + " unexpectedly discovers that not everyone is who they appear to be, including "
+            + "herself.",
+          "poster_path": "/abR6e0FaWwwcEJEM4PY5VvjwBr1.jpg",
+          "media_type": "movie",
+          "adult": false,
+          "title": "So Undercover",
+          "original_language": "en",
+          "genre_ids": [
+            28,
+            35
+          ],
+          "popularity": 12.056,
+          "release_date": "2012-12-06",
+          "video": false,
+          "vote_average": 6.2,
+          "vote_count": 1095
+        }
+      ]
+    },
+    {
+      "adult": false,
+      "gender": 2,
+      "id": 2786960,
+      "known_for_department": "Acting",
+      "name": "Gabriel Guevara",
+      "original_name": "Gabriel Guevara",
+      "popularity": 133.348,
+      "profile_path": "/pviRYKEEmoPUfLYwP1VHJ6LQcRg.jpg",
+      "known_for": [
+        {
+          "backdrop_path": "/lntyt4OVDbcxA1l7LtwITbrD3FI.jpg",
+          "id": 1010581,
+          "original_title": "Culpa mía",
+          "overview": "Noah must leave her city, boyfriend, and friends to move " +
+            "into William Leister's mansion, the flashy and wealthy husband of her mother" +
+            " Rafaela. As a proud and independent 17 year old, Noah resists living in a mansion " +
+            "surrounded by luxury. However, it is there where she meets Nick, her new " +
+            "stepbrother, and the clash of their strong personalities becomes evident from " +
+            "the very beginning.",
+          "poster_path": "/w46Vw536HwNnEzOa7J24YH9DPRS.jpg",
+          "media_type": "movie",
+          "adult": false,
+          "title": "My Fault",
+          "original_language": "es",
+          "genre_ids": [
+            18,
+            10749
+          ],
+          "popularity": 299.267,
+          "release_date": "2023-06-08",
+          "video": false,
+          "vote_average": 7.964,
+          "vote_count": 2611
+        }
+      ]
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 2
+};
+
+export const popularActorsMock: Actor[] = [
+  {
+    "id": 12799,
+    "known_for": "Cars, Serendipity, So Undercover",
+    "name": "Jeremy Piven",
+    "profile_path": "https://image.tmdb.org/t/p/w300/pqdR8zqAWF87chGYlbdYr0YfC7g.jpg"
+  }
+];
+
+export const actorDetailsResponseMock: ActorDetailsResponse = {
+  "adult": false,
+  "also_known_as": [
+    "杰森·莫玛",
+    "제이슨 모모아",
+    "Joseph Jason Namakaeha Momoa",
+    "Τζόζεφ Τζέισον Ναμακαέχα Μομόα",
+    "Τζέισον Μομόα",
+    "ジェイソン・モモア",
+    "Jason Mamoa",
+    "ג'ייסון מומואה",
+    "傑森·摩莫亞"
+  ],
+  "biography": "Joseph Jason Namakaeha Momoa (born August 1, 1979) is an American actor and",
+  "birthday": "1979-08-01",
+  "deathday": null,
+  "gender": 2,
+  "homepage": null,
+  "id": 117642,
+  "imdb_id": "nm0597388",
+  "known_for_department": "Acting",
+  "name": "Jason Momoa",
+  "place_of_birth": "Honolulu, Hawaii, USA",
+  "popularity": 87.315,
+  "profile_path": "/6dEFBpZH8C8OijsynkSajQT99Pb.jpg",
+  "images": {
+    "profiles": [
+      {
+        "aspect_ratio": 0.667,
+        "height": 3000,
+        "iso_639_1": null,
+        "file_path": "/6dEFBpZH8C8OijsynkSajQT99Pb.jpg",
+        "vote_average": 5.338,
+        "vote_count": 13,
+        "width": 2000
+      },
+    ]
+  },
+  "external_ids": {
+    "freebase_mid": "/m/06gh0t",
+    "freebase_id": "/en/jason_momoa",
+    "imdb_id": "nm0597388",
+    "tvrage_id": 35980,
+    "wikidata_id": "Q315271",
+    "facebook_id": null,
+    "instagram_id": "prideofgypsies",
+    "tiktok_id": null,
+    "twitter_id": "",
+    "youtube_id": null
+  },
+  "combined_credits": {
+    "cast": [
+      {
+        "adult": false,
+        "backdrop_path": "/6B5bTuZEyLrAYNG1IX1GeBQZP11.jpg",
+        "genre_ids": [
+          12,
+          14,
+          28
+        ],
+        "id": 37430,
+        "original_language": "en",
+        "original_title": "Conan the Barbarian",
+        "overview": "A quest that begins as a personal vendetta for the fierce Cimmerian "
+          + "warrior soon turns into an epic battle against hulking rivals, horrific monsters, "
+          + "and impossible odds, as Conan realizes he is the only hope of saving the great "
+          + "nations of Hyboria from an encroaching reign of supernatural evil.",
+        "popularity": 30.757,
+        "poster_path": "/vR6PzXsOfewD1kei8gMbepvwWC6.jpg",
+        "release_date": "2011-08-17",
+        "title": "Conan the Barbarian",
+        "video": false,
+        "vote_average": 5.301,
+        "vote_count": 1798,
+        "character": "Conan",
+        "credit_id": "52fe46489251416c9104f585",
+        "order": 0,
+        "media_type": "movie"
+      }
+    ],
+    "crew": [
+      {
+        "adult": false,
+        "backdrop_path": "/5SAozzEWrGcrYmU0il2NO6PohjK.jpg",
+        "genre_ids": [
+          53,
+          18
+        ],
+        "id": 268060,
+        "original_language": "en",
+        "original_title": "Road to Paloma",
+        "overview": "While Native American Wolf is being pursued by the FBI for having taken",
+        "popularity": 10.401,
+        "poster_path": "/cM0IitlIIS5kzdUPqyGTvl79TOY.jpg",
+        "release_date": "2014-04-12",
+        "title": "Road to Paloma",
+        "video": false,
+        "vote_average": 5.93,
+        "vote_count": 114,
+        "credit_id": "536b99f8c3a3681241009f3c",
+        "department": "Directing",
+        "job": "Director",
+        "media_type": "movie"
+      }
+    ]
+  }
+};
+
+export const actorDetailsMock: ActorDetails = {
+  "actor": {
+    "biography": "Joseph Jason Namakaeha Momoa (born August 1, 1979) is an American actor and",
+    "birthday": "Aug 01, 1979",
+    "homepage": null,
+    "id": 117642,
+    "name": "Jason Momoa",
+    "place_of_birth": "Honolulu, Hawaii, USA",
+    "profile_path": "https://image.tmdb.org/t/p/w500/6dEFBpZH8C8OijsynkSajQT99Pb.jpg",
+    "age": 44
+  },
+  "social": {
+    "twitter": null,
+    "facebook": null,
+    "instagram": "https://instagram.com/prideofgypsies"
+  },
+  "knownForMovies": [
+    {
+      "id": 82873,
+      "poster_path": "https://image.tmdb.org/t/p/w185/9Gg1oM8Us8gCS5aJA8e0ZRuIHnf.jpg",
+      "media_type": "tv",
+      "title": "The Kelly Clarkson Show",
+      "linkToPage": {
+        "name": "tvShow",
+        "params": {
+          "tvShowId": 82873
+        }
+      }
+    }
+  ],
+  "credits": [
+    {
+      "release_date": "2026-06-22",
+      "title": "Fast X: Part 2",
+      "character": "Dante Reyes",
+      "release_year": "2026",
+      "linkToPage": {
+        "name": "movie",
+        "params": {
+          "movieId": 755679
+        }
+      }
+    }
+  ],
+  "images": [
+    {
+      "aspect_ratio": 0.667,
+      "height": 3000,
+      "iso_639_1": null,
+      "file_path": "/6dEFBpZH8C8OijsynkSajQT99Pb.jpg",
+      "vote_average": 5.338,
+      "vote_count": 13,
+      "width": 2000
+    }
+  ]
+};
