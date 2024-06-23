@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { mount, } from "@vue/test-utils";
 import { defineComponent } from "vue";
 import Movies from "@/pages/Movies.vue";
@@ -7,18 +7,8 @@ import CONFIG from "@/config";
 import { resolvedPromises } from "@/utils/helper";
 import { movieGenresResponseMock, nowPlayingMoviesResponseMock, popularMoviesResponseMock }
   from "#/mockData";
-
-// vi.mock("@/composables/useMovieGenres", () => ({
-//   useMovieGenres: vi.fn(() => ({
-//     data: toRef({
-//       genres: [
-//         { id: 28, name: "Action" },
-//         { id: 12, name: "Adventure" }
-//       ]
-//     })
-//   }))
-// }));
-
+import * as useMovieGenresFile from "@/composables/movie/useMovieGenres";
+import * as handleErrorFile from "@/utils/handleError";
 
 nock(CONFIG.API_BASE_URL)
   .persist()
@@ -51,10 +41,6 @@ describe("Movies.vue", () => {
     expect(moviesWrapper.exists()).toBe(true);
     expect(moviesWrapper.html()).toContain("Popular Movies");
     expect(moviesWrapper.html()).toContain("Now Playing");
-
-    const movieListWrapper = moviesWrapper.findAllComponents({ name: "MovieList"});
-
-    expect(movieListWrapper).toHaveLength(2);
   });
 
   it("renders movies list", async() => {
@@ -76,7 +62,12 @@ describe("Movies.vue", () => {
 
   it("show notification error on fails", async() => {
 
-    const suspenseWrapper = mount(AsyncComponent, {
+    vi.spyOn(useMovieGenresFile, "useMovieGenres").mockImplementation(() => {
+      throw new Error("Genres fetch error");
+    });
+    vi.spyOn(handleErrorFile, "handleError");
+
+    mount(AsyncComponent, {
       global: {
         stubs: {
           MovieList: true
@@ -86,8 +77,9 @@ describe("Movies.vue", () => {
 
     await resolvedPromises();
 
-    const movieListWrapper = suspenseWrapper.findAllComponents({ name: "MovieList"});
-
-    expect(movieListWrapper).toHaveLength(2);
+    expect(handleErrorFile.handleError).toHaveBeenCalledWith(
+      "Error on show movies.",
+      new Error("Genres fetch error")
+    );
   });
 });

@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, type Mock } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import { defineComponent } from "vue";
 import TvShows from "@/pages/TvShows.vue";
@@ -7,9 +7,8 @@ import CONFIG from "@/config";
 import { resolvedPromises } from "@/utils/helper";
 import { tvShowGenresResponseMock, topRatedTvShowsResponseMock, popularTvShowsResponseMock }
   from "#/mockData";
-import { useTvShowGenres } from "@/composables/tv-show/useTvShowGenres";
-import { handleError } from "@/utils/handleError";
-
+import * as useTvShowGenresFile from "@/composables/tv-show/useTvShowGenres";
+import * as handleErrorFile from "@/utils/handleError";
 
 nock(CONFIG.API_BASE_URL)
   .persist()
@@ -42,14 +41,9 @@ describe("TvShows.vue", () => {
     expect(tvShowsWrapper.exists()).toBe(true);
     expect(tvShowsWrapper.html()).toContain("Popular Shows");
     expect(tvShowsWrapper.html()).toContain("Top Rated");
-
-    const tvShowListWrapper = tvShowsWrapper.findAllComponents({ name: "TvShowList"});
-
-    expect(tvShowListWrapper).toHaveLength(2);
   });
 
   it("renders tv shows list", async() => {
-
     const suspenseWrapper = mount(AsyncComponent, {
       global: {
         stubs: {
@@ -66,11 +60,10 @@ describe("TvShows.vue", () => {
   });
 
   it("show notification error on fails", async() => {
-
-    vi.mock("@/composables/tv-show/useTvShowGenres");
-    vi.mock("@/utils/handleError");
-
-    (useTvShowGenres as Mock).mockImplementation(() => { throw new Error("Genres fetch error"); });
+    vi.spyOn(useTvShowGenresFile, "useTvShowGenres").mockImplementation(() => {
+      throw new Error("Genres fetch error");
+    });
+    vi.spyOn(handleErrorFile, "handleError");
 
     mount(AsyncComponent, {
       global: {
@@ -82,10 +75,9 @@ describe("TvShows.vue", () => {
 
     await resolvedPromises();
 
-    expect(handleError).toHaveBeenCalledWith(
+    expect(handleErrorFile.handleError).toHaveBeenCalledWith(
       "Error on show tv shows.",
       new Error("Genres fetch error")
     );
-
   });
 });
