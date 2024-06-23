@@ -27,7 +27,9 @@ export function useMoviesModelView(
 
       return collect(movieResponseResult)
         .merge({
-          "poster_path":  `https://image.tmdb.org/t/p/w500${movieResponseResult.poster_path}`,
+          "poster_path": movieResponseResult.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movieResponseResult.poster_path}`
+            : "https://via.placeholder.com/500x750",
           "vote_average": `${formatNumber(movieResponseResult.vote_average * 10, 0, 2)}%`,
           "release_date": formatDate(movieResponseResult.release_date, "MMM DD, YYYY"),
           "genres": genresFormatted,
