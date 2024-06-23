@@ -1,5 +1,5 @@
 <template>
-  <div class="actor-info border-b border-gray-800">
+  <div class="actor-info border-b border-gray-800 light:border-gray-300">
     <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
       <div class="flex-none">
         <img
@@ -101,7 +101,7 @@
           </span>
         </div>
 
-        <p class="text-gray-300 mt-6">
+        <p class="text-gray-300 light:text-gray-500 mt-6">
           {{ props.actorDetails?.actor.biography }}
         </p>
 

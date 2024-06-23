@@ -1,5 +1,5 @@
 <template>
-  <div class="tv-info border-b border-gray-800">
+  <div class="tv-info border-b border-gray-800 light:border-gray-300">
     <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
       <div class="flex-none">
         <img
@@ -29,12 +29,12 @@
           <span>{{ props.tvShowDetails?.genres }}</span>
         </div>
 
-        <p class="text-gray-300 mt-8">
+        <p class="text-gray-300 light:text-gray-500 mt-8">
           {{ props.tvShowDetails?.overview }}
         </p>
 
         <div class="mt-12">
-          <h4 class="text-white font-semibold">
+          <h4 class="text-white light:text-gray-700 font-semibold">
             Featured Crew
           </h4>
           <div class="flex mt-4">
@@ -94,7 +94,7 @@
                 >
                   <div
                     ref="tvShowTrailerModalWrapper"
-                    class="bg-gray-900 rounded"
+                    class="bg-gray-900 light:bg-slate-200 rounded"
                   >
                     <div class="flex justify-end pr-4 pt-2">
                       <button

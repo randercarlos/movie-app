@@ -8,8 +8,8 @@
       ref="searchDropdownInput"
       v-model="search"
       type="text"
-      class="bg-gray-800 text-sm rounded-full w-64 px-4 pl-8 py-1 focus:outline-none
-      focus:shadow-outline"
+      class="bg-gray-800 light:bg-slate-200 text-sm rounded-full w-64 px-4 pl-8 py-1
+      focus:outline-none focus:shadow-outline"
       placeholder="Search (Press '/' to focus)"
       tabindex="0"
       @focus="openSearchDropdown()"
@@ -18,7 +18,7 @@
     >
     <div class="absolute top-0">
       <svg
-        class="fill-current w-4 text-gray-500 mt-2 ml-2"
+        class="fill-current w-4 text-gray-500 light:text-gray-700 mt-2 ml-2"
         viewBox="0 0 24 24"
       >
         <path
@@ -37,7 +37,7 @@
     <Transition>
       <div
         v-show="isSearchDropdownOpen"
-        class="z-50 absolute bg-gray-800 text-sm rounded w-64 mt-4"
+        class="z-50 absolute bg-gray-800 light:bg-slate-200 text-sm rounded w-64 mt-4"
       >
         <ul
           v-if="searchResults.length > 0"
@@ -46,11 +46,11 @@
           <li
             v-for="(result, index) in searchResults"
             :key="index"
-            class="border-b border-gray-700"
+            class="border-b border-gray-700 light:border-gray-300"
           >
             <RouterLink
-              class="block hover:bg-gray-700 px-3 py-3 flex items-center transition ease-in-out
-              duration-150"
+              class="block hover:bg-gray-700 light:hover:bg-slate-300 px-3 py-3 flex items-center
+              transition ease-in-out duration-150"
               :to="createMediaDetailsRouteFrom(result)"
               @keydown.tab="index === searchResults.length - 1 && closeSearchDropdown()"
             >

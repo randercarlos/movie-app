@@ -38,7 +38,7 @@
         <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto w-320">
           <div
             ref="movieImageModalWrapper"
-            class="bg-gray-900 rounded"
+            class="bg-gray-900 light:bg-slate-200 rounded"
           >
             <div class="flex justify-end pr-4 pt-2">
               <button
