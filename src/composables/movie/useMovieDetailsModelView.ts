@@ -1,6 +1,6 @@
 import { type MaybeRef, ref, unref } from "vue";
 import type {
-  MovieCreditsCastMember,
+  MovieCreditsCast,
   MovieDetails,
   MovieDetailsResponse,
 } from "@/typings/interfaces";
@@ -24,7 +24,7 @@ export function useMovieDetailsModelView(movieDetailsResponse: MaybeRef<MovieDet
       "crew": collect(unref(movieDetailsResponseValue.credits?.crew)).take(CONFIG.MOVIE_CREW_QTY)
         .all(),
       "cast": collect(movieDetailsResponseValue.credits?.cast).take(CONFIG.MOVIE_CAST_QTY)
-        .map(function(cast: MovieCreditsCastMember) {
+        .map(function(cast: MovieCreditsCast) {
           return collect(cast).merge({
             "profile_path": cast.profile_path
               ? `https://image.tmdb.org/t/p/w300${cast.profile_path}`

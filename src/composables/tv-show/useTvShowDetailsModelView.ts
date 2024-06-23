@@ -1,6 +1,6 @@
 import { type MaybeRef, ref, unref } from "vue";
 import type {
-  TvShowCreditsCastMember,
+  TvShowCreditsCast,
   TvShowDetails,
   TvShowDetailsResponse,
 } from "@/typings/interfaces";
@@ -22,7 +22,7 @@ export function useTvShowDetailsModelView(tvShowDetailsResponse: MaybeRef<TvShow
       "first_air_date": moment(tvShowDetailsResponseValue.first_air_date).format("MMM DD, YYYY"),
       "genres": collect(tvShowDetailsResponseValue.genres).pluck("name").flatten().implode(", "),
       "cast": collect(tvShowDetailsResponseValue.credits?.cast).take(CONFIG.MOVIE_CAST_QTY)
-        .map(function(cast: TvShowCreditsCastMember) {
+        .map(function(cast: TvShowCreditsCast) {
           return collect(cast).merge({
             "profile_path": cast.profile_path
               ? `https://image.tmdb.org/t/p/w300${cast.profile_path}`

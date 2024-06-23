@@ -16,3 +16,11 @@ export type DetailsRoute = {
 
 export type MultiSearchResponseResult = MultiSearchMovieResponseResult
   | MultiSearchTvShowResponseResult | MultiSearchActorResponseResult;
+
+export type Nullable<T> = T extends (infer U)[]
+  ? Nullable<U>[] // Trata arrays recursivamente
+  : T extends object
+  ? {
+      [K in keyof T]?: Nullable<T[K]>;
+    }
+  : T | null | undefined;

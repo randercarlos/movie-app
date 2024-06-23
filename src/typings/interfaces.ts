@@ -91,11 +91,11 @@ interface MovieVideo {
 }
 
 export interface MovieCredits {
-  cast: MovieCreditsCastMember[];
-  crew: MovieCreditsCrewMember[];
+  cast: MovieCreditsCast[];
+  crew: MovieCreditsCrew[];
 }
 
-export interface MovieCreditsMember {
+export interface MovieCreditsCommon {
   id: number;
   name: string;
   profile_path: string;
@@ -107,13 +107,13 @@ export interface MovieCreditsMember {
   known_for_department: string;
 }
 
-export interface MovieCreditsCastMember extends MovieCreditsMember {
+export interface MovieCreditsCast extends MovieCreditsCommon {
   cast_id: number;
   character: string;
   order: number;
 }
 
-export interface MovieCreditsCrewMember extends MovieCreditsMember {
+export interface MovieCreditsCrew extends MovieCreditsCommon {
   department: string;
   job: string;
 }
@@ -171,8 +171,8 @@ export interface MovieDetails {
   vote_average: string;
   release_date: string;
   genres: string;
-  crew: MovieCreditsCrewMember[];
-  cast: MovieCreditsCastMember[];
+  crew: MovieCreditsCrew[];
+  cast: MovieCreditsCast[];
   id: number;
   title: string;
   overview: string;
@@ -280,37 +280,16 @@ interface TvShowVideo {
 }
 
 export interface TvShowCredits {
-  cast: TvShowCreditsCastMember[];
-  crew: TvShowCreditsCrewMember[];
+  cast: TvShowCreditsCast[];
+  crew: TvShowCreditsCrew[];
 }
 
-export interface TvShowCreditsMember {
-  id: number;
-  name: string;
-  profile_path: string;
-  original_name: string;
-  popularity: number;
-  adult: boolean;
-  credit_id: string;
-  gender: number;
-  known_for_department: string;
-}
-
-export interface TvShowCreditsCastMember extends MovieCreditsMember {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path: string;
+export interface TvShowCreditsCast extends MovieCreditsCommon {
   character: string;
-  credit_id: string;
   order: number;
 }
 
-export interface TvShowCreditsCrewMember extends MovieCreditsMember {
+export interface TvShowCreditsCrew extends MovieCreditsCommon {
   department: string;
   job: string;
 }
@@ -381,8 +360,8 @@ export interface TvShowDetails {
   vote_average: string;
   first_air_date: string;
   genres: string;
-  crew?: TvShowCreditsCrewMember[];
-  cast?: TvShowCreditsCastMember[];
+  crew?: TvShowCreditsCrew[];
+  cast?: TvShowCreditsCast[];
   id: number;
   name: string;
   overview: string;
@@ -524,10 +503,12 @@ export interface CombinedCreditsMovie {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  character: string;
+  character?: string;
   credit_id: string;
-  order: number;
+  order?: number;
   media_type: "movie";
+  department?: string | null;
+  job?: string | null;
 }
 
 export interface ActorDetails {
@@ -535,7 +516,17 @@ export interface ActorDetails {
   social: ActorDetailsSocial;
   knownForMovies: ActorDetailsMovies[];
   credits: ActorDetailsCredits[];
-  images: ActorProfilesImage[];
+  images: ActorImage[];
+}
+
+interface ActorImage {
+  aspect_ratio: number;
+  height: number;
+  iso_639_1: string | null;
+  file_path: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
 }
 
 export interface ActorDetailsInfo {
@@ -544,19 +535,19 @@ export interface ActorDetailsInfo {
   profile_path: string;
   name: string;
   id: number;
-  homepage: string;
+  homepage: string | null;
   place_of_birth: string;
   biography: string;
 }
 
 export interface ActorDetailsSocial {
-  facebook: string;
-  instagram: string;
-  twitter: string;
+  facebook: string | null;
+  instagram: string | null;
+  twitter: string | null;
 }
 
 export interface ActorDetailsMovies {
-  id: string;
+  id: number;
   title: string;
   poster_path: string;
   media_type: string;
