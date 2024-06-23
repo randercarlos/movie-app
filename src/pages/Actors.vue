@@ -7,7 +7,7 @@
       </h2>
 
       <ActorList
-        v-if="popularActors"
+        v-if="popularActors.length > 0"
         :actors="popularActors"
       />
 
@@ -21,9 +21,8 @@
       </div>
     </div>
     <!-- end loading on scroll bottom -->
-
-    <!-- end popular-actors -->
   </div>
+  <!-- end popular-actors -->
 </template>
 
 <script setup lang="ts">
@@ -33,26 +32,29 @@ import { handleError } from "@/utils/handleError";
 import type { Actor, ActorResponse } from "@/typings/interfaces";
 import { usePopularActors } from "@/composables/actor/usePopularActors";
 import { useActorsModelView } from "@/composables/actor/useActorsModelView";
-import { useInfiniteScroll } from "@vueuse/core";
+import { useInfiniteScroll, useTimeoutFn } from "@vueuse/core";
 
 const popularActors = shallowRef<Actor[]>([]);
 const popularActorsPage = ref<number>(1); // 1 => initial page to load popular actors
 
-function onScrollBottom()  {
-  popularActorsPage.value++;
-  loadActors();
+async function onScrollBottom()  {
+  popularActorsPage.value++;  // each scroll bottom, increase the page number to fetch more actors
+  await loadActors();
 }
 
 try {
-  loadActors();
+  await loadActors();
 
-  useInfiniteScroll(
-    document,
-    () => {
-      onScrollBottom();
-    },
-    { distance: 70, direction: "bottom", interval: 2000 }
-  );
+  useTimeoutFn(() => {
+    useInfiniteScroll(
+      document,
+      async() => {
+        onScrollBottom();
+      },
+      { distance: 70, direction: "bottom", interval: 2000 }
+    );
+  }, 200);
+
 
 } catch(err: unknown) {
   handleError("Error on show actors.", err as Error);
@@ -63,6 +65,7 @@ async function loadActors() {
   const { data: popularActorsModelView } = useActorsModelView(
     popularActorsResponse as MaybeRef<ActorResponse>
   );
+  // add/merge popular actors loaded by scroll bottom in previous loaded popular actors
   popularActors.value = [...popularActors.value, ...popularActorsModelView.value];
 }
 </script>

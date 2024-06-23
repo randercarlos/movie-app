@@ -6,7 +6,7 @@
         Popular Shows
       </h2>
       <TvShowList
-        v-if="popularTvShows"
+        v-if="popularTvShows.length > 0"
         :tv-shows="popularTvShows"
       />
     </div>
@@ -18,7 +18,7 @@
         Top Rated Shows
       </h2>
       <TvShowList
-        v-if="topRatedTvShows"
+        v-if="topRatedTvShows.length > 0"
         :tv-shows="topRatedTvShows"
       />
     </div>

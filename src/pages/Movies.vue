@@ -5,7 +5,7 @@
         Popular Movies
       </h2>
       <MovieList
-        v-if="popularMovies"
+        v-if="popularMovies.length > 0"
         :movies="popularMovies"
       />
     </div>
@@ -15,7 +15,7 @@
         Now Playing
       </h2>
       <MovieList
-        v-if="nowPlayingMovies"
+        v-if="nowPlayingMovies.length > 0"
         :movies="nowPlayingMovies"
       />
     </div>
@@ -34,7 +34,6 @@ import { handleError } from "@/utils/handleError";
 
 const popularMovies = shallowRef<Movie[]>([]);
 const nowPlayingMovies = shallowRef<Movie[]>([]);
-
 
 try {
   const { data: moviesGenresResponse } = await useMovieGenres();
