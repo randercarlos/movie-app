@@ -9,9 +9,11 @@ import "notivue/notification-progress.css";
 
 import { createApp } from "vue";
 import { createNotivue } from "notivue";
+import i18n from "@/i18n";
 
 import App from "./App.vue";
 import router from "./router.ts";
+
 
 const notivue = createNotivue({
   position: "top-right",
@@ -24,9 +26,11 @@ const notivue = createNotivue({
     }
   }
 });
+
 const app = createApp(App);
 
 app
   .use(router)
   .use(notivue)
+  .use(i18n)
   .mount("#app");
