@@ -67,3 +67,18 @@ export function truncateString(string: string, maxCharacters: number,
     ? string
     : string.slice(0, maxCharacters) + truncateString;
 }
+
+export function addQueryStringToURL(url: string, queryStringKey: string,
+  queryStringValue: string): string {
+  // Parse the existing URL and query parameters
+  const parsedUrl = new URL(url);
+  const params = new URLSearchParams(parsedUrl.search);
+
+  // Add or overwrite query parameters
+  params.set(queryStringKey, queryStringValue);
+
+  // Reconstruct the URL with the merged query parameters
+  parsedUrl.search = params.toString();
+  
+  return parsedUrl.toString();
+}
