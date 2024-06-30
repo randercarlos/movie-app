@@ -12,6 +12,7 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
   const data = ref<ActorDetails>();
   const actorDetailsResponseValue = unref(actorDetailsResponse);
 
+  console.log("ACTOR RESPONSE", actorDetailsResponseValue);
   const actor = collect(actorDetailsResponseValue)
     .merge({
       "profile_path": actorDetailsResponseValue.profile_path
@@ -42,37 +43,37 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
   const knownForMovies = collect(actorDetailsResponseValue.combined_credits.cast)
     .sortByDesc("popularity")
     .take(5)
-    .map(function(castMovie: CombinedCreditsMovie) {
-      const title = castMovie?.title ?? castMovie?.name ?? "Untitled";
+    .map(function(castActor: CombinedCreditsMovie) {
+      const title = castActor?.title ?? castActor?.name ?? "Untitled";
 
-      return collect(castMovie)
+      return collect(castActor)
         .merge({
-          "poster_path": castMovie.poster_path
-            ? `https://image.tmdb.org/t/p/w185${castMovie.poster_path}`
+          "poster_path": castActor.poster_path
+            ? `https://image.tmdb.org/t/p/w185${castActor.poster_path}`
             : "https://via.placeholder.com/185x278",
           "title": title,
-          "linkToPage": castMovie.media_type === "movie"
-            ? { name: "movie", params: { movieId: castMovie.id } }
-            : { name: "tvShow", params: { tvShowId: castMovie.id } }
+          "linkToPage": castActor.media_type === "movie"
+            ? { name: "movie", params: { movieId: castActor.id } }
+            : { name: "tvShow", params: { tvShowId: castActor.id } }
         }).only([
           "poster_path", "title", "id", "media_type", "linkToPage",
         ]).all();
     }).all();
 
   const credits = collect(actorDetailsResponseValue.combined_credits.cast)
-    .map(function(castMovie: CombinedCreditsMovie) {
-      const releaseDate = castMovie?.release_date ?? castMovie?.first_air_date ?? "";
-      const title = castMovie?.title ?? castMovie?.name ?? "Untitled";
+    .map(function(castActor: CombinedCreditsMovie) {
+      const releaseDate = castActor?.release_date ?? castActor?.first_air_date ?? "";
+      const title = castActor?.title ?? castActor?.name ?? "Untitled";
 
-      return collect(castMovie)
+      return collect(castActor)
         .merge({
           "release_date": releaseDate,
           "release_year": releaseDate ? formatDate(releaseDate, "YYYY"): "Future",
           "title": title,
-          "character": castMovie.character ?? "",
-          "linkToPage": castMovie.media_type === "movie"
-            ? { name: "movie", params: { movieId: castMovie.id } }
-            : { name: "tvShow", params: { tvShowId: castMovie.id } }
+          "character": castActor.character ?? "",
+          "linkToPage": castActor.media_type === "movie"
+            ? { name: "movie", params: { movieId: castActor.id } }
+            : { name: "tvShow", params: { tvShowId: castActor.id } }
         }).only([
           "release_date", "release_year", "title", "character", "linkToPage"
         ]).all();
@@ -92,6 +93,7 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
     images
   } as unknown as ActorDetails;
 
+  console.log("ACTOR DETAIS", data.value);
   return {
     data
   };
