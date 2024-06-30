@@ -1,0 +1,53 @@
+{
+  "general": {
+  },
+  "header": {
+    "menu": {
+      "movies": "Movies",
+      "tvShows": "TV Shows",
+      "actors": "Actors"
+    },
+    "theme": {
+      "darkMode": "Dark Mode",
+      "lightMode": "Light Mode"
+    },
+    "search": {
+      "placeholder": "Search (Press '/' to focus)",
+      "noResults": "No results for"
+    }
+  },
+  "footer": {
+    "poweredBy": "Powered by"
+  },
+  "movies": {
+    "popularMovies": "Popular Movies",
+    "nowPlaying": "Now Playing"
+  },
+  "movie": {
+    "featuredCrew": "Featured Crew",
+    "playTrailer": "Play Trailer",
+    "images": "Images",
+    "cast": "Cast"
+  },
+  "tvShows": {
+    "popularShows": "Popular Shows",
+    "topRatedShows": "Top Rated Shows"
+  },
+  "tvShow": {
+    "featuredCrew": "Featured Crew",
+    "playTrailer": "Play Trailer",
+    "images": "Images",
+    "cast": "Cast"
+  },
+  "actors": {
+    "popularActors": "Popular Actors"
+  },
+  "actor": {
+    "knownFor": "Know For",
+    "yearsOld": "years old",
+    "in": "in",
+    "images": "Images",
+    "credits": "Credits",
+    "as": "as"
+  }
+}

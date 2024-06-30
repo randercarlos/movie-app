@@ -1,0 +1,53 @@
+{
+  "general": {
+  },
+  "header": {
+    "menu": {
+      "movies": "Filmes",
+      "tvShows": "Séries",
+      "actors": "Artistas"
+    },
+    "theme": {
+      "darkMode": "Modo Escuro",
+      "lightMode": "Modo Claro"
+    },
+    "search": {
+      "placeholder": "Buscar (Pressione '/' para focar)",
+      "noResults": "Nenhum resultado para"
+    }
+  },
+  "footer": {
+    "poweredBy": "Baseado em"
+  },
+  "movies": {
+    "popularMovies": "Filmes Populares",
+    "nowPlaying": "Filmes Em Cartaz"
+  },
+  "movie": {
+    "featuredCrew": "Equipe em Destaque",
+    "playTrailer": "Exibir Trailer",
+    "images": "Imagens",
+    "cast": "Elenco"
+  },
+  "tvShows": {
+    "popularShows": "Séries Populares",
+    "topRatedShows": "Séries Mais Bem Avaliadas"
+  },
+  "tvShow": {
+    "featuredCrew": "Equipe em Destaque",
+    "playTrailer": "Exibir Trailer",
+    "images": "Imagens",
+    "cast": "Elenco"
+  },
+  "actors": {
+    "popularActors": "Artistas Populares"
+  },
+  "actor": {
+    "knownFor": "Conhecido Por",
+    "yearsOld": "anos",
+    "in": "em",
+    "images": "Imagens",
+    "credits": "Créditos",
+    "as": "como"
+  }
+}

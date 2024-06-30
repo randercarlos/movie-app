@@ -4,6 +4,7 @@ import type {
   MultiSearchMovieResponseResult,
   MultiSearchTvShowResponseResult
 } from "./interfaces";
+import enUS from "@/i18n/locales/en-US.json";
 
 export type ParamsObject = Record<string, string | boolean | null>;
 
@@ -24,3 +25,5 @@ export type Nullable<T> = T extends (infer U)[]
       [K in keyof T]?: Nullable<T[K]>;
     }
   : T | null | undefined;
+
+export type I18nMessage = typeof enUS
