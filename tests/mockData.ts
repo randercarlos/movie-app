@@ -3,6 +3,7 @@ import type {
   ActorDetails,
   ActorDetailsResponse,
   ActorResponse,
+  CombinedCreditsMovie,
   Movie,
   MovieCredits,
   MovieCreditsCast,
@@ -1134,6 +1135,20 @@ export const actorDetailsResponseMock: ActorDetailsResponse = {
   }
 };
 
+export const actorDetailsWithDefaultImagesResponseMock: Nullable<ActorDetailsResponse> = {
+  ...actorDetailsResponseMock,
+  profile_path: null,
+  combined_credits: {
+    ...actorDetailsResponseMock.combined_credits,
+    cast: [
+      {
+        ...(actorDetailsResponseMock?.combined_credits?.cast[0] as CombinedCreditsMovie) ?? {},
+        poster_path: null
+      }
+    ]
+  }
+};
+
 export const actorDetailsMock: ActorDetails = {
   "actor": {
     "biography": "Joseph Jason Namakaeha Momoa (born August 1, 1979) is an American actor and",
@@ -1187,6 +1202,35 @@ export const actorDetailsMock: ActorDetails = {
       "vote_average": 5.338,
       "vote_count": 13,
       "width": 2000
+    }
+  ]
+};
+
+export const actorDetailsWithDefaultImagesMock: Nullable<ActorDetails> = {
+  "actor": {
+    ...actorDetailsMock.actor,
+    profile_path: "https://via.placeholder.com/500x750"
+  },
+  "social": {
+    "twitter": null,
+    "facebook": null,
+    "instagram": "https://instagram.com/prideofgypsies"
+  },
+  "knownForMovies": [
+    {
+      ...(actorDetailsMock.knownForMovies?.[0] ?? []),
+      poster_path: "https://via.placeholder.com/185x278"
+    }
+  ],
+  "images": [
+    {
+      ...(actorDetailsMock.images?.[0] ?? []),
+      file_path: null
+    }
+  ],
+  "credits": [
+    {
+      ...(actorDetailsMock.credits?.[0] ?? [])
     }
   ]
 };
