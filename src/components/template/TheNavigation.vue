@@ -24,7 +24,7 @@
           :to="{ name: 'movies' }"
           class="hover:text-orange-500 lg:text-xl transition ease-in-out delay-100"
         >
-          Movies
+          {{ t('header.menu.movies') }}
         </RouterLink>
       </li>
       <li class="md:ml-6 mt-3 md:mt-0">
@@ -32,7 +32,7 @@
           :to="{ name: 'tvShows'}"
           class="hover:text-orange-500 lg:text-xl transition ease-in-out delay-100"
         >
-          TV Shows
+          {{ t('header.menu.tvShows') }}
         </RouterLink>
       </li>
       <li class="md:ml-6 mt-3 md:mt-0">
@@ -40,13 +40,13 @@
           :to="{ name: 'actors'}"
           class="hover:text-orange-500 lg:text-xl transition ease-in-out delay-100"
         >
-          Actors
+          {{ t('header.menu.actors') }}
         </RouterLink>
       </li>
     </ul>
     <div class="flex flex-col md:flex-row items-center">
+      <HeaderI18nButton />
       <HeaderThemeButtom />
-      
       <HeaderDropdown />
       <div class="md:ml-4 mt-3 md:mt-0">
         <a href="#">
@@ -65,4 +65,8 @@
 <script setup lang="ts">
 import HeaderDropdown from "@/components/inputs/HeaderDropdown.vue";
 import HeaderThemeButtom from "@/components/inputs/HeaderThemeButton.vue";
+import HeaderI18nButton from "@/components/inputs/HeaderI18nButton.vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 </script>

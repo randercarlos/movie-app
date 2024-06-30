@@ -35,11 +35,11 @@
 
         <div class="mt-12">
           <h4 class="text-white light:text-gray-700 font-semibold">
-            Featured Crew
+            {{ t("tvShow.featuredCrew") }}
           </h4>
           <div class="flex mt-4">
             <div
-              v-for="crew in props.tvShowDetails?.crew"
+              v-for="crew in props.tvShowDetails?.credits?.crew"
               :key="crew.name"
               class="mr-8"
             >
@@ -73,7 +73,7 @@
               10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59
               8 8-3.59 8-8 8z"
                 /></svg>
-                <span class="ml-2">Play Trailer</span>
+                <span class="ml-2">{{ t("tvShow.playTrailer") }}</span>
               </button>
             </div>
 
@@ -137,8 +137,12 @@ import { ref, nextTick } from "vue";
 import type { TvShowDetailsProps } from "@/typings/props";
 import { onClickOutside } from "@vueuse/core";
 import { vOnClickOutside } from "@vueuse/components";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const props = defineProps<TvShowDetailsProps>();
+console.log(props.tvShowDetails);
 const tvShowTrailerModal = ref<HTMLInputElement | null>(null);
 const tvShowTrailerModalWrapper = ref<HTMLInputElement | null>(null);
 

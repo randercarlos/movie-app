@@ -35,7 +35,7 @@
 
         <div class="mt-12">
           <h4 class="text-white font-semibold light:text-gray-700">
-            Featured Crew
+            {{ t("movie.featuredCrew") }}
           </h4>
           <div class="flex mt-4">
             <div
@@ -73,7 +73,7 @@
               10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59
               8 8-3.59 8-8 8z"
                 /></svg>
-                <span class="ml-2">Play Trailer</span>
+                <span class="ml-2">{{ t("movie.playTrailer") }}</span>
               </button>
             </div>
 
@@ -135,12 +135,14 @@
 import { ref, nextTick } from "vue";
 import type { MovieDetailsProps } from "@/typings/props";
 import { onClickOutside } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<MovieDetailsProps>();
 const movieTrailerModal = ref<HTMLInputElement | null>(null);
 const movieTrailerModalWrapper = ref<HTMLInputElement | null>(null);
 
 const isMovieTrailerModalOpen = ref<boolean>(false);
+const { t } = useI18n({ useScope: "global" });
 
 // close movie trailer modal on click outside it
 onClickOutside(movieTrailerModalWrapper, () => closeMovieTrailerModal());

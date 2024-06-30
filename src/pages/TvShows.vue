@@ -3,7 +3,7 @@
   <div class="container mx-auto px-4 pt-16">
     <div class="popular-shows">
       <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
-        Popular Shows
+        {{ t("tvShows.popularShows") }}
       </h2>
       <TvShowList
         v-if="popularTvShows.length > 0"
@@ -15,7 +15,7 @@
     <!-- start top-rated-shows -->
     <div class="top-rated-shows py-24">
       <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
-        Top Rated Shows
+        {{ t("tvShows.topRatedShows") }}
       </h2>
       <TvShowList
         v-if="topRatedTvShows.length > 0"
@@ -35,6 +35,9 @@ import type { TvShow, TvShowGenresResponse, TvShowResponse } from "@/typings/int
 import { useTopRatedTvShows } from "@/composables/tv-show/useTopRatedTvShows";
 import { usePopularTvShows } from "@/composables/tv-show/usePopularTvShows";
 import { useTvShowsModelView } from "@/composables/tv-show/useTvShowsModelView";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const popularTvShows = shallowRef<TvShow[]>([]);
 const topRatedTvShows = shallowRef<TvShow[]>([]);

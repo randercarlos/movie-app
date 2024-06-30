@@ -3,7 +3,7 @@
   <div class="container mx-auto px-4 pt-16">
     <div class="popular-actors">
       <h2 class="uppercase tracking-wider text-orange-500 text-2xl font-semibold">
-        Popular Actors
+        {{ t("actors.popularActors") }}
       </h2>
 
       <ActorList
@@ -33,6 +33,9 @@ import type { Actor, ActorResponse } from "@/typings/interfaces";
 import { usePopularActors } from "@/composables/actor/usePopularActors";
 import { useActorsModelView } from "@/composables/actor/useActorsModelView";
 import { useInfiniteScroll, useTimeoutFn } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const popularActors = shallowRef<Actor[]>([]);
 const popularActorsPage = ref<number>(1); // 1 => initial page to load popular actors

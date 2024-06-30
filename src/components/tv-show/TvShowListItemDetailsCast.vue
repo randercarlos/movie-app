@@ -3,7 +3,7 @@
   <div class="tv-cast border-b border-gray-800 light:border-gray-300">
     <div class="container mx-auto px-4 py-16">
       <h2 class="text-4xl font-semibold">
-        Cast
+        {{ t("tvShow.cast") }}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
         <div
@@ -39,6 +39,9 @@
 
 <script setup lang="ts">
 import type { TvShowDetailsProps } from "@/typings/props";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const props = defineProps<TvShowDetailsProps>();
 </script>

@@ -3,7 +3,7 @@
     <!-- Sun in light mode, Moon in dark mode, from Carbon -->
     <button
       class="dark:i-carbon-sun i-carbon-moon"
-      :title="`${isDark ? 'Light' : 'Dark'} Mode`"
+      :title="isDark ? t('header.theme.lightMode') : t('header.theme.darkMode')"
       @click="toggleDark()"
     />
   </div>
@@ -11,7 +11,9 @@
 
 <script setup lang="ts">
 import { useDark, useToggle } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n({ useScope: "global" });
 const isDark = useDark({
   selector: "html", //element to add attribute to
   attribute: "class", // attribute name

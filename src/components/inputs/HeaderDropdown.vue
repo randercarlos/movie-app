@@ -10,7 +10,7 @@
       type="text"
       class="bg-gray-800 light:bg-slate-200 text-sm rounded-full w-64 px-4 pl-8 py-1
       focus:outline-none focus:shadow-outline"
-      placeholder="Search (Press '/' to focus)"
+      :placeholder="$t('header.search.placeholder')"
       tabindex="0"
       @focus="openSearchDropdown()"
       @keydown.esc="closeSearchDropdown()"
@@ -74,7 +74,7 @@
           v-else
           class="px-3 py-3"
         >
-          No results for "{{ search }}"
+          {{ $t('header.search.noResults') }} "{{ search }}"
         </div>
       </div>
     </Transition>
@@ -120,9 +120,7 @@ async function searchMedia(): Promise<void> {
     isSearchDropdownLoading.value = true;
 
     const { data } = await useMultiSearch(search);
-    console.log(data.value);
     searchResults.value = unref(data)?.results?.slice(0, 7) as MultiSearchResponseResult[];
-    console.log(searchResults.value);
 
     isSearchDropdownLoading.value = false;
   } else {

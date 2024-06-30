@@ -2,7 +2,7 @@
   <div class="movie-images">
     <div class="container mx-auto px-4 py-16">
       <h2 class="text-4xl font-semibold">
-        Images
+        {{ t("movie.images") }}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <div
@@ -68,6 +68,9 @@
 import { nextTick, ref } from "vue";
 import type { MovieDetailsProps } from "@/typings/props";
 import { onClickOutside } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const props = defineProps<MovieDetailsProps>();
 const movieImageModal = ref<HTMLInputElement | null>(null);
