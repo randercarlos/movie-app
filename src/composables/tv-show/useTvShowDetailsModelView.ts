@@ -17,7 +17,7 @@ export function useTvShowDetailsModelView(tvShowDetailsResponse: MaybeRef<TvShow
     .merge({
       "poster_path": tvShowDetailsResponseValue.poster_path
         ? `https://image.tmdb.org/t/p/w500${tvShowDetailsResponseValue.poster_path}`
-        : "https://via.placeholder.com/500x750",
+        : "https://placehold.co/500x750",
       "vote_average": `${formatNumber(tvShowDetailsResponseValue.vote_average  * 10, 0, 2)}%`,
       "first_air_date": moment(tvShowDetailsResponseValue.first_air_date).format("MMM DD, YYYY"),
       "genres": collect(tvShowDetailsResponseValue.genres).pluck("name").flatten().implode(", "),
@@ -26,7 +26,7 @@ export function useTvShowDetailsModelView(tvShowDetailsResponse: MaybeRef<TvShow
           return collect(cast).merge({
             "profile_path": cast.profile_path
               ? `https://image.tmdb.org/t/p/w300${cast.profile_path}`
-              : "https://via.placeholder.com/300x450",
+              : "https://placehold.co/300x450",
           }).all();
         }).all(),
       "images": collect(tvShowDetailsResponseValue.images?.backdrops)
