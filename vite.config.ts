@@ -38,8 +38,10 @@ export default defineConfig({
     reporters: ["default"],
     coverage: {
       // enabled: true,
+      all: true,
       provider: "v8", // or 'instambul'
       include: ["src/**/*"],
+      extension: [".js", ".ts", ".vue"],
       exclude: [
         ...configDefaults.coverage.exclude!,
         "src/main.ts",
