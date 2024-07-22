@@ -9,13 +9,13 @@ import {
 import type { TvShowDetailsResponse } from "@/typings/interfaces";
 
 describe("useTvShowDetailsModelView.ts", () => {
-  it("returns tv shows details with images correctly", async() => {
+  it("returns tv shows details data correctly", async() => {
     const { data } = await useTvShowDetailsModelView(tvShowDetailsResponseMock);
 
     expect(data.value).toEqual(tvShowDetailsMock);
   });
 
-  it("returns tv shows with default images correctly", async() => {
+  it("returns tv shows data with default images correctly", async() => {
     const { data } = await useTvShowDetailsModelView(
       tvShowDetailsWithDefaultImagesResponseMock as TvShowDetailsResponse
     );
