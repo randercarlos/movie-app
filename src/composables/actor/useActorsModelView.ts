@@ -19,9 +19,14 @@ export function useActorsModelView(
             ? `https://image.tmdb.org/t/p/w300${actorResponseResult.profile_path}`
             : `https://ui-avatars.com/api/?size=300&name=${actorResponseResult.name}`,
           "known_for": collect(actorResponseResult.known_for)
-            .where("media_type", "movie").pluck("title").union(
-              collect(actorResponseResult.known_for).where("media_type", "tv").pluck("name")
-            ).implode(", ")
+            .where("media_type", "movie")
+            .pluck("title")
+            .union(
+              collect(actorResponseResult.known_for)
+                .where("media_type", "tv")
+                .pluck("name")
+            )
+            .implode(", ")
         })
         .only([
           "name", "id", "profile_path", "known_for",

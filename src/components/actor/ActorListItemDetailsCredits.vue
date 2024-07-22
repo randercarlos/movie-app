@@ -9,14 +9,14 @@
       <ul class="list-disc leading-loose pl-5 mt-8">
         <li
           v-for="credit in props.actorDetails?.credits"
-          :key="credit.title"
+          :key="credit.id"
         >
           {{ credit.release_year }} &middot;
           <strong>
             <RouterLink
               :to="credit.linkToPage"
               class="hover:underline"
-            >{{ credit.title }}
+            >{{ credit?.title }}
             </RouterLink>
           </strong>
           {{ t("actor.as") }} {{ credit.character }}

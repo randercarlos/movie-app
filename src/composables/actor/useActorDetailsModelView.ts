@@ -1,8 +1,9 @@
 import { type MaybeRef, ref, unref } from "vue";
 import type {
+  ActorCombinedCredits,
   ActorDetails,
   ActorDetailsResponse,
-  CombinedCreditsMovie,
+  ActorImagesProfile,
 } from "@/typings/interfaces";
 import collect from "collect.js";
 import { calculateAge, formatDate } from "@/utils/helper";
@@ -12,12 +13,11 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
   const data = ref<ActorDetails>();
   const actorDetailsResponseValue = unref(actorDetailsResponse);
 
-  console.log("ACTOR RESPONSE", actorDetailsResponseValue);
   const actor = collect(actorDetailsResponseValue)
     .merge({
       "profile_path": actorDetailsResponseValue.profile_path
         ? `https://image.tmdb.org/t/p/w500${actorDetailsResponseValue.profile_path}`
-        : "https://via.placeholder.com/500x750",
+        : "https://placehold.co/500x750",
       "birthday": `${formatDate(actorDetailsResponseValue.birthday, "MMM DD, YYYY")}`,
       "age": calculateAge(actorDetailsResponseValue.birthday)
     })
@@ -34,23 +34,29 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
         ? `https://facebook.com/${actorDetailsResponseValue.external_ids.facebook_id}` : null,
       "instagram": actorDetailsResponseValue.external_ids.instagram_id
         ? `https://instagram.com/${actorDetailsResponseValue.external_ids.instagram_id}` : null,
+      "youtube": actorDetailsResponseValue.external_ids.youtube_id
+        ? `https://youtube.com/${actorDetailsResponseValue.external_ids.youtube_id}` : null,
+      "tiktok": actorDetailsResponseValue.external_ids.tiktok_id
+        ? `https://tiktok.com/${actorDetailsResponseValue.external_ids.tiktok_id}` : null,
+      "wikipedia": actorDetailsResponseValue.external_ids.wikidata_id
+        ? `https://wikipedia.com/${actorDetailsResponseValue.external_ids.wikidata_id}` : null,
     })
     .only([
-      "facebook", "instagram", "twitter",
+      "facebook", "instagram", "twitter", "youtube", "tiktok", "wikipedia"
     ])
     .all();
 
   const knownForMovies = collect(actorDetailsResponseValue.combined_credits.cast)
     .sortByDesc("popularity")
     .take(5)
-    .map(function(castActor: CombinedCreditsMovie) {
+    .map(function(castActor: ActorCombinedCredits) {
       const title = castActor?.title ?? castActor?.name ?? "Untitled";
 
       return collect(castActor)
         .merge({
           "poster_path": castActor.poster_path
             ? `https://image.tmdb.org/t/p/w185${castActor.poster_path}`
-            : "https://via.placeholder.com/185x278",
+            : "https://placehold.co/185x278",
           "title": title,
           "linkToPage": castActor.media_type === "movie"
             ? { name: "movie", params: { movieId: castActor.id } }
@@ -61,27 +67,45 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
     }).all();
 
   const credits = collect(actorDetailsResponseValue.combined_credits.cast)
-    .map(function(castActor: CombinedCreditsMovie) {
-      const releaseDate = castActor?.release_date ?? castActor?.first_air_date ?? "";
-      const title = castActor?.title ?? castActor?.name ?? "Untitled";
+    .map(function(actorCombinedCredits: ActorCombinedCredits) {
+      const releaseDate = actorCombinedCredits?.release_date
+        ?? actorCombinedCredits?.first_air_date ?? "Future";
+      const releaseYear = formatDate(actorCombinedCredits?.release_date, "YYYY")
+        ?? formatDate(actorCombinedCredits?.first_air_date, "YYYY")
+        ?? "Future";
+      const title = actorCombinedCredits?.title ?? actorCombinedCredits?.name ?? "Untitled";
 
-      return collect(castActor)
+      return collect(actorCombinedCredits)
         .merge({
           "release_date": releaseDate,
-          "release_year": releaseDate ? formatDate(releaseDate, "YYYY"): "Future",
+          "release_year": releaseYear,
           "title": title,
-          "character": castActor.character ?? "",
-          "linkToPage": castActor.media_type === "movie"
-            ? { name: "movie", params: { movieId: castActor.id } }
-            : { name: "tvShow", params: { tvShowId: castActor.id } }
+          "character": actorCombinedCredits.character ?? "",
+          "linkToPage": actorCombinedCredits.media_type === "movie"
+            ? { name: "movie", params: { movieId: actorCombinedCredits.id } }
+            : { name: "tvShow", params: { tvShowId: actorCombinedCredits.id } }
         }).only([
-          "release_date", "release_year", "title", "character", "linkToPage"
+          "id", "release_date", "release_year", "title", "character", "linkToPage", "media_type"
         ]).all();
     })
     .sortByDesc("release_date")
     .all();
 
   const images = collect(actorDetailsResponseValue.images?.profiles)
+    .map(function(ActorImagesProfile: ActorImagesProfile) {
+      const actorDetailsImageUrl = ActorImagesProfile?.file_path
+        ? `https://image.tmdb.org/t/p/w400${ActorImagesProfile?.file_path}`
+        : "https://placehold.co/400x600";
+
+      return collect(ActorImagesProfile)
+        .merge({
+          "imageUrl": actorDetailsImageUrl
+        })
+        .only([
+          "imageUrl"
+        ])
+        .all();
+    })
     .take(CONFIG.ACTOR_IMAGES_QTY)
     .all();
 
@@ -93,7 +117,6 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
     images
   } as unknown as ActorDetails;
 
-  console.log("ACTOR DETAIS", data.value);
   return {
     data
   };

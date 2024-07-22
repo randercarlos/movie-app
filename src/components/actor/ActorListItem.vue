@@ -21,7 +21,7 @@
         class="text-sm truncate text-gray-400"
         :title="props.actor?.known_for"
       >
-        {{ truncateString(props.actor?.known_for ?? "", 35) }}
+        {{ truncateString(props.actor?.known_for as string, 35) }}
       </div>
     </div>
   </div>

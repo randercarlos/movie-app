@@ -13,11 +13,10 @@
         >
           <a
             href="#"
-            @click.prevent="openActorImageModalWithFile
-              (`https://image.tmdb.org/t/p/w400/${image?.file_path}`)"
+            @click.prevent="openActorImageModalWithFile(image?.imageUrl)"
           >
             <img
-              :src="`https://image.tmdb.org/t/p/w300/${image?.file_path}`"
+              :src="image?.imageUrl"
               alt="images"
               class="transition duration-150 ease-in-out hover:opacity-75"
             >
