@@ -11,7 +11,7 @@ import type {
 } from "@/typings/interfaces";
 
 describe("useMovieDetailsModelView.ts", () => {
-  it("returns movies details with images correctly", async() => {
+  it("returns movies details data correctly", async() => {
 
     const { data: movieDetails } =
       await useMovieDetailsModelView(movieDetailsResponseMock);
@@ -19,7 +19,7 @@ describe("useMovieDetailsModelView.ts", () => {
     expect(movieDetails.value).toEqual(movieDetailsMock);
   });
 
-  it("returns movies details with default images model correctly", async() => {
+  it("returns movies details data with default images correctly", async() => {
 
     const { data } = await useMovieDetailsModelView(
       movieDetailsWithDefaultImagesResponseMock as MovieDetailsResponse
