@@ -11,16 +11,19 @@
         :actors="popularActors"
       />
 
-      <!-- start loading on scroll bottom -->
-      <div class="my-8">
+      <!-- start loading spinner -->
+      <div
+        v-if="isLoadingPopularActors"
+        class="my-8 spinner-wrapper"
+      >
         <div class="flex justify-center">
-          <div class="spinner my-8 text-4xl">
+          <div class="spinner my-8 text-[10rem]">
             &nbsp;
           </div>
         </div>
       </div>
     </div>
-    <!-- end loading on scroll bottom -->
+    <!-- end loading spinner -->
   </div>
   <!-- end popular-actors -->
 </template>
@@ -32,43 +35,49 @@ import { handleError } from "@/utils/handleError";
 import type { Actor, ActorResponse } from "@/typings/interfaces";
 import { usePopularActors } from "@/composables/actor/usePopularActors";
 import { useActorsModelView } from "@/composables/actor/useActorsModelView";
-import { useInfiniteScroll, useTimeoutFn } from "@vueuse/core";
+import { useScroll, watchDebounced } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n({ useScope: "global" });
 
 const popularActors = shallowRef<Actor[]>([]);
 const popularActorsPage = ref<number>(1); // 1 => initial page to load popular actors
+const isLoadingPopularActors = ref<boolean>(true);
+
+await loadActors();
+
+const { arrivedState } = useScroll(document, {
+  offset: { bottom: 300 },
+});
+
+// watch with delay when value change
+watchDebounced(arrivedState, () => {
+  if (arrivedState.bottom) {  // is arrive in scroll bottom with offset of 300px ?
+    onScrollBottom();
+  }
+},
+{ debounce: 200, maxWait: 2000 });  // delay 200ms with max wait 2000ms
 
 async function onScrollBottom()  {
+  console.log("DENTRO DO onScrollBottom");
+  isLoadingPopularActors.value = true;
   popularActorsPage.value++;  // each scroll bottom, increase the page number to fetch more actors
   await loadActors();
-}
-
-try {
-  await loadActors();
-
-  useTimeoutFn(() => {
-    useInfiniteScroll(
-      document,
-      async() => {
-        onScrollBottom();
-      },
-      { distance: 70, direction: "bottom", interval: 2000 }
-    );
-  }, 200);
-
-
-} catch(err: unknown) {
-  handleError("Error on show actors.", err as Error);
+  isLoadingPopularActors.value = false;
 }
 
 async function loadActors() {
-  const { data: popularActorsResponse } = await usePopularActors(popularActorsPage);
-  const { data: popularActorsModelView } = useActorsModelView(
+  try {
+    console.log("DENTRO DO loadActors");
+    const { data: popularActorsResponse } = await usePopularActors(popularActorsPage);
+    const { data: popularActorsModelView } = useActorsModelView(
     popularActorsResponse as MaybeRef<ActorResponse>
-  );
-  // add/merge popular actors loaded by scroll bottom in previous loaded popular actors
-  popularActors.value = [...popularActors.value, ...popularActorsModelView.value];
+    );
+    // adds/merges popular actors loaded by scroll bottom with already loaded popular actors
+    popularActors.value = [...popularActors.value, ...popularActorsModelView.value];
+  } catch(err: unknown) {
+    console.log("OCORREU UM ERRO");
+    handleError("Error on show actors.", err as Error);
+  }
 }
 </script>
