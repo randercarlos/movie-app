@@ -3,7 +3,7 @@ import { createFetch } from "@vueuse/core";
 import CONFIG from "@/config";
 import { handleError } from "@/utils/handleError";
 import { addQueryStringToURL, log } from "@/utils/helper";
-import { I18nLanguages } from "@/typings/enums";
+import { I18nGlobalLocales } from "@/typings/enums";
 import i18n from "@/i18n";
 
 export function useApiService() {
@@ -17,8 +17,8 @@ export function useApiService() {
         };
 
         // Add language querystring to all requests
-        if (toValue(i18n.global.locale) === I18nLanguages.ptBR) {
-          url = addQueryStringToURL(url, "language", I18nLanguages.ptBR);
+        if (toValue(i18n.global.locale) === I18nGlobalLocales.ptBR) {
+          url = addQueryStringToURL(url, "language", I18nGlobalLocales.ptBR);
         }
 
         log(`

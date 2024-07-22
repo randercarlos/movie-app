@@ -20,22 +20,23 @@ import { useI18n } from "vue-i18n";
 
 import moment from "moment";
 import "moment/dist/locale/pt-br";
-import { I18nLanguages } from "@/typings/enums";
+import { I18nGlobalLocales } from "@/typings/enums";
 
 const { locale: appGlobalLocale } = useI18n({ useScope: "global" });
 const i18nOptions = computed(() => {
   return {
-    flag: appGlobalLocale.value === I18nLanguages.enUS
+    flag: appGlobalLocale.value === I18nGlobalLocales.enUS
       ? "/img/brazil-flag.svg"
       : "/img/usa-flag.svg",
-    changeTo: appGlobalLocale.value === I18nLanguages.enUS
+    changeTo: appGlobalLocale.value === I18nGlobalLocales.enUS
       ? "Mudar idioma para Português"
       : "Change idiom to English",
   };
 });
 
 onMounted(() => {
-  appGlobalLocale.value = sessionStorage.getItem("currentAppGlobalLocale") ?? I18nLanguages.enUS;
+  appGlobalLocale.value = sessionStorage.getItem("currentAppGlobalLocale")
+    ?? I18nGlobalLocales.enUS;
 });
 
 watch(appGlobalLocale, (newLocale) => {
@@ -43,10 +44,10 @@ watch(appGlobalLocale, (newLocale) => {
 });
 
 function toggleLanguage() {
-  let newLocale = appGlobalLocale.value === I18nLanguages.enUS
-    ? I18nLanguages.ptBR
-    : I18nLanguages.enUS;
-    
+  let newLocale = appGlobalLocale.value === I18nGlobalLocales.enUS
+    ? I18nGlobalLocales.ptBR
+    : I18nGlobalLocales.enUS;
+
   appGlobalLocale.value = newLocale;
   sessionStorage.setItem("currentAppGlobalLocale", newLocale);
 }

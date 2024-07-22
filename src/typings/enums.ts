@@ -1,4 +1,4 @@
-export enum I18nLanguages {
+export enum I18nGlobalLocales {
   enUS = "en-US",
   ptBR = "pt-BR",
 }

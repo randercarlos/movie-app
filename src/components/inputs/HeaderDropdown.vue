@@ -1,16 +1,18 @@
 <template>
   <div
+    id="searchDropdownWrapper"
     ref="searchDropdownWrapper"
     class="relative mt-3 md:mt-0"
     @click="openSearchDropdown()"
   >
     <input
+      id="searchDropdownInput"
       ref="searchDropdownInput"
       v-model="search"
       type="text"
       class="bg-gray-800 light:bg-slate-200 text-sm rounded-full w-64 px-4 pl-8 py-1
       focus:outline-none focus:shadow-outline"
-      :placeholder="$t('header.search.placeholder')"
+      :placeholder="t('header.search.placeholder')"
       tabindex="0"
       @focus="openSearchDropdown()"
       @keydown.esc="closeSearchDropdown()"
@@ -37,11 +39,11 @@
     <Transition>
       <div
         v-show="isSearchDropdownOpen"
+        id="searchDropdownResults"
         class="z-50 absolute bg-gray-800 light:bg-slate-200 text-sm rounded w-64 mt-4"
       >
         <ul
           v-if="searchResults.length > 0"
-          @click.self="closeSearchDropdown()"
         >
           <li
             v-for="(result, index) in searchResults"
@@ -62,7 +64,7 @@
               >
               <img
                 v-else
-                src="https://via.placeholder.com/50x75"
+                src="https://placehold.co/50x75"
                 alt="poster"
                 class="w-8"
               >
@@ -72,6 +74,7 @@
         </ul>
         <div
           v-else
+          id="searchDropdownNoResults"
           class="px-3 py-3"
         >
           {{ $t('header.search.noResults') }} "{{ search }}"
@@ -91,6 +94,9 @@ import type {
 import type { DetailsRoute, MultiSearchResponseResult } from "@/typings/types";
 import { onClickOutside, useEventListener, watchDebounced } from "@vueuse/core";
 import { onMounted, ref, unref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const search = ref<string>("");
 const searchResults = ref<MultiSearchResponseResult[]>([]);
@@ -102,20 +108,22 @@ const isSearchDropdownOpen = ref<boolean>(false);
 const isSearchDropdownLoading = ref<boolean>(false);
 
 onMounted(() => {
-  // create a shortcut to searchdropdown on press "/"
-  useEventListener(document, "keydown", activateShortcutToSearchDropdown);
+  // listening all keypress events from document
+  useEventListener(document, "keypress", activateShortcutToFocusOnSearchDropdown);
 });
 
+// close search dropdown wrapper on click outside it
+onClickOutside(searchDropdownWrapper, () => closeSearchDropdown());
+
+// watch changes in search variable and call searchMedia() with delay of 500ms
 watchDebounced(
   search,
   () => searchMedia(),
   { debounce: 500, maxWait: 1000 }
 );
 
-// close search dropdown wrapper on click outside it
-onClickOutside(searchDropdownWrapper, () => closeSearchDropdown());
-
 async function searchMedia(): Promise<void> {
+  // search is done with min of 3 letters/chars
   if (search.value.trim().length >= 3) {
     isSearchDropdownLoading.value = true;
 
@@ -140,23 +148,26 @@ async function openSearchDropdown(): Promise<void> {
   }
 }
 
-function activateShortcutToSearchDropdown(event: KeyboardEvent) {
+// create a shortcut to searchdropdown on press "/"
+function activateShortcutToFocusOnSearchDropdown(event: KeyboardEvent): void {
   if (event.key === "/") {
     event.preventDefault();
     searchDropdownInput.value?.focus();
   }
 }
 
-function getImagePathFrom(result: MultiSearchResponseResult): string  {
-  const mapMediaTypeToImagePath: Record<string, () => string> = {
+// get right image path from media
+function getImagePathFrom(result: MultiSearchResponseResult): string | null {
+  const mapMediaTypeToImagePath: Record<string, () => string | null> = {
     "movie": () => (result as MultiSearchMovieResponseResult)?.poster_path,
     "tv": () => (result as MultiSearchTvShowResponseResult)?.poster_path,
     "person": () => (result as MultiSearchActorResponseResult)?.profile_path,
   };
 
-  return mapMediaTypeToImagePath[result.media_type]() ?? "";
+  return mapMediaTypeToImagePath[result.media_type]();
 }
 
+// get right name from media
 function getMediaNameFrom(result: MultiSearchResponseResult): string  {
   const mapMediaTypeToMediaName: Record<string, () => string> = {
     "movie": () => (result as MultiSearchMovieResponseResult)?.title,
@@ -164,11 +175,10 @@ function getMediaNameFrom(result: MultiSearchResponseResult): string  {
     "person": () => (result as MultiSearchActorResponseResult)?.name,
   };
 
-  return mapMediaTypeToMediaName[result.media_type]() ?? "";
+  return mapMediaTypeToMediaName[result.media_type]();
 }
 
-function createMediaDetailsRouteFrom(result: MultiSearchResponseResult):
-DetailsRoute  {
+function createMediaDetailsRouteFrom(result: MultiSearchResponseResult): DetailsRoute {
   const mapMediaTypeToMediaDetailsRoute: Record<string, () => DetailsRoute> = {
     "movie": () => ({
       name: "movie",
