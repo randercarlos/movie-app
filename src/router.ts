@@ -48,8 +48,11 @@ const router = createRouter({
     // { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
   ],
   scrollBehavior() {
-    // always scroll to top
-    return { top: 0 , behavior: "smooth" };
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ top: 0 });
+      }, 200);
+    });
   },
   strict: true
 });

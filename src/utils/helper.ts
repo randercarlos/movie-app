@@ -25,29 +25,61 @@ export function formatNumber(input: number | string, minDigits = 2, maxDigits = 
   });
 }
 
-export function formatDate(input: string, format: string = "MM/DD/YYYY"): string {
-  const date = moment(input);
-
-  return date.isValid() ? date.format(format) : "";
-}
-
-export function calculateAge(birthday: string, dateFormat: string = "YYYY-MM-DD"): number | null {
-  const birthdayObject = moment(birthday, dateFormat);
-  if (!isValidDate(birthdayObject)) {
+export function formatDate(dateInput: Moment | string | null | undefined,
+  dateFormat: string = "MM/DD/YYYY"): string | null {
+  if (! isValidDate(dateInput, "YYYY-MM-DD")) {
     return null;
   }
 
-  return moment().diff(birthdayObject, "years");
+  return moment.isMoment(dateInput)
+    ? dateInput.format(dateFormat)
+    : moment(dateInput).format(dateFormat);
 }
 
-export function isValidDate(date: string | Moment, dateFormat: string = "YYYY-MM-DD"): boolean {
-  return moment.isMoment(date)
-    ? date.isValid()
-    : moment(date, dateFormat, true).isValid();
+export function getYearFromDate(dateInput: Moment | string | null | undefined,
+  dateFormat: string = "YYYY-MM-DD"): string | null {
+  if (! isValidDate(dateInput, dateFormat)) {
+    return null;
+  }
+
+  const result = moment.isMoment(dateInput)
+    ? dateInput.year()
+    : moment(dateInput, dateFormat).year();
+
+  return result.toString();
+}
+
+export function calculateAge(birthday: Moment | string | null | undefined,
+  dateFormat: string = "YYYY-MM-DD"): number | null {
+  if (! isValidDate(birthday, dateFormat)) {
+    return null;
+  }
+
+  return moment.isMoment(birthday)
+    ? moment().diff(birthday, "years")
+    : moment().diff(moment(birthday, dateFormat), "years");
+}
+
+export function isValidDate(dateInput: Moment | string | null | undefined,
+  dateFormat: string = "YYYY-MM-DD"): boolean {
+  return moment.isMoment(dateInput)
+    ? dateInput.isValid()
+    : moment(dateInput, dateFormat, true).isValid();
 }
 
 export const resolvedPromises = (waitFor: number = 200) =>
   new Promise((r) => setTimeout(r, waitFor));
+
+export function truncateString(string: string, maxCharacters: number,
+  limitString: string = "...") {
+  if (maxCharacters <= 0) {
+    return string;
+  }
+
+  return string.length <= maxCharacters
+    ? string
+    : string.slice(0, maxCharacters) + limitString;
+}
 
 export const log = (data: unknown) =>  {
   const style = `
@@ -61,13 +93,6 @@ export const log = (data: unknown) =>  {
   console.log("%c*************************************************", style);
 };
 
-export function truncateString(string: string, maxCharacters: number,
-  truncateString: string = "...") {
-  return string.length <= maxCharacters
-    ? string
-    : string.slice(0, maxCharacters) + truncateString;
-}
-
 export function addQueryStringToURL(url: string, queryStringKey: string,
   queryStringValue: string): string {
   // Parse the existing URL and query parameters
@@ -79,6 +104,6 @@ export function addQueryStringToURL(url: string, queryStringKey: string,
 
   // Reconstruct the URL with the merged query parameters
   parsedUrl.search = params.toString();
-  
+
   return parsedUrl.toString();
 }

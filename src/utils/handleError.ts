@@ -52,6 +52,5 @@ function showErrorNotification(appError: AppErrorInfo) {
   push.error({
     title: "Error",
     message: appError.message
-      ?? "An error happened. Try again later. If error persists, contact support."
   });
 }

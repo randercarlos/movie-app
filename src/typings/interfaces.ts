@@ -1,14 +1,23 @@
-import type { DetailsRoute, MultiSearchResponseResult } from "./types";
+import type {
+  DetailsRoute,
+  MultiSearchResponseResult
+} from "./types";
 
 // ===============================================================================================
 // MOVIES
 // ===============================================================================================
 
 export interface MovieResponse {
+  dates?: MovieDatesResponse;
   page: number;
   results: MovieResponseResult[];
   total_pages: number;
   total_results: number;
+}
+
+interface MovieDatesResponse {
+  maximum: string;
+  minimum: string;
 }
 
 export interface MovieResponseResult {
@@ -19,7 +28,7 @@ export interface MovieResponseResult {
   original_language: string;
   original_title: string;
   overview: string;
-  poster_path: string;
+  poster_path: string | null;
   popularity: number;
   release_date: string;
   title: string;
@@ -208,7 +217,7 @@ export interface TvShowResponseResult {
   original_language: string;
   original_name: string;
   overview: string;
-  poster_path: string;
+  poster_path: string | null;
   popularity: number;
   first_air_date: string;
   name: string;
@@ -405,7 +414,7 @@ export interface ActorResponseResult {
   name: string;
   original_name: string;
   popularity: number;
-  profile_path: string;
+  profile_path: string | null;
   known_for: ActorKnownFor[];
 }
 
@@ -455,14 +464,14 @@ export interface ActorDetailsResponse {
 }
 
 interface ActorImages {
-  profiles: ActorProfilesImage[];
+  profiles: ActorImagesProfile[];
 }
 
-interface ActorProfilesImage {
+export interface ActorImagesProfile {
   aspect_ratio: number;
   height: number;
   iso_639_1: string | null;
-  file_path: string;
+  file_path: string | null;
   vote_average: number;
   vote_count: number;
   width: number;
@@ -482,31 +491,35 @@ export interface ActorSocialMediaIDs {
 }
 
 export interface CombinedCredits {
-  cast: CombinedCreditsMovie[];
-  crew: CombinedCreditsMovie[];
+  cast: ActorCombinedCredits[];
+  crew: ActorCombinedCredits[];
 }
 
-export interface CombinedCreditsMovie {
+export interface ActorCombinedCredits {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
   id: number;
+  origin_country?: string[];
   original_language: string;
-  original_title: string;
+  original_title?: string;
+  original_name?: string;
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: string;
+  release_date?: string;
+  release_year?: string;
   first_air_date?: string;
-  title: string;
+  title?: string;
   name?: string;
-  video: boolean;
+  video?: boolean;
   vote_average: number;
   vote_count: number;
   character?: string;
   credit_id: string;
   order?: number;
-  media_type: "movie";
+  episode_count?: number
+  media_type: "movie" | "tv";
   department?: string | null;
   job?: string | null;
 }
@@ -516,17 +529,11 @@ export interface ActorDetails {
   social: ActorDetailsSocial;
   knownForMovies: ActorDetailsMovies[];
   credits: ActorDetailsCredits[];
-  images: ActorImage[];
+  images: ActorDetailsImage[];
 }
 
-interface ActorImage {
-  aspect_ratio: number;
-  height: number;
-  iso_639_1: string | null;
-  file_path: string;
-  vote_average: number;
-  vote_count: number;
-  width: number;
+export interface ActorDetailsImage {
+  imageUrl: string;
 }
 
 export interface ActorDetailsInfo {
@@ -544,6 +551,9 @@ export interface ActorDetailsSocial {
   facebook: string | null;
   instagram: string | null;
   twitter: string | null;
+  youtube: string | null;
+  tiktok: string | null;
+  wikipedia: string | null;
 }
 
 export interface ActorDetailsMovies {
@@ -555,11 +565,15 @@ export interface ActorDetailsMovies {
 }
 
 export interface ActorDetailsCredits {
-  title: string;
-  release_date: string;
-  release_year: string;
+  id: number;
+  title?: string;
+  release_date?: string;
+  release_year?: string;
   character: string;
   linkToPage: DetailsRoute;
+  first_air_date?: string;
+  name?: string;
+  media_type: "movie" | "tv"
 }
 
 // ===============================================================================================
