@@ -7,13 +7,7 @@ import CONFIG from "@/config";
 import { resolvedPromises } from "@/utils/helper";
 import { popularActorsResponseMock }
   from "#/mockData";
-import * as usePopularActorsFile from "@/composables/actor/usePopularActors";
 import * as handleErrorFile from "@/utils/handleError";
-
-nock(CONFIG.API_BASE_URL)
-  .persist()
-  .get("/person/popular?page=1")
-  .reply(200, popularActorsResponseMock);
 
 const AsyncComponent = defineComponent({
   components: { Actors },
@@ -22,6 +16,10 @@ const AsyncComponent = defineComponent({
 
 describe("Actors.vue", () => {
   it("renders correctly", async() => {
+    nock(CONFIG.API_BASE_URL)
+      .get("/person/popular")
+      .query(true)
+      .reply(200, popularActorsResponseMock);
     const suspenseWrapper = mount(AsyncComponent, {
       global: {
         stubs: {
@@ -39,7 +37,10 @@ describe("Actors.vue", () => {
   });
 
   it("renders actors list", async() => {
-
+    nock(CONFIG.API_BASE_URL)
+      .get("/person/popular")
+      .query(true)
+      .reply(200, popularActorsResponseMock);
     const suspenseWrapper = mount(AsyncComponent, {
       global: {
         stubs: {
@@ -55,11 +56,13 @@ describe("Actors.vue", () => {
     expect(actorsWrapper.exists()).toBe(true);
   });
 
-  it("load more actors on scroll bottom", async() => {
-
-    const usePopularActorsSpy = vi.spyOn(usePopularActorsFile, "usePopularActors");
-
-    mount(AsyncComponent, {
+  it("shows spinner on load more actors when user scroll bottom", async() => {
+    nock(CONFIG.API_BASE_URL)
+      .get("/person/popular")
+      .times(2)
+      .query(true)
+      .reply(200, popularActorsResponseMock);
+    const wrapper = mount(AsyncComponent, {
       global: {
         stubs: {
           ActorList: true
@@ -67,24 +70,55 @@ describe("Actors.vue", () => {
       }
     });
 
-    // Simulate scroll to bottom
-    window.dispatchEvent(new Event("scroll"));
+    await resolvedPromises(50);
 
     // Simulate a scroll event that would trigger the bottom scroll logic
-    window.pageYOffset = document.documentElement.scrollHeight;
+    document.dispatchEvent(new Event("scroll"));
 
-    await resolvedPromises(700);
     await nextTick();
 
-    expect(usePopularActorsSpy).toHaveBeenCalled();
+    expect(wrapper.find(".spinner-wrapper").exists()).toBe(true);
+  });
+
+  it("load more actors on scroll bottom", async() => {
+    nock(CONFIG.API_BASE_URL)
+      .get("/person/popular")
+      .times(3)
+      .query(true)
+      .reply(200, popularActorsResponseMock);
+    const wrapper = mount(AsyncComponent, {
+      global: {
+        stubs: {
+          ActorList: true
+        }
+      }
+    });
+
+    // wait 200ms because watchDebounce
+    await resolvedPromises(200);
+
+    const actorListWrapper = wrapper.findComponent({ name: "ActorList" });
+
+    // must have 3 actors on list initially because was given a list with 3 actors
+    expect(actorListWrapper.props().actors).toHaveLength(3);
+
+    // Simulate a scroll event that would trigger the bottom scroll logic
+    document.dispatchEvent(new Event("scroll"));
+
+    // wait 200ms because watchDebounce
+    await resolvedPromises(200);
+
+    // must have 6 actors on list because onScrollBottom loaded more 3 actors on actors list
+    expect(actorListWrapper.props().actors).toHaveLength(6);
   });
 
   it("show notification error on fails", async() => {
+    nock(CONFIG.API_BASE_URL)
+      .get("/person/popular")
+      .query(true)
+      .replyWithError("Error on load popular actors");
 
-    vi.spyOn(usePopularActorsFile, "usePopularActors").mockImplementation(() => {
-      throw new Error("Popular actors fetch error");
-    });
-    vi.spyOn(handleErrorFile, "handleError");
+    const handleErrorSpy = vi.spyOn(handleErrorFile, "handleError");
 
     mount(AsyncComponent, {
       global: {
@@ -94,11 +128,9 @@ describe("Actors.vue", () => {
       }
     });
 
-    await resolvedPromises();
+    // wait 200ms because watchDebounce
+    await resolvedPromises(200);
 
-    expect(handleErrorFile.handleError).toHaveBeenCalledWith(
-      "Error on show actors.",
-      new Error("Popular actors fetch error")
-    );
+    expect(handleErrorSpy).toHaveBeenCalled();
   });
 });

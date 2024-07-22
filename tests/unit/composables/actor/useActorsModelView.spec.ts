@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { useMoviesModelView } from "@/composables/movie/useMoviesModelView";
-import { movieGenresResponseMock, moviesMock, popularMoviesResponseMock } from "#/mockData";
+import { popularActorsMock, popularActorsResponseMock } from "#/mockData";
+import { useActorsModelView } from "@/composables/actor/useActorsModelView";
 
-describe("useMoviesModelView.ts", () => {
-  it("returns popular movies ready to view correctly", async() => {
-    const { data } = await useMoviesModelView(popularMoviesResponseMock, movieGenresResponseMock);
+describe("useActorsModelView.ts", () => {
+  it("returns popular actors data correctly", async() => {
+    const { data } = await useActorsModelView(popularActorsResponseMock);
 
-    expect(data.value).toEqual(moviesMock);
+    expect(data.value).toEqual(popularActorsMock);
   });
 });

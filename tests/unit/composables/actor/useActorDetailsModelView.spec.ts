@@ -11,16 +11,14 @@ import type {
 } from "@/typings/interfaces";
 
 describe("useActorDetailsModelView.ts", () => {
-  it("returns actors details with images correctly", async() => {
-
+  it("returns actors details data correctly", async() => {
     const { data: actorDetails } =
       await useActorDetailsModelView(actorDetailsResponseMock);
 
     expect(actorDetails.value).toEqual(actorDetailsMock);
   });
 
-  it("returns actors details with default images model correctly", async() => {
-
+  it("returns actors details data with default images correctly", async() => {
     const { data } = await useActorDetailsModelView(
       actorDetailsWithDefaultImagesResponseMock as ActorDetailsResponse
     );
