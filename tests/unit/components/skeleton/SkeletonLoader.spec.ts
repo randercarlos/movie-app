@@ -7,107 +7,56 @@ describe("SkeletonLoader.vue", () => {
   it("renders correctly", async() => {
     const wrapper = mount(SkeletonLoader);
 
-    const skeletonDiv = wrapper.find("[data-test='skeletonDiv']");
+    const skeletonLoader = wrapper.find("[data-test='SkeletonLoader']");
 
-    expect(skeletonDiv.exists()).toBe(true);
+    expect(skeletonLoader.exists()).toBe(true);
   });
 
-
-  it("renders default type props correctly", async() => {
+  it("renders default props correctly", async() => {
     const wrapper = mount(SkeletonLoader);
 
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
+    const skeletonLoader = wrapper.find("[data-test='SkeletonLoader']");
 
-    expect(skeletonDiv.classes("rounded")).toBe(true);
-    expect(skeletonDiv.classes("rounded-full")).toBe(false);
+    expect(skeletonLoader.classes("rounded-lg")).toBe(true);
   });
 
-  it("renders rectangle type props correctly", async() => {
+  it("renders rectangle shape props correctly", async() => {
     const wrapper = mount(SkeletonLoader, {
       props: {
-        type: "rectangle"
+        shape: "rectangle"
       }
     });
 
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
+    const skeletonLoader = wrapper.find("[data-test='SkeletonLoader']");
 
-    expect(skeletonDiv.classes("rounded")).toBe(true);
-    expect(skeletonDiv.classes("rounded-full")).toBe(false);
+    expect(skeletonLoader.classes("rounded-lg")).toBe(true);
+    expect(skeletonLoader.classes("rounded-full")).toBe(false);
   });
 
-  it("renders circle type props correctly", async() => {
+  it("renders circle shape props correctly", async() => {
     const wrapper = mount(SkeletonLoader, {
       props: {
-        type: "circle"
+        shape: "circle"
       }
     });
 
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
+    const skeletonLoader = wrapper.find("[data-test='SkeletonLoader']");
 
-    expect(skeletonDiv.classes("rounded")).toBe(false);
-    expect(skeletonDiv.classes("rounded-full")).toBe(true);
+    expect(skeletonLoader.classes("rounded-full")).toBe(true);
+    expect(skeletonLoader.classes("rounded-lg")).toBe(false);
   });
 
-
-  it("renders default background color props correctly", async() => {
-    const wrapper = mount(SkeletonLoader);
-
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
-
-    expect(skeletonDiv.classes("bg-gray-600")).toBe(true);
-  });
-
-  it("renders background color props correctly", async() => {
+  it("renders classes props correctly", async() => {
     const wrapper = mount(SkeletonLoader, {
       props: {
-        bgClass: "bg-blue-100"
+        class: "w-50 h-4"
       }
     });
 
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
+    const skeletonLoader = wrapper.find("[data-test='SkeletonLoader']");
 
-    expect(skeletonDiv.classes("bg-blue-100")).toBe(true);
+    expect(skeletonLoader.classes("w-50")).toBe(true);
+    expect(skeletonLoader.classes("h-4")).toBe(true);
   });
 
-  it("renders default css class props correctly", async() => {
-    const wrapper = mount(SkeletonLoader);
-
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
-
-    expect(skeletonDiv.classes()).toHaveLength(4);
-  });
-
-  it("renders css class props correctly", async() => {
-    const wrapper = mount(SkeletonLoader, {
-      props: {
-        cssClass: "text-gray-100"
-      }
-    });
-
-    const skeletonDiv = wrapper.get("[data-test='skeletonDiv']");
-
-    expect(skeletonDiv.classes("text-gray-100")).toBe(true);
-  });
-
-  it.todo("renders default shimmer color props correctly", async() => {
-    const wrapper = mount(SkeletonLoader);
-
-    const skeletonDiv = wrapper.find("[data-test='skeletonDiv'] div");
-
-    // @ts-expect-error only way to test style is using raw javascript
-    expect(skeletonDiv.element.style.backgroundImage).toBe(true);
-  });
-
-  it.todo("renders shimmer color props correctly", async() => {
-    const wrapper = mount(SkeletonLoader, {
-      props: {
-        shimmerColor: "#fa1242"
-      }
-    });
-
-    const skeletonDiv = wrapper.find("[data-test='skeletonDiv'] div");
-
-    // @ts-expect-error only way to test style is using raw javascript
-    expect(skeletonDiv.element.style.backgroundImage).toContain("#fa1242");
-  });
 });

@@ -1,89 +1,36 @@
 <template>
   <div
-    :class="[bgClass, loaderClass, 'relative overflow-hidden']"
-    data-test="skeletonDiv"
+    data-test="SkeletonLoader"
+    :class="[
+      'relative overflow-hidden bg-gray-200 dark:bg-gray-800',
+      props.shape === 'circle' ? 'rounded-full' : 'rounded-lg',
+    ]"
   >
-    <div
-      class="shimmer absolute top-0 right-0 bottom-0 left-0"
-      :style="shimmerStyle"
-    />
-    <slot />
+    <!-- eslint-disable-next-line max-len -->
+    <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white to-transparent dark:via-gray-700 opacity-50 animate-shimmer" />
   </div>
 </template>
 
-<script lang="ts">
-const LOADER_TYPES = { rectangle: "rectangle", circle: "circle" };
-
-const LOADER_CSS_CLASSES = {
-  [LOADER_TYPES.rectangle]: "rounded",
-  [LOADER_TYPES.circle]: "rounded-full",
-};
-
-type LoaderTypesKeys = keyof typeof LOADER_TYPES;
-type LoaderTypesValues = typeof LOADER_TYPES[LoaderTypesKeys];
-
-const SHIMMER_COLOR = "255, 255, 255";
-
-const isHexColor = (hexColor: string) => {
-  const hex = hexColor.replace("#", "");
-
-  return typeof hexColor === "string" && hexColor.startsWith("#")
-    && hex.length === 6 && !isNaN(Number("0x" + hex));
-};
-
-const hexToRgb = (hex: string) => `${hex.match(/\w\w/g)?.map((x) => +`0x${x}`)}`;
-</script>
-
 <script setup lang="ts">
-import { computed, toRefs } from "vue";
 
+// Props for the component
 const props = defineProps({
-  type: {
+  shape: {
     type: String,
-    default: LOADER_TYPES.rectangle,
-    validator(value: LoaderTypesValues) {
-      return Object.values(LOADER_TYPES).includes(value);
-    },
-  },
-  bgClass: {
-    type: String,
-    default: "bg-gray-600",
-  },
-  cssClass: {
-    type: String,
-    default: "",
-  },
-  shimmerColor: {
-    type: String,
-    default: SHIMMER_COLOR,
-  },
+    default: "rectangle", // 'rectangle' or 'circle'
+    validator: (value: string) => ["rectangle", "circle"].includes(value)
+  }
 });
-
-const { type, bgClass, cssClass, shimmerColor } = toRefs(props);
-
-const shimmerStyle = computed(() => {
-  const rgb = isHexColor(shimmerColor.value) ? hexToRgb(shimmerColor.value) : SHIMMER_COLOR;
-
-  return {
-    backgroundImage: `linear-gradient(90deg, rgba(${rgb}, 0) 0%, rgba(${rgb}, 0.1) 20%, ` +
-    `rgba(${rgb}, 0.2) 60%, rgba(${rgb}, 0))`,
-
-  };
-});
-
-const loaderClass = computed(() =>
-  (cssClass.value ? cssClass.value : LOADER_CSS_CLASSES[type.value]));
 </script>
 
-<style lang="css" scoped>
-.shimmer {
-  transform: translateX(-100%);
-  animation: shimmer 1.5s infinite;
-}
-
+<style scoped>
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
   }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.3s infinite;
 }
 </style>
