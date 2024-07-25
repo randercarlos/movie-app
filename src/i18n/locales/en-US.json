@@ -1,5 +1,6 @@
 {
   "general": {
+    "title": "Movies and TV Shows | Created By Rander Carlos"
   },
   "header": {
     "menu": {
@@ -17,7 +18,8 @@
     }
   },
   "footer": {
-    "poweredBy": "Powered by"
+    "poweredBy": "Powered by",
+    "createdBy": "CreatedBy"
   },
   "movies": {
     "popularMovies": "Popular Movies",

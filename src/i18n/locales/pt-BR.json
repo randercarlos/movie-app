@@ -1,5 +1,6 @@
 {
   "general": {
+    "title": "Filmes e Séries | Criado por Rander Carlos"
   },
   "header": {
     "menu": {
@@ -17,7 +18,8 @@
     }
   },
   "footer": {
-    "poweredBy": "Baseado em"
+    "poweredBy": "Baseado em",
+    "createdBy": "Criado por"
   },
   "movies": {
     "popularMovies": "Filmes Populares",
