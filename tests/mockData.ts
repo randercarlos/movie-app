@@ -1541,11 +1541,62 @@ export const actorDetailsWithDefaultImagesResponseMock: Nullable<ActorDetailsRes
   }
 };
 
-export const actorDetailsWithDefaultImagesMock: Nullable<ActorDetails> = {
+export const actorDetailsWithDefaultImagesMock: Partial<ActorDetails> = {
   ...actorDetailsMock,
   "actor": {
     ...actorDetailsMock.actor,
     profile_path: "https://placehold.co/500x750"
+  },
+  "social": {
+    ...actorDetailsMock.social,
+    "twitter": null,
+    "facebook": null,
+    "instagram": null,
+    "youtube": null,
+    "tiktok": null,
+    "wikipedia": null
+  },
+  "knownForMovies": [
+    {
+      ...actorDetailsMock.knownForMovies[0],
+      title: "Untitled",
+      poster_path: "https://placehold.co/185x278"
+    },
+    {
+      ...actorDetailsMock.knownForMovies[1],
+      title: "Untitled",
+      poster_path: "https://placehold.co/185x278"
+    }
+  ],
+  "credits": [
+    {
+      ...actorDetailsMock.credits[1],
+      title: "Untitled",
+      character: "",
+      release_date: "Future",
+      release_year: "Future"
+    },
+    {
+      ...actorDetailsMock.credits[0],
+      title: "Untitled",
+      character: "",
+      release_date: "Future",
+      release_year: "Future"
+    },
+  ],
+  "images": [
+    {
+      imageUrl: "https://placehold.co/400x600"
+    },
+  ]
+};
+
+export const actorDetailsWithoutSocialMock: Partial<ActorDetails> = {
+  ...actorDetailsMock,
+  "actor": {
+    ...actorDetailsMock.actor,
+    profile_path: "https://placehold.co/500x750",
+    homepage: null
   },
   "social": {
     ...actorDetailsMock.social,
