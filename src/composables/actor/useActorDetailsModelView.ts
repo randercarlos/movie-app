@@ -39,7 +39,8 @@ export function useActorDetailsModelView(actorDetailsResponse: MaybeRef<ActorDet
       "tiktok": actorDetailsResponseValue.external_ids.tiktok_id
         ? `https://tiktok.com/${actorDetailsResponseValue.external_ids.tiktok_id}` : null,
       "wikipedia": actorDetailsResponseValue.external_ids.wikidata_id
-        ? `https://wikipedia.com/${actorDetailsResponseValue.external_ids.wikidata_id}` : null,
+        ? `https://www.wikidata.org/wiki/${actorDetailsResponseValue.external_ids.wikidata_id}`
+        : null,
     })
     .only([
       "facebook", "instagram", "twitter", "youtube", "tiktok", "wikipedia"
