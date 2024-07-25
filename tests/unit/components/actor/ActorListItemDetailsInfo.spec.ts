@@ -1,8 +1,8 @@
-import { actorDetailsMock } from "#/mockData";
+import { actorDetailsMock, actorDetailsWithoutSocialMock } from "#/mockData";
 import { describe, expect, it } from "vitest";
 import { RouterLinkStub, mount, } from "@vue/test-utils";
 import ActorListItemDetailsInfo from "@/components/actor/ActorListItemDetailsInfo.vue";
-import type { ActorDetailsMovies } from "@/typings/interfaces";
+import type { ActorDetails, ActorDetailsMovies } from "@/typings/interfaces";
 import { I18nGlobalLocales } from "@/typings/enums";
 import { changeI18nGlobalLocale } from "#/unit/setupTests";
 import ptBR from "@/i18n/locales/pt-BR.json";
@@ -26,14 +26,6 @@ describe("ActorListItemDetailsInfo.vue", () => {
     const actorImageProfilePath = wrapper.get(".actor-info img");
     expect(actorImageProfilePath.attributes("src")).toBe(actorDetails.actor.profile_path);
 
-    const socialLinks = wrapper.findAll(".actor-info ul li a");
-    expect(socialLinks?.at(0)?.attributes("href")).toBe(actorDetails.social?.facebook);
-    expect(socialLinks?.at(1)?.attributes("href")).toBe(actorDetails.social?.instagram);
-    expect(socialLinks?.at(2)?.attributes("href")).toBe(actorDetails.social?.twitter);
-    expect(socialLinks?.at(3)?.attributes("href")).toBe(actorDetails.social?.youtube);
-    expect(socialLinks?.at(4)?.attributes("href")).toBe(actorDetails.social?.tiktok);
-    expect(socialLinks?.at(5)?.attributes("href")).toBe(actorDetails.social?.wikipedia);
-    expect(socialLinks?.at(6)?.attributes("href")).toBe(actorDetails.actor?.homepage);
 
     expect(wrapper.text()).toContain(actorDetails.actor?.name);
     expect(wrapper.text()).toContain(actorDetails.actor?.birthday);
@@ -58,6 +50,48 @@ describe("ActorListItemDetailsInfo.vue", () => {
       });
       index++;
     });
+  });
+
+  it("renders socials media", async() => {
+    const wrapper = mount(ActorListItemDetailsInfo, {
+      props: {
+        actorDetails
+      },
+      global: {
+        stubs: {
+          RouterLink: RouterLinkStub
+        }
+      }
+    });
+
+    const socialMediasLinks = wrapper.findAll("ul li a");
+
+    socialMediasLinks.forEach(link => console.log(link.attributes("href")));
+    console.log(actorDetailsMock.social.facebook);
+    expect(socialMediasLinks.at(0)?.attributes("href")).toBe(actorDetailsMock.social.facebook);
+    expect(socialMediasLinks.at(1)?.attributes("href")).toBe(actorDetailsMock.social.instagram);
+    expect(socialMediasLinks.at(2)?.attributes("href")).toBe(actorDetailsMock.social.twitter);
+    expect(socialMediasLinks.at(3)?.attributes("href")).toBe(actorDetailsMock.social.youtube);
+    expect(socialMediasLinks.at(4)?.attributes("href")).toBe(actorDetailsMock.social.tiktok);
+    expect(socialMediasLinks.at(5)?.attributes("href")).toBe(actorDetailsMock.social.wikipedia);
+    expect(socialMediasLinks.at(6)?.attributes("href")).toBe(actorDetailsMock.actor.homepage);
+  });
+
+  it("renders no socials media", async() => {
+    const wrapper = mount(ActorListItemDetailsInfo, {
+      props: {
+        actorDetails: actorDetailsWithoutSocialMock as ActorDetails
+      },
+      global: {
+        stubs: {
+          RouterLink: RouterLinkStub
+        }
+      }
+    });
+
+    const socialMediasLinks = wrapper.findAll("ul li a");
+
+    expect(socialMediasLinks).toHaveLength(0);
   });
 
   it("show texts in en-US locale(default)", () => {
