@@ -8,7 +8,7 @@
           class="w-64 lg:w-120"
         >
       </div>
-      <div class="md:ml-24">
+      <div class="md:ml-8">
         <h2 class="text-4xl mt-4 md:mt-0 font-semibold">
           {{ props.movieDetails?.title }}
         </h2>

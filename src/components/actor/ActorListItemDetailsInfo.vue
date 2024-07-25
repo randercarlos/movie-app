@@ -12,6 +12,7 @@
             <a
               :href="props.actorDetails?.social.facebook"
               title="Facebook"
+              target="_blank"
             >
               <svg
                 class="fill-current text-gray-400 hover:text-white w-6"
@@ -29,8 +30,8 @@
           >
             <a
               :href="props.actorDetails?.social.instagram"
-              target="_blank"
               title="Instagram"
+              target="_blank"
             >
               <svg
                 class="fill-current text-gray-400 hover:text-white w-6"
@@ -68,7 +69,7 @@
             <a
               :href="props.actorDetails?.social.youtube"
               target="_blank"
-              title="Twitter"
+              title="Youtube"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +90,7 @@
             <a
               :href="props.actorDetails?.social.tiktok"
               target="_blank"
-              title="Twitter"
+              title="Tiktok"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +111,7 @@
             <a
               :href="props.actorDetails?.social.wikipedia"
               target="_blank"
-              title="Twitter"
+              title="Wikipedia"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +147,7 @@
       </div>
 
 
-      <div class="md:ml-24">
+      <div class="md:ml-8">
         <h2 class="text-4xl mt-4 md:mt-0 font-semibold">
           {{ props.actorDetails?.actor.name }}
         </h2>
