@@ -35,20 +35,26 @@ const i18nOptions = computed(() => {
 });
 
 onMounted(() => {
+  // set global app locale
   appGlobalLocale.value = sessionStorage.getItem("currentAppGlobalLocale")
     ?? I18nGlobalLocales.enUS;
 });
 
 watch(appGlobalLocale, (newLocale) => {
-  moment.locale(newLocale.toLowerCase());
+  // change locale for all dates handle by moment.js
+  changeMomentDateLocale(newLocale);
 });
 
-function toggleLanguage() {
+function toggleLanguage(): void {
   let newLocale = appGlobalLocale.value === I18nGlobalLocales.enUS
     ? I18nGlobalLocales.ptBR
     : I18nGlobalLocales.enUS;
 
   appGlobalLocale.value = newLocale;
   sessionStorage.setItem("currentAppGlobalLocale", newLocale);
+}
+
+function changeMomentDateLocale(locale: string): void {
+  moment.locale(locale.toLowerCase());
 }
 </script>
