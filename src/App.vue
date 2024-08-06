@@ -14,7 +14,10 @@
     <template v-if="Component">
       <Suspense>
         <template #default>
-          <component :is="Component" />
+          <component
+            :is="Component"
+            :key="currentComponentKey"
+          />
         </template>
         <template #fallback>
           <!-- Keep skeleton components in memory due to once loaded, it don't change -->
@@ -33,10 +36,36 @@
 import TheHeader from "@/components/template/TheHeader.vue";
 import TheFooter from "@/components/template/TheFooter.vue";
 import { Notivue, Notification, push, pastelTheme, NotificationProgress } from "notivue";
-import { onErrorCaptured, type Component as VueComponent } from "vue";
+import { onErrorCaptured, onMounted, ref, watch, type Component as VueComponent } from "vue";
 import CONFIG from "./config";
 import PageSkeleton from "@/components/skeleton/PageSkeleton.vue";
 import PageDetailsSkeleton from "@/components/skeleton/PageDetailsSkeleton.vue";
+import { useI18n } from "vue-i18n";
+import moment from "moment";
+import { useTitle } from "@vueuse/core";
+
+const { locale: appLocale, t } = useI18n({ useScope: "global" });
+const currentComponentKey = ref(0);
+const title = useTitle();
+
+onMounted(() => {
+  updateAppTitle();
+});
+// when app's locale is changed, remounts the component to fetch data with new locale
+watch(appLocale, () => {
+  remountCurrentComponent();
+  updateAppTitle();
+});
+
+function updateAppTitle(): void {
+  // change current document's title
+  title.value = t("general.title");
+}
+
+function remountCurrentComponent(): void {
+  // on change component's key, the component is remounted
+  currentComponentKey.value = moment().valueOf();
+}
 
 function getSkeletonComponentForRouteName(routeName: string): VueComponent {
   const routeNameToSkeletonComponentMap: Record<string, VueComponent> = {
@@ -54,7 +83,7 @@ function getSkeletonComponentForRouteName(routeName: string): VueComponent {
 onErrorCaptured((err) => {
   const defaultMsg = "A error happened. Try again later. If error persists, contact support.";
   const msg = CONFIG.APP_IS_DEV
-    ? (err.message ?? defaultMsg)
+    ? (err.message !== "" ? err.message: defaultMsg)
     : defaultMsg;
 
   push.error({
