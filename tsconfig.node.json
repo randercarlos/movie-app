@@ -9,6 +9,13 @@
   "include": [
     "vite.config.ts",
     "playwright.config.ts",
-    ".eslintrc.cjs"
-  ]
+    ".eslintrc.cjs",
+    // "./tests/mockData.ts",
+    // "tests/unit/globalSetup.ts",
+    // "tests/e2e/globalSetup.ts",
+  ],
+  // "exclude": [
+  //   "node_modules",
+  //   "**/*.d.ts"
+  // ]
 }
