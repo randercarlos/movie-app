@@ -4,7 +4,7 @@ import ActorListItemDetailsCredits from "@/components/actor/ActorListItemDetails
 import { actorDetailsMock } from "#/mockData";
 import type { ActorDetailsCredits } from "@/typings/interfaces";
 import { getYearFromDate } from "@/utils/helper";
-import { changeI18nGlobalLocale } from "#/unit/setupTests";
+import { changeI18nGlobalLocale } from "#/unit/globalSetup.unit";
 import { I18nGlobalLocales } from "@/typings/enums";
 import ptBR from "@/i18n/locales/pt-BR.json";
 import enUS from "@/i18n/locales/en-US.json";

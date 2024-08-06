@@ -4,7 +4,7 @@ import TheFooter from "@/components/template/TheFooter.vue";
 import enUS from "@/i18n/locales/en-US.json";
 import ptBR from "@/i18n/locales/pt-BR.json";
 import { I18nGlobalLocales } from "@/typings/enums";
-import { changeI18nGlobalLocale } from "#/unit/setupTests";
+import { changeI18nGlobalLocale } from "#/unit/globalSetup.unit";
 
 describe("TheFooter.vue", () => {
   it("renders correctly", async() => {

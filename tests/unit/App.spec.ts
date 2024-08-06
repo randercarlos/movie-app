@@ -1,3 +1,5 @@
+import ptBR from "@/i18n/locales/pt-BR.json";
+import enUS from "@/i18n/locales/en-US.json";
 /* eslint-disable vue/one-component-per-file */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
@@ -10,10 +12,21 @@ import {
 import { push } from "notivue";
 import PageSkeleton from "@/components/skeleton/PageSkeleton.vue";
 import PageDetailsSkeleton from "@/components/skeleton/PageDetailsSkeleton.vue";
+import CONFIG from "@/config";
+import { changeI18nGlobalLocale } from "./globalSetup.unit";
+import { I18nGlobalLocales } from "@/typings/enums";
+import { useTitle } from "@vueuse/core";
 
-const ErrorComponent = defineComponent({
+const ErrorComponentWithErrorMsg = defineComponent({
   async setup() {
     await Promise.reject(new Error("Oops"));
+  },
+  template: "Error"
+});
+
+const ErrorComponentWithoutErrorMsg = defineComponent({
+  async setup() {
+    await Promise.reject(new Error(""));
   },
   template: "Error"
 });
@@ -27,16 +40,22 @@ const router  = createRouterMock({
   routes: [
     { path: "/movies", name: "movies", component: PageSkeleton },
     { path: "/movies/:movieId(\\d+)", name: "movie", component: PageDetailsSkeleton },
-    { path: "/error", component: ErrorComponent }
+    { path: "/error", component: ErrorComponentWithErrorMsg },
+    { path: "/error2", component: ErrorComponentWithoutErrorMsg },
   ]
 });
 
 describe("App.vue", () => {
-
   beforeEach(() => {
+    // important. Resets the router to previous tests doesn't affect next tests
+    router.reset();
+
     // inject it globally to ensure `useRoute()`, `$route`, etc work
     // properly and give you access to test specific functions
     injectRouterMock(router);
+
+    // closes any opened push notifications opened during tests to not affect subsequent tests
+    push.destroyAll();
   });
 
   it("renders correctly", () => {
@@ -102,15 +121,60 @@ describe("App.vue", () => {
     expect(pageDetailsSkeleton.exists()).toBe(true);
   });
 
-  it("show error notification alert if error ", async() => {
+  it("shows error notification alert if error ", async() => {
     const pushSpy = vi.spyOn(push, "error");
 
     await router.push("/error");
 
-    expect(pushSpy).toHaveBeenCalled();
     expect(pushSpy).toHaveBeenCalledWith({
       "title": "Error",
       "message": "Oops",
     });
+  });
+
+  it("shows generic error message if error message is not defined", async() => {
+    const pushSpy = vi.spyOn(push, "error");
+
+    await router.push("/error2");
+
+    expect(pushSpy).toHaveBeenCalledWith({
+      "title": "Error",
+      "message": "A error happened. Try again later. If error persists, contact support."
+    });
+  });
+
+  it("shows generic error message is not in dev mode", async() => {
+    const pushSpy = vi.spyOn(push, "error");
+
+    // simulates that is not in dev mode
+    CONFIG["APP_IS_DEV"] = false;
+    await router.push("/error2");
+
+    expect(pushSpy).toHaveBeenCalledWith({
+      "title": "Error",
+      "message": "A error happened. Try again later. If error persists, contact support."
+    });
+  });
+
+  it("updates document titles to en-US when app's locale is changed to en-US", async() => {
+    // change global locale to en-US
+    changeI18nGlobalLocale(I18nGlobalLocales.enUS);
+
+    await router.push("/movies");
+
+    const title = useTitle();
+
+    expect(title.value).toBe(enUS.general.title);
+  });
+
+  it("updates document titles to pt-BR when app's locale is changed to pt-BR", async() => {
+    // change global locale to en-US
+    changeI18nGlobalLocale(I18nGlobalLocales.ptBR);
+
+    await router.push("/movies");
+
+    const title = useTitle();
+
+    expect(title.value).toBe(ptBR.general.title);
   });
 });

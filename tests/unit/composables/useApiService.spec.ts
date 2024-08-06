@@ -1,7 +1,7 @@
 import { useApiService } from "@/composables/useApiService";
 import { useFetch } from "@vueuse/core";
 import { describe, expect, it, vi } from "vitest";
-import { changeI18nGlobalLocale } from "../setupTests";
+import { changeI18nGlobalLocale } from "../globalSetup.unit";
 import { I18nGlobalLocales } from "@/typings/enums";
 import nock from "nock";
 import CONFIG from "@/config";
@@ -22,10 +22,10 @@ describe("useApiService.ts", () => {
       .get("/configuration/primary_translations")
       .query({ language: "pt-BR"})
       .reply(200, configurationTranslationsMock);
-      
+
     const logSpy = vi.spyOn(helperFile, "log");
     const addQueryStringToURLSpy = vi.spyOn(helperFile, "addQueryStringToURL");
-      
+
     // change global locale before load component
     changeI18nGlobalLocale(I18nGlobalLocales.ptBR);
     const { apiService } = useApiService();
@@ -33,7 +33,7 @@ describe("useApiService.ts", () => {
       .get()
       .json();
 
-    expect(data).not.toBeNull();  
+    expect(data).not.toBeNull();
     expect(logSpy).toHaveBeenCalled();
     expect(addQueryStringToURLSpy).toHaveBeenCalled();
   });
@@ -47,7 +47,7 @@ describe("useApiService.ts", () => {
         "status_code": 34,
         "status_message": "The resource you requested could not be found."
       });
-    
+
     const ErrorSpy = vi.spyOn(global, "Error");
     const handleErrorSpy = vi.spyOn(handleErrorFile, "handleError");
 

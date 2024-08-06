@@ -4,7 +4,7 @@ import TheNavigation from "@/components/template/TheNavigation.vue";
 import enUS from "@/i18n/locales/en-US.json";
 import ptBR from "@/i18n/locales/pt-BR.json";
 import { I18nGlobalLocales  } from "@/typings/enums";
-import { changeI18nGlobalLocale } from "#/unit/setupTests";
+import { changeI18nGlobalLocale } from "#/unit/globalSetup.unit";
 
 describe("TheNavigation.vue", () => {
   it("renders correctly", () => {
@@ -42,7 +42,7 @@ describe("TheNavigation.vue", () => {
     const menuLinks = wrapper.findAllComponents(RouterLinkStub);
 
     expect(menuLinks[0].props().to).toBe("/");
-    expect(menuLinks[0].html()).toContain("svg");
+    expect(menuLinks[0].html()).toContain("img");
   });
 
   it("renders avatar correctly", () => {
@@ -92,7 +92,7 @@ describe("TheNavigation.vue", () => {
     const menuLinks = wrapper.findAllComponents(RouterLinkStub);
 
     expect(menuLinks[0].props().to).toBe("/");
-    expect(menuLinks[0].html()).toContain("svg");
+    expect(menuLinks[0].html()).toContain("img");
     expect(menuLinks[1].props().to).toEqual({ name: "movies" });
     expect(menuLinks[2].props().to).toEqual({ name: "tvShows" });
     expect(menuLinks[3].props().to).toEqual({ name: "actors" });

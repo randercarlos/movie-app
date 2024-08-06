@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { mount } from "@vue/test-utils";
 import { I18nGlobalLocales  } from "@/typings/enums";
 import HeaderThemeButton from "@/components/inputs/HeaderThemeButton.vue";
-import { changeI18nGlobalLocale } from "#/unit/setupTests";
+import { changeI18nGlobalLocale } from "#/unit/globalSetup.unit";
 import enUS from "@/i18n/locales/en-US.json";
 import ptBR from "@/i18n/locales/pt-BR.json";
 

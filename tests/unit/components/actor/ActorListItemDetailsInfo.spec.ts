@@ -4,7 +4,7 @@ import { RouterLinkStub, mount, } from "@vue/test-utils";
 import ActorListItemDetailsInfo from "@/components/actor/ActorListItemDetailsInfo.vue";
 import type { ActorDetails, ActorDetailsMovies } from "@/typings/interfaces";
 import { I18nGlobalLocales } from "@/typings/enums";
-import { changeI18nGlobalLocale } from "#/unit/setupTests";
+import { changeI18nGlobalLocale } from "#/unit/globalSetup.unit";
 import ptBR from "@/i18n/locales/pt-BR.json";
 import enUS from "@/i18n/locales/en-US.json";
 
