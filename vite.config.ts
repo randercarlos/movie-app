@@ -30,7 +30,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: [
-      "./tests/unit/setupTests.ts",
+      "./tests/unit/globalSetup.unit.ts",
     ],
     include: ["./tests/unit/**/*.{test,spec}.?(c|m)[jt]s"],
     exclude: [...configDefaults.exclude, "./tests/e2e/**"],
@@ -50,7 +50,7 @@ export default defineConfig({
         "src/index.d.ts",
         "src/typings/*.ts",
       ],
-      reportsDirectory: "./tests-coverage",
+      reportsDirectory: "./test-results/vitest-coverage",
       reporter: ["json", "html"],
     }
   }
