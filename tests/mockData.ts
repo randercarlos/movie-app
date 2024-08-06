@@ -1435,7 +1435,7 @@ export const actorDetailsMock: ActorDetails = {
     "instagram": "https://instagram.com/jasonmomoa",
     "youtube": "https://youtube.com/jasonmomoa",
     "tiktok": "https://tiktok.com/jasonmomoa",
-    "wikipedia": "https://wikipedia.com/jasonmomoa",
+    "wikipedia": "https://www.wikidata.org/wiki/jasonmomoa",
   },
   "knownForMovies": [
     {
