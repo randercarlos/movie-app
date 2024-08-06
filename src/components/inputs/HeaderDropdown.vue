@@ -58,7 +58,7 @@
             >
               <img
                 v-if="getImagePathFrom(result)"
-                :src="`https://image.tmdb.org/t/p/w45/${getImagePathFrom(result)}`"
+                :src="`https://image.tmdb.org/t/p/w45${getImagePathFrom(result)}`"
                 alt="poster"
                 class="w-8"
               >
