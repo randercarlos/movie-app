@@ -4,17 +4,23 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests/e2e",
   testMatch: /.*\.e2e-spec\.ts$/,
-  timeout: 0,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,  // limit workers to prevent parallelism and timeout
   reporter: [
     ["list"],
-    ["html", { outputFolder: "./test-results/playwright-report"}],
+    ["html", { outputFolder: "./test-results/playwright-report"}]
   ],
+  expect: {
+    timeout: 10 * 1000, // increase timeout for expect
+  },
   use: {
     baseURL: process.env.VITE_BASE_URL,
+    trace: "on-first-retry",
+    launchOptions: {
+      slowMo: 1000
+    }
   },
   /* Configure projects for major browsers */
   projects: [
@@ -63,7 +69,7 @@ export default defineConfig({
     //   },
     // },
   ],
-  outputDir: "./test-results",
+  outputDir: "test-results",
   webServer: {
     command: process.env.CI ? "pnpm run preview" : "pnpm run dev",
     port: 5173,
