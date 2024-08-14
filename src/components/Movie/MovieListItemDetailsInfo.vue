@@ -5,7 +5,7 @@
         <img
           :src="props.movieDetails?.poster_path"
           alt="poster"
-          class="w-64 lg:w-120"
+          class="w-64 md:w-90 lg:w-120"
         >
       </div>
       <div class="md:ml-8">
