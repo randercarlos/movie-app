@@ -47,7 +47,7 @@ const isLoadingPopularActors = ref<boolean>(true);
 await loadActors();
 
 const { arrivedState } = useScroll(document, {
-  offset: { bottom: 300 },
+  offset: { bottom: 100 },
 });
 
 // watch with delay when value change
@@ -59,7 +59,6 @@ watchDebounced(arrivedState, () => {
 { debounce: 200, maxWait: 2000 });  // delay 200ms with max wait 2000ms
 
 async function onScrollBottom()  {
-  console.log("DENTRO DO onScrollBottom");
   isLoadingPopularActors.value = true;
   popularActorsPage.value++;  // each scroll bottom, increase the page number to fetch more actors
   await loadActors();
@@ -68,7 +67,6 @@ async function onScrollBottom()  {
 
 async function loadActors() {
   try {
-    console.log("DENTRO DO loadActors");
     const { data: popularActorsResponse } = await usePopularActors(popularActorsPage);
     const { data: popularActorsModelView } = useActorsModelView(
     popularActorsResponse as MaybeRef<ActorResponse>
@@ -76,7 +74,6 @@ async function loadActors() {
     // adds/merges popular actors loaded by scroll bottom with already loaded popular actors
     popularActors.value = [...popularActors.value, ...popularActorsModelView.value];
   } catch(err: unknown) {
-    console.log("OCORREU UM ERRO");
     handleError("Error on show actors.", err as Error);
   }
 }
