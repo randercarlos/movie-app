@@ -1360,7 +1360,7 @@ export const popularActorsMock: Actor[] = [
     "id": 6161,
     "known_for": "A Beautiful Mind, Requiem for a Dream, Noah",
     "name": "Jennifer Connelly",
-    "profile_path": "https://ui-avatars.com/api/?size=300&name=Jennifer Connelly"
+    "profile_path": "https://image.tmdb.org/t/p/w300/pviRYKFEmoPUfLYwP1VHJ6LQcOl.jpg"
   },
 ];
 
@@ -1507,7 +1507,7 @@ export const actorDetailsMock: ActorDetails = {
     "name": "Jason Momoa",
     "place_of_birth": "Honolulu, Hawaii, USA",
     "profile_path": "https://image.tmdb.org/t/p/w500/6dEFBpZH8C8OijsynkSajQT99Pb.jpg",
-    "age": 44
+    "age": 45
   },
   "social": {
     "twitter": "https://twitter.com/jasonmomoa",
