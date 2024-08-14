@@ -14,10 +14,10 @@
           <a
             href="#"
             @click.prevent="openMovieImageModalWithFile
-              (`https://image.tmdb.org/t/p/original/${image?.file_path}`)"
+              (`https://image.tmdb.org/t/p/original${image?.file_path}`)"
           >
             <img
-              :src="`https://image.tmdb.org/t/p/w500/${image?.file_path}`"
+              :src="`https://image.tmdb.org/t/p/w500${image?.file_path}`"
               alt="images"
               class="transition duration-150 ease-in-out hover:opacity-75"
             >
