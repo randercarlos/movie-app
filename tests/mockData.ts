@@ -932,7 +932,47 @@ export const tvShowDetailsResponseMock: TvShowDetailsResponse = {
         "order": 7
       },
     ],
-    "crew": []
+    "crew": [
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1255712,
+        "known_for_department": "Writing",
+        "name": "John Tree",
+        "original_name": "박재범",
+        "popularity": 22.815,
+        "profile_path": "/hS96Gb7vGebNgo1wQOcnRSVXxkQ.jpg",
+        "credit_id": "659dde537776f0014829716a",
+        "department": "Writing",
+        "job": "Original Series Creator"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 32464,
+        "known_for_department": "Writing",
+        "name": "John Duo",
+        "original_name": "박재범",
+        "popularity": 22.815,
+        "profile_path": "/hS96Gb7vGebNgo1wQOcnRSVXxkQ.jpg",
+        "credit_id": "659dde537776f0014829716a",
+        "department": "Writing",
+        "job": "Creator"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 32464,
+        "known_for_department": "Writing",
+        "name": "Karina Berins",
+        "original_name": "박재범",
+        "popularity": 22.815,
+        "profile_path": "/hS96Gb7vGebNgo1wQOcnRSVXxkQ.jpg",
+        "credit_id": "659dde537776f0014829716a",
+        "department": "Writing",
+        "job": "Actress"
+      }
+    ]
   },
   "images": {
     "backdrops": [
@@ -1026,7 +1066,47 @@ export const tvShowDetailsMock: TvShowDetails = {
         "order": 7
       }
     ],
-    "crew": []
+    "crew": [
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1255712,
+        "known_for_department": "Writing",
+        "name": "John Tree",
+        "original_name": "박재범",
+        "popularity": 22.815,
+        "profile_path": "/hS96Gb7vGebNgo1wQOcnRSVXxkQ.jpg",
+        "credit_id": "659dde537776f0014829716a",
+        "department": "Writing",
+        "job": "Original Series Creator"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 32464,
+        "known_for_department": "Writing",
+        "name": "John Duo",
+        "original_name": "박재범",
+        "popularity": 22.815,
+        "profile_path": "/hS96Gb7vGebNgo1wQOcnRSVXxkQ.jpg",
+        "credit_id": "659dde537776f0014829716a",
+        "department": "Writing",
+        "job": "Creator"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 32464,
+        "known_for_department": "Writing",
+        "name": "Karina Berins",
+        "original_name": "박재범",
+        "popularity": 22.815,
+        "profile_path": "/hS96Gb7vGebNgo1wQOcnRSVXxkQ.jpg",
+        "credit_id": "659dde537776f0014829716a",
+        "department": "Writing",
+        "job": "Actress"
+      }
+    ]
   },
   "images": [
     {
@@ -1191,7 +1271,7 @@ export const popularActorsResponseMock: ActorResponse = {
       "name": "Jennifer Connelly",
       "original_name": "Jennifer Connelly",
       "popularity": 96.128,
-      "profile_path": null,
+      "profile_path": "/pviRYKFEmoPUfLYwP1VHJ6LQcOl.jpg",
       "known_for": [
         {
           "backdrop_path": "/vVBcIN68kFq681b4lObiNJhEVro.jpg",
@@ -1260,7 +1340,7 @@ export const popularActorsResponseMock: ActorResponse = {
     },
   ],
   "total_pages": 1,
-  "total_results": 2
+  "total_results": 3
 };
 
 export const popularActorsMock: Actor[] = [
