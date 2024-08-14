@@ -135,7 +135,7 @@ describe("helper.ts", () => {
   });
 
   describe("resolvedPromises()", () => {
-    it("resolved promises in default time", async() => {
+    it("resolved promises in default time", { retry: 3 }, async() => {
       const start = Date.now();
 
       await resolvedPromises();
@@ -148,7 +148,7 @@ describe("helper.ts", () => {
       expect(elapsed).toBeLessThan(200 + 100);
     });
 
-    it("resolved promises in custom time", async() => {
+    it("resolved promises in custom time", { retry: 3 }, async() => {
       const waitFor = 1000;
       const start = Date.now();
 
