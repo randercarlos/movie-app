@@ -24,7 +24,7 @@ describe("TvShowListItemDetailsImages.vue", () => {
 
     let tvShowImage = "";
     tvShowDetailsImages?.forEach((tvShowDetailsImage, index) => {
-      tvShowImage = `https://image.tmdb.org/t/p/w500/${tvShowDetailsImage.file_path}`;
+      tvShowImage = `https://image.tmdb.org/t/p/w500${tvShowDetailsImage.file_path}`;
 
       // check if there is a tag <img src=""/>  for each image in tvShowDetais.images
       expect(tvShowImages.at(index)?.attributes("src")).toBe(tvShowImage);
@@ -41,7 +41,7 @@ describe("TvShowListItemDetailsImages.vue", () => {
     expect(tvShowImageModal.isVisible()).toBe(false);
 
     tvShowImageLinks?.forEach(async(tvShowImageLink, index) => {
-      tvShowImageOriginal = `https://image.tmdb.org/t/p/original/${tvShowDetailsImages?.
+      tvShowImageOriginal = `https://image.tmdb.org/t/p/original${tvShowDetailsImages?.
         at(index)?.file_path}`;
 
       // click on link to open tvShow image modal
