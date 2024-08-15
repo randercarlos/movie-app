@@ -1,5 +1,5 @@
 <template>
-  <div class="actor-images">
+  <div class="actor-images border-b border-gray-800 light:border-gray-300">
     <div class="container mx-auto px-4 py-16">
       <h2 class="text-4xl font-semibold">
         {{ t("actor.images") }}
