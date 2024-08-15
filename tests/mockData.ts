@@ -229,7 +229,7 @@ export const popularMoviesMock: Movie[] = [
         + "make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, "
         + "Fear and Disgust, who’ve long been running a successful operation by all accounts, "
         + "aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
-    "poster_path": "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+    "poster_path": "https://image.tmdb.org/t/p/w300/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
     "release_date": "Jun 11, 2024",
     "title": "Inside Out 2",
     "vote_average": "77.08%"
@@ -242,7 +242,7 @@ export const popularMoviesMock: Movie[] = [
         + " to the Gru family, Gru Jr., who is intent on tormenting his dad. Meanwhile, Gru "
         + "faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, "
         + "forcing the family to go on the run.",
-    "poster_path": "https://placehold.co/500x750",
+    "poster_path": "https://placehold.co/275x412",
     "release_date": "Jun 20, 2024",
     "title": "Despicable Me 4",
     "vote_average": "76.13%"
@@ -258,7 +258,7 @@ export const nowPlayingMoviesMock: Movie[] = [
       + "room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and"
       + " Disgust, who’ve long been running a successful operation by all accounts, aren’t sure "
       + "how to feel when Anxiety shows up. And it looks like she’s not alone.",
-    "poster_path": "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+    "poster_path": "https://image.tmdb.org/t/p/w300/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
     "release_date": "Jun 11, 2024",
     "title": "Inside Out 2",
     "vote_average": "77.09%"
@@ -271,7 +271,7 @@ export const nowPlayingMoviesMock: Movie[] = [
       + "to the Gru family, Gru Jr., who is intent on tormenting his dad. Meanwhile, Gru faces a "
       + "new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the "
       + "family to go on the run.",
-    "poster_path": "https://image.tmdb.org/t/p/w500/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
+    "poster_path": "https://image.tmdb.org/t/p/w300/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
     "release_date": "Jun 20, 2024",
     "title": "Despicable Me 4",
     "vote_average": "76.13%"
@@ -757,7 +757,7 @@ export const popularTvShowsMock: TvShow[] = [
       + "tradition by naming his daughter Rhaenyra heir to the Iron Throne. But when Viserys "
       + "later fathers a son, the court is shocked when Rhaenyra retains her status as his "
       + "heir, and seeds of division sow friction across the realm.",
-    "poster_path": "https://image.tmdb.org/t/p/w500/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg",
+    "poster_path": "https://image.tmdb.org/t/p/w300/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg",
     "vote_average": "84.16%"
   },
   {
@@ -768,7 +768,7 @@ export const popularTvShowsMock: TvShow[] = [
     "name": "The Boys",
     "overview": "A group of vigilantes known informally as “The Boys” set out to take down "
       + "corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty",
-    "poster_path": "https://placehold.co/500x750",
+    "poster_path": "https://placehold.co/275x412",
     "vote_average": "84.73%"
   }
 ];
@@ -783,7 +783,7 @@ export const topRatedTvShowsMock: TvShow[] = [
     "overview": "In attempt to find a non-violent alternative for reducing Hell's "
       + "overpopulation, the daughter of Lucifer opens a rehabilitation hotel that offers "
       + "a group of misfit demons a chance at redemption.",
-    "poster_path": "https://image.tmdb.org/t/p/w500/rXojaQcxVUubPLSrFV8PD4xdjrs.jpg",
+    "poster_path": "https://image.tmdb.org/t/p/w300/rXojaQcxVUubPLSrFV8PD4xdjrs.jpg",
     "vote_average": "89.7%"
   },
   {
@@ -797,7 +797,7 @@ export const topRatedTvShowsMock: TvShow[] = [
         + "Frieren comes face to face with humanity’s mortality. She takes on a new apprentice "
         + "and promises to fulfill old friends’ dying wishes. Can an elven mind make peace with "
         + "the nature of life and death? Frieren embarks on her quest to find out.",
-    "poster_path": "https://image.tmdb.org/t/p/w500/dqZENchTd7lp5zht7BdlqM7RBhD.jpg",
+    "poster_path": "https://image.tmdb.org/t/p/w300/dqZENchTd7lp5zht7BdlqM7RBhD.jpg",
     "vote_average": "89%"
   }
 ];
