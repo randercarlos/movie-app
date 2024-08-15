@@ -28,8 +28,8 @@ export function useTvShowsModelView(
       return collect(tvShowResponseResult)
         .merge({
           "poster_path": tvShowResponseResult.poster_path
-            ? `https://image.tmdb.org/t/p/w500${tvShowResponseResult.poster_path}`
-            : "https://placehold.co/500x750",
+            ? `https://image.tmdb.org/t/p/w300${tvShowResponseResult.poster_path}`
+            : "https://placehold.co/275x412",
           "vote_average": `${formatNumber(tvShowResponseResult.vote_average * 10, 0, 2)}%`,
           "first_air_date": formatDate(tvShowResponseResult.first_air_date, "MMM DD, YYYY"),
           "genres": genresFormatted,
