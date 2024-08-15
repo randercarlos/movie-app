@@ -4,7 +4,7 @@
       <img
         :src="props.tvShow?.poster_path"
         alt="poster"
-        class="transition duration-150 ease-in-out hover:opacity-75"
+        class="transition duration-150 ease-in-out hover:opacity-75 max-h-100"
       >
     </RouterLink>
     <div class="mt-2">

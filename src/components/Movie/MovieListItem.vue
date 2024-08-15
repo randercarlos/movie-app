@@ -4,7 +4,7 @@
       <img
         :src="props.movie?.poster_path"
         alt="poster"
-        class="transition duration-150 ease-in-out hover:opacity-75"
+        class="transition duration-150 ease-in-out hover:opacity-75 max-h-100"
         rel="preload"
         as="image"
       >

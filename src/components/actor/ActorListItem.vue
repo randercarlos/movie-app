@@ -4,7 +4,7 @@
       <img
         :src="props.actor?.profile_path"
         alt="profile image"
-        class="hover:opacity-75 transition ease-in-out duration-150"
+        class="hover:opacity-75 transition ease-in-out duration-150 max-h-100"
         rel="preload"
         as="image"
       >
