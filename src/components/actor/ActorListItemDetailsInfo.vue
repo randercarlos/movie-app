@@ -176,7 +176,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 known-for-movies">
           <div
-            v-for="movie in props.actorDetails?.knownForMovies"
+            v-for="movie in props.actorDetails?.knownForMovies?.slice(0, 5)"
             :key="movie.id"
             class="mt-4"
           >

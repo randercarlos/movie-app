@@ -39,7 +39,7 @@
           </h4>
           <div class="flex mt-4">
             <div
-              v-for="crew in props.tvShowDetails?.credits?.crew"
+              v-for="crew in props.tvShowDetails?.credits?.crew?.slice(0, 5)"
               :key="crew.name"
               class="mr-8"
             >
