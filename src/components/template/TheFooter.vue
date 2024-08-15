@@ -14,6 +14,7 @@
           class="underline hover:text-gray-300"
           target="_blank"
         >Rander Carlos</a>
+        👨‍💻
       </span>
     </div>
   </footer>
