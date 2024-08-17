@@ -5,7 +5,7 @@
         <img
           :src="props.actorDetails?.actor.profile_path"
           alt="profile image"
-          class="w-64 md:w-90 lg:w-120"
+          class="sm:w-64 md:w-90 lg:w-120"
         >
         <ul class="flex items-center mt-4">
           <li v-if="props.actorDetails?.social.facebook">

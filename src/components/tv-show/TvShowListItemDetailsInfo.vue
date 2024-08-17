@@ -5,7 +5,7 @@
         <img
           :src="props.tvShowDetails?.poster_path ?? ''"
           alt="poster"
-          class="w-64 md:w-90 lg:w-120"
+          class="sm:w-64 md:w-90 lg:w-120"
         >
       </div>
       <div class="md:ml-8">
