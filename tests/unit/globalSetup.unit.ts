@@ -8,7 +8,15 @@ import { config } from "@vue/test-utils";
 import type { Ref } from "vue";
 
 // disable real HTTP request for non mocked requests
-beforeAll(() => nock.disableNetConnect());
+beforeAll(() => {
+  nock.disableNetConnect();
+
+  // Set the userAgent inside the navigator
+  Object.defineProperty(navigator, "userAgent", {
+    value: "VITEST",
+    writable: true,
+  });
+});
 
 // enable real HTTP requests and clear the mocked requests
 afterAll(() => {

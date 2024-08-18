@@ -1,4 +1,3 @@
-import process from "node:process";
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -27,13 +26,15 @@ export default defineConfig({
     {
       name: "chromium",
       use: {
-        ...devices["Desktop Chrome"]
+        ...devices["Desktop Chrome"],
+        userAgent: "PLAYWRIGHT" // identify that browser is being running by playwright
       }
     },
     {
       name: "webkit",
       use: {
-        ...devices["Desktop Safari"]
+        ...devices["Desktop Safari"],
+        userAgent: "PLAYWRIGHT" // identify that browser is being running by playwright
       }
     },
     // {
