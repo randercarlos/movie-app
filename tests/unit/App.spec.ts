@@ -1,6 +1,6 @@
+/* eslint-disable vue/one-component-per-file */
 import ptBR from "@/i18n/locales/pt-BR.json";
 import enUS from "@/i18n/locales/en-US.json";
-/* eslint-disable vue/one-component-per-file */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import App from "@/App.vue";
@@ -16,6 +16,8 @@ import CONFIG from "@/config";
 import { changeI18nGlobalLocale } from "./globalSetup.unit";
 import { I18nGlobalLocales } from "@/typings/enums";
 import { useTitle } from "@vueuse/core";
+import * as helperFile from "@/utils/helper";
+import { driver } from "driver.js";
 
 const ErrorComponentWithErrorMsg = defineComponent({
   async setup() {
@@ -176,5 +178,66 @@ describe("App.vue", () => {
     const title = useTitle();
 
     expect(title.value).toBe(ptBR.general.title);
+  });
+
+  it("create the tour in the app if not running tests", () => {
+    vi.spyOn(helperFile, "isAppRunningTests").mockReturnValue(false);
+
+    vi.mock("driver.js", () => {
+      return {
+        driver: vi.fn(() => ({
+          drive: vi.fn(),
+          destroy: vi.fn(),
+          hasNextStep: vi.fn().mockReturnValue(false)
+        })),
+      };
+    });
+
+    mount(App, {
+      global: {
+        stubs: {
+          TheHeader: true,
+          TheFooter: true,
+          Notivue: true,
+          PageDetailsSkeleton: true,
+          SkeletonLoader: true,
+          RouterView: false
+        }
+      }
+    });
+
+    expect(driver).toHaveBeenCalled();
+  });
+
+  it("not create the tour in the app if running tests", () => {
+    // reset all mocks created by vi.mock() to not affect others tests
+    vi.resetAllMocks();
+
+    vi.spyOn(helperFile, "isAppRunningTests").mockReturnValue(true);
+
+    vi.mock("driver.js", () => {
+      return {
+        driver: vi.fn(() => ({
+          drive: vi.fn(),
+          destroy: vi.fn(),
+          hasNextStep: vi.fn().mockReturnValue(false)
+        })),
+      };
+    });
+
+    mount(App, {
+      global: {
+        stubs: {
+          TheHeader: true,
+          TheFooter: true,
+          Notivue: true,
+          PageDetailsSkeleton: true,
+          SkeletonLoader: true,
+          RouterView: false
+        }
+      }
+    });
+
+    expect(driver).not.toHaveBeenCalled();
   });
 });
