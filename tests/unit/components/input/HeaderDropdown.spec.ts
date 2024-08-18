@@ -97,10 +97,9 @@ describe("HeaderDropdown.vue", () => {
       }
     });
 
-    const searchDropdownWrapper = wrapper.find("#searchDropdownWrapper");
-    const searchDropdownResults = wrapper.find("#searchDropdownResults");
+    await wrapper.find("#searchDropdownInput").trigger("click");
 
-    await searchDropdownWrapper.trigger("click");
+    const searchDropdownResults = wrapper.find("#searchDropdownResults");
 
     expect(searchDropdownResults.isVisible()).toBe(true);
   });
@@ -172,6 +171,37 @@ describe("HeaderDropdown.vue", () => {
 
     // triggers keydown on 'tab' keyboard button on last link
     await lastLink?.trigger("keydown.tab");
+
+    expect(searchDropdownResults.isVisible()).toBe(false);
+  });
+
+  it("close search dropdown on clicking on any dropdown item", async() => {
+    const search = "titanic";
+    nock(CONFIG.API_BASE_URL)
+      .get("/search/multi")
+      .query({ query: search })
+      .reply(200, multiSearchResponseMock);
+
+    const wrapper = mount(HeaderDropdown, {
+      global: {
+        stubs: {
+          RouterLink: RouterLinkStub
+        }
+      }
+    });
+
+    const dropdownInput = wrapper.find("#searchDropdownInput");
+    await dropdownInput.setValue(search);
+
+    await resolvedPromises(1000);
+
+    openSearchDropdown(wrapper);
+
+    const searchDropdownResults = wrapper.find("#searchDropdownResults");
+    const links = wrapper.findAllComponents(RouterLinkStub);
+
+    // triggers keydown on 'tab' keyboard button on last link
+    await links.at(0)?.trigger("click");
 
     expect(searchDropdownResults.isVisible()).toBe(false);
   });

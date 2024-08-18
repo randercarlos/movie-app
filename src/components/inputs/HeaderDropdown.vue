@@ -3,7 +3,6 @@
     id="searchDropdownWrapper"
     ref="searchDropdownWrapper"
     class="relative mt-3 md:mt-0"
-    @click="openSearchDropdown()"
   >
     <input
       id="searchDropdownInput"
@@ -15,6 +14,7 @@
       :placeholder="t('header.search.placeholder')"
       tabindex="0"
       @focus="openSearchDropdown()"
+      @click="openSearchDropdown()"
       @keydown.esc="closeSearchDropdown()"
       @keydown.shift.tab.prevent="closeSearchDropdown()"
     >
@@ -55,6 +55,7 @@
               transition ease-in-out duration-150"
               :to="createMediaDetailsRouteFrom(result)"
               @keydown.tab="index === searchResults.length - 1 && closeSearchDropdown()"
+              @click.prevent="closeSearchDropdown()"
             >
               <img
                 v-if="getImagePathFrom(result)"
@@ -196,6 +197,7 @@ function createMediaDetailsRouteFrom(result: MultiSearchResponseResult): Details
 
   return mapMediaTypeToMediaDetailsRoute[result.media_type]();
 }
+
 </script>
 
 <style scoped>
