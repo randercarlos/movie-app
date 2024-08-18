@@ -2,6 +2,7 @@
   <div class="md:mr-4 mt-3 md:mt-0 text-2xl flex flex-col md:flex-row items-center">
     <!-- Sun in light mode, Moon in dark mode, from Carbon -->
     <button
+      id="button-theme"
       class="dark:i-carbon-sun i-carbon-moon"
       :title="isDark ? t('header.theme.lightMode') : t('header.theme.darkMode')"
       @click="toggleDark()"

@@ -40,7 +40,7 @@ onMounted(() => {
     ?? I18nGlobalLocales.enUS;
 });
 
-watch(appGlobalLocale, (newLocale) => {
+watch(appGlobalLocale, (newLocale: string) => {
   // change locale for all dates handle by moment.js
   changeMomentDateLocale(newLocale);
 });
