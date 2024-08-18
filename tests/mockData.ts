@@ -1271,7 +1271,7 @@ export const popularActorsResponseMock: ActorResponse = {
       "name": "Jennifer Connelly",
       "original_name": "Jennifer Connelly",
       "popularity": 96.128,
-      "profile_path": "/pviRYKFEmoPUfLYwP1VHJ6LQcOl.jpg",
+      "profile_path": null,
       "known_for": [
         {
           "backdrop_path": "/vVBcIN68kFq681b4lObiNJhEVro.jpg",
@@ -1360,7 +1360,7 @@ export const popularActorsMock: Actor[] = [
     "id": 6161,
     "known_for": "A Beautiful Mind, Requiem for a Dream, Noah",
     "name": "Jennifer Connelly",
-    "profile_path": "https://image.tmdb.org/t/p/w300/pviRYKFEmoPUfLYwP1VHJ6LQcOl.jpg"
+    "profile_path": "https://ui-avatars.com/api/?size=300&name=Jennifer Connelly"
   },
 ];
 
