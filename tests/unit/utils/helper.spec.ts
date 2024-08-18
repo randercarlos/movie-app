@@ -6,7 +6,9 @@ import { addQueryStringToURL, calculateAge,
   getYearFromDate,
   isValidDate,
   resolvedPromises,
-  truncateString}
+  truncateString,
+  isAppRunningTests
+}
   from "@/utils/helper";
 import type { Moment } from "moment";
 import moment from "moment";
@@ -392,4 +394,32 @@ describe("helper.ts", () => {
     });
   });
 
+  describe("isAppRunningTests()", () => {
+    it("returns true when the userAgent is VITEST", () => {
+      Object.defineProperty(global, "navigator", {
+        value: { userAgent: "VITEST" },
+        configurable: true,
+      });
+
+      expect(isAppRunningTests()).toBe(true);
+    });
+
+    it("returns true when the userAgent is PLAYWRIGHT", () => {
+      Object.defineProperty(global, "navigator", {
+        value: { userAgent: "VITEST" },
+        configurable: true,
+      });
+
+      expect(isAppRunningTests()).toBe(true);
+    });
+
+    it("returns false for other userAgents", () => {
+      Object.defineProperty(global, "navigator", {
+        value: { userAgent: "OTHER_AGENT" },
+        configurable: true,
+      });
+
+      expect(isAppRunningTests()).toBe(false);
+    });
+  });
 });

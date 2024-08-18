@@ -107,3 +107,9 @@ export function addQueryStringToURL(url: string, queryStringKey: string,
 
   return parsedUrl.toString();
 }
+
+export function isAppRunningTests(): boolean {
+  // userAgent VITEST => set in tests\unit\globalSetup.unit.ts in line 15
+  // userAgent PLAYWRIGHT => set in playwright.config.ts in line 30
+  return ["VITEST", "PLAYWRIGHT"].includes(navigator.userAgent);
+}
