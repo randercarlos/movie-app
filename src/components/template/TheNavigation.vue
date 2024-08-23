@@ -54,7 +54,7 @@
         <a href="#">
           <img
             data-test="avatar-img"
-            src="/img/avatar.jpg"
+            src="/img/avatar.png"
             alt="avatar"
             class="rounded-full w-8 h-8"
           >
