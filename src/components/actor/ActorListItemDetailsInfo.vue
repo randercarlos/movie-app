@@ -1,6 +1,6 @@
 <template>
   <div class="actor-info border-b border-gray-800 light:border-gray-300">
-    <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row items-center">
+    <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
       <div class="flex-none">
         <img
           :src="props.actorDetails?.actor.profile_path"
