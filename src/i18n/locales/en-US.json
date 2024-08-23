@@ -56,7 +56,7 @@
     "nextButton": "Next",
     "previousButton": "Previous",
     "doneButton": "Done",
-    "progressText": "{current} of {total}",
+    "progressText": "{{current}} of {{total}}",
     "steps": {
       "step-01": {
         "title": "Site tour",
