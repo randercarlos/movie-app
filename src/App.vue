@@ -106,17 +106,16 @@ onErrorCaptured((err) => {
 function createTourInApp(): void {
   const driverObj = driver({
     smoothScroll: true,
-    showProgress: true,
+    showProgress: false,
     overlayOpacity: 0.8,
     nextBtnText: t("tour.nextButton"),
     prevBtnText: t("tour.previousButton"),
     doneBtnText: t("tour.doneButton"),
-    progressText: t("tour.progressText"),
-    onDestroyStarted: () => {
-      if (!driverObj.hasNextStep() || confirm("Deseja sair do tour pelo site?")) {
-        driverObj.destroy();
-      }
-    },
+    //onDestroyStarted: () => {
+    //if (!driverObj.hasNextStep() || confirm("Deseja sair do tour pelo site?")) {
+    //driverObj.destroy();
+    //}
+    //},
     steps: [
       {
         element: "document",

@@ -10,6 +10,7 @@ export default createI18n<I18nMessage, "en-US" | "pt-BR">({
   globalInjection: true,
   locale: "en-US", // set locale
   fallbackLocale: "pt-BR", // set fallback locale
+  warnHtmlMessage: false,
   messages: {
     "en-US": enUS,
     "pt-BR": ptBR
