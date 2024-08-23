@@ -48,13 +48,18 @@ import { isAppRunningTests } from "@/utils/helper";
 // import driver.js to create tour
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
+import { I18nGlobalLocales } from "./typings/enums";
 
-const { locale: appLocale, t } = useI18n({ useScope: "global" });
+const { locale: appLocale, t } = useI18n({
+  useScope: "global",
+});
 const title = useTitle();
 
 onMounted(() => {
+  setDefaultAppLanguage();
   updateAppTitle();
 
+  // disable tour in app when It's running unit or e2e tests
   if (! isAppRunningTests()) {
     createTourInApp();
   }
@@ -65,8 +70,8 @@ watch([appLocale], () => {
   updateAppTitle();
 });
 
+// change current document's title
 function updateAppTitle(): void {
-  // change current document's title
   title.value = t("general.title");
 }
 
@@ -103,22 +108,21 @@ function createTourInApp(): void {
     smoothScroll: true,
     showProgress: true,
     overlayOpacity: 0.8,
-    nextBtnText: "Próximo",
-    prevBtnText: "Anterior",
-    doneBtnText: "Concluído",
-    progressText: "{{current}} de {{total}}",
-    // onDestroyStarted: () => {
-    //   if (!driverObj.hasNextStep() || confirm("Deseja sair do tour pelo site?")) {
-    //     driverObj.destroy();
-    //   }
-    // },
+    nextBtnText: t("tour.nextButton"),
+    prevBtnText: t("tour.previousButton"),
+    doneBtnText: t("tour.doneButton"),
+    progressText: t("tour.progressText"),
+    onDestroyStarted: () => {
+      if (!driverObj.hasNextStep() || confirm("Deseja sair do tour pelo site?")) {
+        driverObj.destroy();
+      }
+    },
     steps: [
       {
         element: "document",
         popover: {
-          title: "Tour pelo site",
-          description: "Seja bem vindo ao <b>Filmes e Séries!</b> <br /><br />"
-          + "Este guia vai mostrar os <b>principais recursos</b> deste site.",
+          title: t("tour.steps.step-01.title"),
+          description: t("tour.steps.step-01.description"),
           side: "left",
           align: "start"
         }
@@ -126,8 +130,8 @@ function createTourInApp(): void {
       {
         element: "[href='/movies']",
         popover: {
-          title: "Menu de filmes",
-          description: "Clique para ver os filmes <b>populares</b> ou filmes em <b>exibição</b>.",
+          title: t("tour.steps.step-02.title"),
+          description: t("tour.steps.step-02.description"),
           side: "bottom",
           align: "start"
         }
@@ -135,9 +139,8 @@ function createTourInApp(): void {
       {
         element: "[href='/tv-shows']",
         popover: {
-          title: "Menu de séries",
-          description: "Clique para ver as séries <b>populares</b> ou séries que estão "
-        + "<b>passando agora</b>.",
+          title: t("tour.steps.step-03.title"),
+          description: t("tour.steps.step-03.description"),
           side: "bottom",
           align: "start"
         }
@@ -145,8 +148,8 @@ function createTourInApp(): void {
       {
         element: "[href='/actors']",
         popover: {
-          title: "Menu de atores",
-          description: "Clique para ver as os atores <b>em alta</b> e mais <b>populares</b>.",
+          title: t("tour.steps.step-04.title"),
+          description: t("tour.steps.step-04.description"),
           side: "bottom",
           align: "start"
         }
@@ -154,8 +157,8 @@ function createTourInApp(): void {
       {
         element: "button.bg-transparent",
         popover: {
-          title: "Troca de idioma",
-          description: "Clique para trocar o <b>idioma</b> entre <b>português</b> e <b>inglês</b>.",
+          title: t("tour.steps.step-05.title"),
+          description: t("tour.steps.step-05.description"),
           side: "bottom",
           align: "start"
         }
@@ -163,8 +166,8 @@ function createTourInApp(): void {
       {
         element: "#button-theme",
         popover: {
-          title: "Troca do tema",
-          description: "Clique para trocar o <b>tema</b> entre <b>claro</b> e <b>escuro</b>.",
+          title: t("tour.steps.step-06.title"),
+          description: t("tour.steps.step-06.description"),
           side: "bottom",
           align: "start"
         }
@@ -172,9 +175,8 @@ function createTourInApp(): void {
       {
         element: "#searchDropdownInput",
         popover: {
-          title: "Busca",
-          description: "Pesquise por <b>filmes</b>, <b>séries</b> ou <b>atores</b>. "
-          + "Limite de <b>7 resultados</b>.",
+          title: t("tour.steps.step-07.title"),
+          description: t("tour.steps.step-07.description"),
           side: "bottom",
           align: "start"
         }
@@ -182,8 +184,8 @@ function createTourInApp(): void {
       {
         element: "[data-test='avatar-img']",
         popover: {
-          title: "Avatar",
-          description: "Imagem do usuário logado...",
+          title: t("tour.steps.step-08.title"),
+          description: t("tour.steps.step-08.description"),
           side: "left",
           align: "start"
         }
@@ -191,8 +193,8 @@ function createTourInApp(): void {
       {
         element: ".popular-movies > h2",
         popover: {
-          title: "Seção filmes populares",
-          description: "Lista os <b>20</b> filmes mais <b>populares</b>.",
+          title: t("tour.steps.step-09.title"),
+          description: t("tour.steps.step-09.description"),
           side: "bottom",
           align: "start"
         }
@@ -200,8 +202,8 @@ function createTourInApp(): void {
       {
         element: ".popular-movies > div.grid > div.mt-8 > a",
         popover: {
-          title: "Poster do Filme",
-          description: "Clique para ver os <b>detalhes</b> do filme...",
+          title: t("tour.steps.step-10.title"),
+          description: t("tour.steps.step-10.description"),
           side: "bottom",
           align: "start"
         }
@@ -209,8 +211,8 @@ function createTourInApp(): void {
       {
         element: ".popular-movies > div.grid > div.mt-8 > div.mt-2 > a",
         popover: {
-          title: "Nome do Filme",
-          description: "Clique para ver os <b>detalhes</b> do filme...",
+          title: t("tour.steps.step-11.title"),
+          description: t("tour.steps.step-11.description"),
           side: "top",
           align: "start"
         }
@@ -218,8 +220,8 @@ function createTourInApp(): void {
       {
         element: ".popular-movies > div.grid > div.mt-8 > div.mt-2 > div.mt-1",
         popover: {
-          title: "Dados do filme",
-          description: "<b>Nota</b> do filme no IMDB e <b>data de lançamento</b> do filme.",
+          title: t("tour.steps.step-12.title"),
+          description: t("tour.steps.step-12.description"),
           side: "top",
           align: "start"
         }
@@ -227,8 +229,8 @@ function createTourInApp(): void {
       {
         element: ".popular-movies > div.grid > div.mt-8 > div.mt-2 > div:nth-child(3)",
         popover: {
-          title: "Gênero do filme",
-          description: "Lista os <b>gêneros</b> do filme.",
+          title: t("tour.steps.step-13.title"),
+          description: t("tour.steps.step-13.description"),
           side: "top",
           align: "start"
         }
@@ -236,8 +238,8 @@ function createTourInApp(): void {
       {
         element: ".now-playing-movies > h2",
         popover: {
-          title: "Seção filmes em cartaz",
-          description: "Lista os <b>20</b> filmes <b>em cartaz</b> mais populares.",
+          title: t("tour.steps.step-14.title"),
+          description: t("tour.steps.step-14.description"),
           side: "top",
           align: "start"
         }
@@ -246,5 +248,15 @@ function createTourInApp(): void {
   });
 
   driverObj.drive();
+}
+
+function isBrowserLanguageInPortuguese(): boolean {
+  return navigator.language.startsWith("pt");
+}
+
+function setDefaultAppLanguage(): void {
+  appLocale.value = isBrowserLanguageInPortuguese()
+    ? I18nGlobalLocales.ptBR
+    : I18nGlobalLocales.enUS;
 }
 </script>

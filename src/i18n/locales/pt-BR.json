@@ -51,5 +51,69 @@
     "images": "Imagens",
     "credits": "Créditos",
     "as": "como"
+  },
+  "tour": {
+    "nextButton": "Próximo",
+    "previousButton": "Anterior",
+    "doneButton": "Próximo",
+    "progressText": "{current} de {total}",
+    "steps": {
+      "step-01": {
+        "title": "Tour pelo site",
+        "description": "Seja bem vindo ao <b>Filmes e Séries!</b> <br /><br />Este guia vai mostrar os <b>principais recursos</b> do site."
+      },
+      "step-02": {
+        "title": "Menu de filmes",
+        "description": "Clique para ver os filmes <b>populares</b> ou filmes em <b>exibição</b>."
+      },
+      "step-03": {
+        "title": "Menu de séries",
+        "description": "Clique para ver as séries <b>populares</b> ou séries que estão <b>passando agora</b>."
+      },
+      "step-04": {
+        "title": "Menu de atores",
+        "description": "Clique para ver as os atores <b>em alta</b> e mais <b>populares</b>."
+      },
+      "step-05": {
+        "title": "Troca de idioma",
+        "description": "Clique para trocar o <b>idioma</b> entre <b>português</b> e <b>inglês</b>."
+      },
+      "step-06": {
+        "title": "Troca do tema",
+        "description": "Clique para trocar o <b>tema</b> entre <b>claro</b> e <b>escuro</b>."
+      },
+      "step-07": {
+        "title": "Busca",
+        "description": "Pesquise por <b>filmes</b>, <b>séries</b> ou <b>atores</b>. <br />Limite de <b>7 resultados</b>.<br />Mínimo de <b>3 caracteres</b>."
+      },
+      "step-08": {
+        "title": "Avatar",
+        "description": "Imagem do usuário logado..."
+      },
+      "step-09": {
+        "title": "Seção filmes populares",
+        "description": "Lista os <b>20</b> filmes mais <b>populares</b>."
+      },
+      "step-10": {
+        "title": "Poster do Filme",
+        "description": "Clique para ver os <b>detalhes</b> do filme..."
+      },
+      "step-11": {
+        "title": "Nome do Filme",
+        "description": "Clique para ver os <b>detalhes</b> do filme..."
+      },
+      "step-12": {
+        "title": "Dados do filme",
+        "description": "<b>Nota</b> do filme no IMDB e <b>data de lançamento</b> do filme."
+      },
+      "step-13": {
+        "title": "Gênero do filme",
+        "description": "Mostra os <b>gêneros</b> do filme."
+      },
+      "step-14": {
+        "title":  "Seção filmes em cartaz",
+        "description": "Lista os <b>20</b> filmes <b>em cartaz</b> mais populares."
+      }
+    }
   }
 }

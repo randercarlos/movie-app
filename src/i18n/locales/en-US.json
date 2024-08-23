@@ -51,5 +51,69 @@
     "images": "Images",
     "credits": "Credits",
     "as": "as"
+  },
+  "tour": {
+    "nextButton": "Next",
+    "previousButton": "Previous",
+    "doneButton": "Done",
+    "progressText": "{current} of {total}",
+    "steps": {
+      "step-01": {
+        "title": "Site tour",
+        "description": "Welcome to <b>Movies and Series!</b> <br /><br />This guide will show you the <b>main features</b> of the site."
+      },
+      "step-02": {
+        "title": "Movies menu",
+        "description": "Click to view <b>popular</b> movies or movies <b>currently showing</b>."
+      },
+      "step-03": {
+        "title": "Series menu",
+        "description": "Click to view <b>popular</b> series or series that are <b>airing now</b>."
+      },
+      "step-04": {
+        "title": "Actors menu",
+        "description": "Click to see <b>trending</b> and <b>popular</b> actors."
+      },
+      "step-05": {
+        "title": "Language switch",
+        "description": "Click to switch the <b>language</b> between <b>Portuguese</b> and <b>English</b>."
+      },
+      "step-06": {
+        "title": "Theme switch",
+        "description": "Click to switch the <b>theme</b> between <b>light</b> and <b>dark</b>."
+      },
+      "step-07": {
+        "title": "Search",
+        "description": "Search for <b>movies</b>, <b>series</b>, or <b>actors</b>. <br />Limit of <b>7 results</b>.<br /><br />Minimum of <b>3 characters</b>."
+      },
+      "step-08": {
+        "title": "Avatar",
+        "description": "Logged-in user image..."
+      },
+      "step-09": {
+        "title": "Popular movies section",
+        "description": "Lists the <b>20</b> most <b>popular</b> movies."
+      },
+      "step-10": {
+        "title": "Movie poster",
+        "description": "Click to view <b>movie details</b>..."
+      },
+      "step-11": {
+        "title": "Movie title",
+        "description": "Click to view <b>movie details</b>..."
+      },
+      "step-12": {
+        "title": "Movie data",
+        "description": "<b>IMDB rating</b> and <b>release date</b> of the movie."
+      },
+      "step-13": {
+        "title": "Movie genre",
+        "description": "Shows the <b>genres</b> of the movie."
+      },
+      "step-14": {
+        "title": "Now playing section",
+        "description": "Lists the <b>20</b> most popular <b>now playing</b> movies."
+      }
+    }
   }
 }

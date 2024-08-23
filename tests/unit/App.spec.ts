@@ -13,7 +13,7 @@ import { push } from "notivue";
 import PageSkeleton from "@/components/skeleton/PageSkeleton.vue";
 import PageDetailsSkeleton from "@/components/skeleton/PageDetailsSkeleton.vue";
 import CONFIG from "@/config";
-import { changeI18nGlobalLocale } from "./globalSetup.unit";
+import { changeI18nGlobalLocale, getI18nGlobalLocale } from "./globalSetup.unit";
 import { I18nGlobalLocales } from "@/typings/enums";
 import { useTitle } from "@vueuse/core";
 import * as helperFile from "@/utils/helper";
@@ -239,5 +239,48 @@ describe("App.vue", () => {
     });
 
     expect(driver).not.toHaveBeenCalled();
+  });
+
+  it("change default application language according to default navigator language", () => {
+    // Mock navigator.language
+    Object.defineProperty(navigator, "language", {
+      value: "pt-BR",
+      configurable: true,
+    });
+
+    mount(App, {
+      global: {
+        stubs: {
+          TheHeader: true,
+          TheFooter: true,
+          Notivue: true,
+          PageDetailsSkeleton: true,
+          SkeletonLoader: true,
+          RouterView: false
+        }
+      }
+    });
+
+    expect(getI18nGlobalLocale()).toBe(I18nGlobalLocales.ptBR);
+
+    Object.defineProperty(navigator, "language", {
+      value: "en-US",
+      configurable: true,
+    });
+
+    mount(App, {
+      global: {
+        stubs: {
+          TheHeader: true,
+          TheFooter: true,
+          Notivue: true,
+          PageDetailsSkeleton: true,
+          SkeletonLoader: true,
+          RouterView: false
+        }
+      }
+    });
+
+    expect(getI18nGlobalLocale()).toBe(I18nGlobalLocales.enUS);
   });
 });
