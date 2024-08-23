@@ -31,3 +31,7 @@ config.global.plugins = [
 export function changeI18nGlobalLocale(i18nGlobalLocale: I18nGlobalLocales): void {
   (i18n.global.locale as unknown as Ref<string>).value = i18nGlobalLocale;
 }
+
+export function getI18nGlobalLocale(): string {
+  return (i18n.global.locale as unknown as Ref<string>).value;
+}

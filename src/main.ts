@@ -34,3 +34,9 @@ app
   .use(notivue)
   .use(i18n)
   .mount("#app");
+
+app.config.errorHandler = (err, instance, info) => {
+  console.error("Error:", err);
+  console.error("Vue component:", instance);
+  console.error("Additional info:", info);
+};
