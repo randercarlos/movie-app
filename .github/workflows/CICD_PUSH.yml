@@ -1,182 +1,66 @@
-name: CI/CD Workflow
+name: CI/CD Workflow - Push
 
 on:
   push:
     branches: [ "develop", "main" ]
 
-env:
-  API_IMAGE: rcarlos/devops-with-laravel-api:${{ github.sha }}
-  SCHEDULER_IMAGE: rcarlos/devops-with-laravel-scheduler:${{ github.sha }}
-  WORKER_IMAGE: rcarlos/devops-with-laravel-worker:${{ github.sha }}
-  NGINX_IMAGE: rcarlos/devops-with-laravel-nginx:${{ github.sha }}
-  PROXY_IMAGE: rcarlos/devops-with-laravel-proxy:${{ github.sha }}
-  MYSQL_IMAGE: rcarlos/devops-with-laravel-database:${{ github.sha }}
-  FRONTEND_IMAGE: rcarlos/devops-with-laravel-frontend:${{ github.sha }}
-  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
 jobs:
+  install-code:
+    name: Install Code
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    environment:
+      name: ${{ github.event.pull_request.base.ref == 'main' && 'production' || (github.event.pull_request.base.ref == 'develop' && 'staging') }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
   analyze-code:
     name: Analyze Code
+    needs: [install-code]
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build API Image
-        run: docker build -t $API_IMAGE --target=api -f ./api/Dockerfile .
-      - name: Run phpstan
-        run: docker run --rm -t $API_IMAGE ./vendor/bin/phpstan analyze --memory-limit=1G
-      - name: Run phpinsights
-        run: docker run --rm -t $API_IMAGE php artisan insights --no-interaction --min-quality=90 --min-complexity=90 --min-architecture=90 --min-style=90 --ansi --format=github-action
+      name: ${{ github.event.pull_request.base.ref == 'main' && 'production' || (github.event.pull_request.base.ref == 'develop' && 'staging') }}
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Check Lint
+          run: pnpm run lint:check
+
+        - name: Check Typing
+          run: pnpm run type-check
 
   test-code:
     name: Test Code
-    needs: [ analyze-code]
+    needs: [analyze-code]
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build API Image
-        run: docker build -t $API_IMAGE --target=api -f ./api/Dockerfile .
-      - name: Build MySQL Image
-        run: docker build -t $MYSQL_IMAGE --build-arg password=${{ secrets.DB_PASSWORD }} -f ./Dockerfile.mysql .
-      - name: Run tests
-        run: |
-          docker run --rm -t $API_IMAGE php artisan test
+      name: ${{ github.event.pull_request.base.ref == 'main' && 'production' || (github.event.pull_request.base.ref == 'develop' && 'staging') }}
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
 
-  build-backend-images:
-    name: Build Backend
-    needs: [ analyze-code, test-code ]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build images
-        run: |
-          docker build -t $API_IMAGE --target=api -f ./api/Dockerfile .
-          docker build -t $SCHEDULER_IMAGE --target=scheduler -f ./api/Dockerfile .
-          docker build -t $WORKER_IMAGE --target=worker -f ./api/Dockerfile .
-      - name: Push images
-        run: |
-          docker push $API_IMAGE
-          docker push $SCHEDULER_IMAGE
-          docker push $WORKER_IMAGE
+        - name: Run unit tests
+          run: pnpm run test:unit:ci
 
-  build-database-image:
-    name: Build Database
-    needs: [ analyze-code, test-code ]
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build MySQL image
-        run: docker build -t $MYSQL_IMAGE --build-arg password=${{ secrets.DB_PASSWORD }} -f ./Dockerfile.mysql .
-      - name: Push Mysql image
-        run: docker push $MYSQL_IMAGE
-
-  build-nginx-image:
-    name: Build Nginx
-    needs: [ analyze-code, test-code ]
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build nginx image
-        run: |
-          docker build -t $NGINX_IMAGE -f ./Dockerfile.nginx .
-          docker push $NGINX_IMAGE
-
-  build-proxy-image:
-    name: Build Proxy
-    needs: [ analyze-code, test-code ]
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build nginx image
-        run: |
-          docker build -t $PROXY_IMAGE -f ./Dockerfile.proxy .
-          docker push $PROXY_IMAGE
-
-  build-frontend-image:
-    name: Build Frontend
-    needs: [ analyze-code, test-code ]
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'prod' || (github.ref == 'refs/heads/develop' && 'staging') }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build frontend image
-        run: |
-          docker build -t $FRONTEND_IMAGE --target=prod -f ./frontend/Dockerfile .
-          docker push $FRONTEND_IMAGE
-
-  deploy-staging:
-    name: Deploy / Staging
-    needs: [ analyze-code, test-code, build-backend-images, build-database-image, build-frontend-image, build-nginx-image, build-proxy-image ]
-    if: github.ref == 'refs/heads/develop'
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/jobs/deploy
-        with:
-          ssh-key: ${{ secrets.SSH_KEY }}
-          ssh-connection: ${{ secrets.SSH_CONNECTION }}
-          image-tag: ${{ github.sha }}
-          aws-access-key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-default-region: ${{ secrets.AWS_DEFAULT_REGION }}
-          aws-bucket: devops-with-laravel-bucket
-          db-username: ${{ secrets.DB_USERNAME }}
-          db-password: ${{ secrets.DB_PASSWORD }}
-          app-key: ${{ secrets.APP_KEY }}
-          app-env: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
-
-  deploy-prod:
-    name: Deploy / Production
-    needs: [ analyze-code, test-code, build-backend-images, build-database-image, build-frontend-image, build-nginx-image, build-proxy-image ]
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/jobs/deploy
-        with:
-          ssh-key: ${{ secrets.SSH_KEY }}
-          ssh-connection: ${{ secrets.SSH_CONNECTION }}
-          image-tag: ${{ github.sha }}
-          aws-access-key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-default-region: ${{ secrets.AWS_DEFAULT_REGION }}
-          aws-bucket: devops-with-laravel-bucket
-          db-username: ${{ secrets.DB_USERNAME }}
-          db-password: ${{ secrets.DB_PASSWORD }}
-          app-key: ${{ secrets.APP_KEY }}
-          app-env: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+        - name: Run end-to-end tests
+          run: pnpm run test:e2e:ci
