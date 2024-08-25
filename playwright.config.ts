@@ -5,7 +5,7 @@ export default defineConfig({
   testMatch: /.*\.e2e-spec\.ts$/,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: 1,
   workers: 1,  // limit workers to prevent parallelism and timeout
   reporter: [
     ["list"],
@@ -15,7 +15,7 @@ export default defineConfig({
     timeout: 10 * 1000, // increase timeout for expect
   },
   use: {
-    baseURL: process.env.VITE_BASE_URL,
+    baseURL: process.env.VITE_BASE_URL ?? "http://localhost:5173",
     trace: "on-first-retry",
     launchOptions: {
       slowMo: 1000
@@ -72,8 +72,6 @@ export default defineConfig({
   ],
   outputDir: "test-results",
   webServer: {
-    command: process.env.CI ? "pnpm run preview" : "pnpm run dev",
-    port: 5173,
-    reuseExistingServer: !process.env.CI
+    command: "pnpm run dev",
   }
 });
