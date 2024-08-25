@@ -1,4 +1,4 @@
-name: Movies App - CI/CD Workflow - Push => ${{ github.ref_name }}
+name: Movies App - CI/CD Workflow - Push
 
 on:
   push:

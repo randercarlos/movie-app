@@ -1,4 +1,4 @@
-name: Movies App - CI/CD Workflow - Pull Request => ${{ github.ref_name }}
+name: Movies App - CI/CD Workflow - Pull Request
 
 on:
   pull_request: # qualquer branch ao abrir PR e atualizar o PR
@@ -9,7 +9,7 @@ env:
   VITE_BASE_URL: "/"
   VITE_API_HOST: "https://api.themoviedb.org/3"
   VITE_TMDB_TOKEN: "${{ secrets.VITE_TMDB_TOKEN }}"
-  
+
 jobs:
   analyze-code:
     name: Analyze Code
