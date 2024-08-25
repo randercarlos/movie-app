@@ -10,6 +10,12 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  VITE_ENV: "production"
+  VITE_BASE_URL: "/"
+  VITE_API_HOST: "https://api.themoviedb.org/3"
+  VITE_TMDB_TOKEN: "${{ secrets.VITE_TMDB_TOKEN }}"
+
 jobs:
   analyze-code:
     name: Analyze Code
@@ -74,7 +80,7 @@ jobs:
 
       - name: Run end-to-end tests
         run: pnpm run test:e2e:ci
-        
+
       - name: Message Success
         run: echo "Code was tested successfuly for branch '${{ github.ref_name }}'"
 
