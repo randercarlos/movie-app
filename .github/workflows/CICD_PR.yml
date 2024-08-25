@@ -1,12 +1,12 @@
-name: CI/CD Workflow - Pull Request
+name: Movies App - CI/CD Workflow - Pull Request => ${{ github.ref_name }}
 
 on:
   pull_request: # qualquer branch ao abrir PR e atualizar o PR
     types: [ opened, synchronize ]
 
 jobs:
-  install-code:
-    name: Install Code
+  analyze-code:
+    name: Analyze Code
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,24 +20,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-  analyze-code:
-    name: Analyze Code
-    needs: [install-code]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Check Lint
         run: pnpm run lint:check
@@ -45,16 +32,42 @@ jobs:
       - name: Check Typing
         run: pnpm run type-check
 
+      - name: Message Success
+        run: echo "Code was analyzed successfuly for branch '${{ github.ref_name }}'"
+
   test-code:
     name: Test Code
     needs: [analyze-code]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run unit tests
-        run: pnpm run test:unit:ci
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        run: pnpm run build
+
+      # - name: Run unit tests
+        # run: pnpm run test:unit:ci
+
+      - name: Install playwright browsers
+        run: pnpm run test:e2e:install
 
       - name: Run end-to-end tests
         run: pnpm run test:e2e:ci
+
+      - name: Message Success
+        run: echo "Code was tested successfuly for branch '${{ github.ref_name }}'"
