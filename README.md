@@ -31,7 +31,7 @@
 <br>
 
 <div align="center">
-  <a href="https://lp-redesign-bank.netlify.app/" style="font-size: 1.2rem">Clique aqui para acessar o projeto online</a>
+  <a href="https://movies-show-site.netlify.app/" style="font-size: 1.2rem">Clique aqui para acessar o projeto online</a>
 </div>
 
 <br>
