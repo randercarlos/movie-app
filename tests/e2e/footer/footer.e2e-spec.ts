@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Footer", () => {
 
   test.beforeEach(async({ page }) => {
-    await page.goto("/", { waitUntil: "load" });
+    await page.goto("/movies", { waitUntil: "load" });
   });
 
   test("has TMDB link", async({ page }) => {
