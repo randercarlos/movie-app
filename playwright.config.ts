@@ -6,7 +6,7 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 1,
-  workers: 1,  // limit workers to prevent parallelism and timeout
+  workers: 1,
   reporter: [
     ["list"],
     ["html", { outputFolder: "./test-results/playwright-report"}]
@@ -15,8 +15,8 @@ export default defineConfig({
     timeout: 10 * 1000, // increase timeout for expect
   },
   use: {
-    baseURL: process.env.VITE_BASE_URL ?? "http://localhost:5173",
-    trace: "on-first-retry",
+    baseURL: "http://localhost:5173",
+    trace: "off",
     launchOptions: {
       slowMo: 1000
     }
@@ -73,5 +73,7 @@ export default defineConfig({
   outputDir: "test-results",
   webServer: {
     command: "pnpm run dev",
+    url: "http://localhost:5173",
+    reuseExistingServer: !process.env.CI,
   }
 });
