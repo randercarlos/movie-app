@@ -121,6 +121,9 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
+      - name: Config pnpm
+        run: pnpm setup
+
       - name: Install conventional-changelog-cli
         run: pnpm install -g conventional-changelog-cli
 
