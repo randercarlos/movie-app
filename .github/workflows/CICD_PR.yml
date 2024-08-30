@@ -60,8 +60,8 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      # - name: Run unit tests
-        # run: pnpm run test:unit:ci
+      - name: Run unit tests
+        run: pnpm run test:unit:ci
 
       - name: Install playwright browsers
         run: pnpm run test:e2e:install
