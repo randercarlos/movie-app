@@ -77,65 +77,35 @@ jobs:
       - name: Message Success
         run: echo "Code was tested successfuly for branch '${{ github.ref_name }}'"
 
-  create-tag:
-    name: Create Git Tag
-    needs: [analyze-code, test-code]
-    if: github.ref == 'refs/heads/main'
+  generate-release:
+    name: Generate Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+    strategy:
+      matrix:
+        node-version: [20.x]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Git user
-        run: |
-          git config user.name 'GitHub Actions'
-          git config user.email 'github-actions@github.com'
-
-      - name: Create tag
-        id: create_tag
-        run: |
-          # Extract version from package.json or CHANGELOG.md
-          VERSION=$(grep -Eo '"version":\s*"[0-9.]+"' package.json | grep -Eo '[0-9.]+')
-          git tag "v$VERSION"
-
-      - name: Push tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git push origin "v$(grep -Eo '"version":\s*"[0-9.]+"' package.json | grep -Eo '[0-9.]+')"
-
-  generate-changelog:
-    name: Generate CHANGELOG.md
-    needs: create-tag
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          persist-credentials: false
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Config pnpm
-        run: pnpm setup
-
-      - name: Install conventional-changelog-cli
-        run: pnpm install -g conventional-changelog-cli
-
-      - name: Generate changelog
-        run: conventional-changelog -p angular -i CHANGELOG.md -s -r 0
-
-      - name: Commit changelog
+      - name: Create Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+        extra_plugins: |
+          @semantic-release/changelog@6.0.0
+          @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name 'GitHub Actions'
-          git config user.email 'github-actions@github.com'
-          git add CHANGELOG.md
-          git commit -m "chore: update CHANGELOG.md for version $(grep -Eo '"version":\s*"[0-9.]+"' package.json | grep -Eo '[0-9.]+')"
-          git push origin main
+
+      # - name: Docker push new release
+      #   if: steps.semantic.outputs.new-release-published == 'true'
+      #   run: |
+      #     docker tag some-image some-image:$TAG
+      #     docker push some-image:$TAG
+      #   env:
+      #     TAG: v$RELEASE_VERSION
