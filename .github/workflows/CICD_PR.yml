@@ -4,9 +4,6 @@ on:
   pull_request: # qualquer branch ao abrir PR e atualizar o PR
     types: [ opened, synchronize ]
 
-env:
-  CI: true
-
 jobs:
   analyze-code:
     name: Analyze Code

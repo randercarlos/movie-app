@@ -10,9 +10,6 @@ permissions:
   contents: write
   pull-requests: write
 
-env:
-  CI: true
-
 jobs:
   analyze-code:
     name: Analyze Code
@@ -91,6 +88,7 @@ jobs:
       contents: write # to be able to publish a GitHub release
       issues: write # to be able to comment on released issues
       pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
     strategy:
       matrix:
         node-version: [20.x]
@@ -98,13 +96,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Create Release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: codfish/semantic-release-action@v3
         with:
-          ci: true
           dry_run: false
+          additional-packages: [
+            "conventional-changelog-conventionalcommits@7",
+            "@semantic-release/changelog",
+            "@semantic-release/git"
+          ]
           branches: |
             [
               '+([0-9])?(.{+([0-9]),x}).x',
@@ -119,10 +122,35 @@ jobs:
                 prerelease: true
               }
             ]
-          extends: |
-            @jedmao/semantic-release-npm-github-config
+          plugins: |
+            [
+              '@semantic-release/commit-analyzer',
+              [
+                "@semantic-release/release-notes-generator",
+                {
+                  "preset": "conventionalcommits",
+                  "presetConfig": {
+                    "types": [
+                      { type: 'feat', section: 'Features', hidden: false },
+                      { type: 'fix', section: 'Bug Fixes', hidden: false },
+                      { type: 'perf', section: 'Performance Improvements', hidden: false },
+                      { type: 'revert', section: 'Reverts', hidden: false },
+                      { type: 'docs', section: 'Other Updates', hidden: false },
+                      { type: 'style', section: 'Other Updates', hidden: false },
+                      { type: 'chore', section: 'Other Updates', hidden: false },
+                      { type: 'refactor', section: 'Other Updates', hidden: false },
+                      { type: 'test', section: 'Other Updates', hidden: false },
+                      { type: 'build', section: 'Other Updates', hidden: false },
+                      { type: 'ci', section: 'Other Updates', hidden: false }
+                    ]
+                  }
+                }
+              ],
+              "@semantic-release/changelog",
+              "@semantic-release/git"
+            ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Message Success
-        run:  echo "Release ${{ steps.semantic.outputs.new_release_version }} was generated successfuly"
+        run:  echo "Release ${{ steps.semantic.outputs.release-version }} was generated successfuly"
