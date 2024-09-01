@@ -82,6 +82,7 @@ jobs:
 
   generate-release:
     name: Generate Release
+    needs: [analyze-code, test-code]
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -104,11 +105,3 @@ jobs:
           @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Docker push new release
-      #   if: steps.semantic.outputs.new-release-published == 'true'
-      #   run: |
-      #     docker tag some-image some-image:$TAG
-      #     docker push some-image:$TAG
-      #   env:
-      #     TAG: v$RELEASE_VERSION
