@@ -28,7 +28,10 @@
     "test:e2e:install": "playwright install --with-deps",
     "lint:check": "eslint . --ext .vue,.js,.ts --ignore-path .gitignore",
     "lint:fix": "pnpm run lint:check --fix",
-    "commitlint": "commit"
+    "commitlint": "commit",
+    "commit:create": "commit",
+    "commit:check:last": "commitlint --last --verbose",
+    "commit:check:all": "commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose"
   },
   "lint-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx}": "eslint --ignore-path .gitignore"
