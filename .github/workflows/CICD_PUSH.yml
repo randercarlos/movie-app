@@ -117,7 +117,7 @@ jobs:
               }
             ]
           extends: |
-            @semantic-release/apm-config@^9.0.0
+            @jedmao/semantic-release-npm-github-config
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
