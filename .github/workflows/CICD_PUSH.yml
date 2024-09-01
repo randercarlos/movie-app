@@ -100,8 +100,26 @@ jobs:
       - name: Create Release
         uses: cycjimmy/semantic-release-action@v4
         with:
-          extra_plugins: |
-            @semantic-release/changelog@6.0.0
-            @semantic-release/git
+          ci: true
+          dry_run: false
+           branches: |
+            [
+              '+([0-9])?(.{+([0-9]),x}).x',
+              'master',
+              'main',
+              {
+                name: 'beta',
+                prerelease: true
+              },
+              {
+                name: 'alpha',
+                prerelease: true
+              }
+            ]
+          extends: |
+            @semantic-release/apm-config@^9.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Message Success
+        run:  echo "Release ${{ steps.semantic.outputs.new_release_version }} was generated successfuly"
