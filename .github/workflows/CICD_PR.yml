@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Check All Commits from PR
+        run: pnpm run commit:check:all
+
       - name: Check Lint
         run: pnpm run lint:check
 
