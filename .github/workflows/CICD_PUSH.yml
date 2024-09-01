@@ -10,6 +10,9 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  CI: true
+
 jobs:
   analyze-code:
     name: Analyze Code
