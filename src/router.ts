@@ -45,7 +45,6 @@ const router = createRouter({
       name: "actor",
       component: Actor
     },
-    // { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
   ],
   scrollBehavior() {
     return new Promise((resolve) => {
