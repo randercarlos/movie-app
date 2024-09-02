@@ -116,7 +116,7 @@ jobs:
                     { breaking: true, release: "major" },
                     { "type": "feat", release: "minor" },
                     { "type": "fix", release: "patch" },
-                    { "type": "chore", release: "patch" }
+                    { "type": "chore", release: "patch" },
                     { "type": "refactor", "release": "patch" },
                     { "type": "docs", "scope": "README", "release": "patch" },
                   ]
@@ -144,12 +144,7 @@ jobs:
                 }
               ],
               "@semantic-release/changelog",
-              [
-                "@semantic-release/git",
-                {
-                  "assets": ["package.json", "CHANGELOG.md"]
-                }
-              ]
+              "@semantic-release/git",
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
