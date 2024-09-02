@@ -236,6 +236,20 @@ Este projeto é um site para exibição dos filmes, séries e atores mais popula
     pnpm run test:e2e:report
     ```
 
+## 📄 Documentações
+
+### Log de mudanças
+
+Esse projeto tem um arquivo de [CHANGELOG.md](CHANGELOG.md) contendo o histórico de commits com
+todas as alterações realizadas no projeto.
+
+### Padronização de Commits
+Esse projeto usa o **conventional commits** que é uma padronização para os commits com o objetivo
+de organizar melhor as alterações feitas. Para mais detalhes, consultar o arquivo [COMMITS.md](COMMITS.md)
+
+### Como contribuir
+Para saber como contribuir com esse projeto sendo um desenvolvedor, consulte o arquivo [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ---
 
-Desenvolvido por [Rander Carlos](https://www.linkedin.com/in/rander-carlos-308a63a8) 👋 [randerccf@gmail.com](mailto:randerccf@gmail.com)
+Desenvolvido por [Rander Carlos](https://www.linkedin.com/in/rander-carlos) 👋 [randerccf@gmail.com](mailto:randerccf@gmail.com)
