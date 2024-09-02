@@ -103,9 +103,9 @@ jobs:
         uses: codfish/semantic-release-action@v3
         with:
           additional-packages: |
-            ["conventional-changelog-conventionalcommits@7", "@semantic-release/changelog", "@semantic-release/git"]
+            ["conventional-changelog-conventionalcommits@7", "@semantic-release/changelog", "@semantic-release/git", "@semantic-release/npm"]
           branches: >
-            ["+([0-9])?(.{+([0-9]),x}).x", "master", "main", { "name": "beta", "prerelease": true }, { "name": "alpha", "prerelease": true }]
+            ["master", "main"]
           plugins: >
             [
               [
@@ -118,6 +118,7 @@ jobs:
                     { "type": "fix", release: "patch" },
                     { "type": "chore", release: "patch" },
                     { "type": "refactor", "release": "patch" },
+                    { "type": "ci", "release": "patch" },
                     { "type": "docs", "scope": "README", "release": "patch" },
                   ]
                 }
@@ -144,7 +145,20 @@ jobs:
                 }
               ],
               "@semantic-release/changelog",
-              "@semantic-release/git",
+              [
+                "@semantic-release/npm",
+                {
+                  "npmPublish": false
+                }
+              ],
+              [
+                "@semantic-release/git",
+                {
+                  "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+                  "message": "chore(release): ${nextRelease.version} [skip ci]",
+                  "gitTagOptions": "--no-verify"
+                }
+              ]
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
