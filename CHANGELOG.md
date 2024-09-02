@@ -1,3 +1,20 @@
+## [2.0.0](https://github.com/randercarlos/movie-app/compare/v1.0.1...v2.0.0) (2024-09-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* update release rules for semantic-release
+* update release rules for semantic-release
+
+### Bug Fixes
+
+* update release rules for semantic-release ([488abc1](https://github.com/randercarlos/movie-app/commit/488abc107c7e68e54275d4f1240444fc9802bd88))
+
+
+### Other Updates
+
+* update release rules for semantic-release ([22d7517](https://github.com/randercarlos/movie-app/commit/22d7517e1407d03e95d1d131f1e9ba502357d43b))
+
 ## [1.0.1](https://github.com/randercarlos/movie-app/compare/v1.0.0...v1.0.1) (2024-09-01)
 
 
