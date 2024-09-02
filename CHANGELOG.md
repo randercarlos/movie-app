@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/randercarlos/movie-app/compare/v2.0.0...v2.0.1) (2024-09-02)
+
+
+### Other Updates
+
+* add contributing guidelines ([84caf88](https://github.com/randercarlos/movie-app/commit/84caf883f97353157b439775001b10e41a20f88a))
+* **README:** add documentation links ([067c6ec](https://github.com/randercarlos/movie-app/commit/067c6ecc3159402d3dee5e5682f87213d9c57e32))
+* update semantic-release configuration ([dc95abc](https://github.com/randercarlos/movie-app/commit/dc95abcf7a696208854476dd0e7018dc0c564dec))
+
 ## [2.0.0](https://github.com/randercarlos/movie-app/compare/v1.0.1...v2.0.0) (2024-09-02)
 
 
